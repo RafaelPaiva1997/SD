@@ -8,7 +8,8 @@ import java.rmi.RemoteException;
 
 public class DirecaoDepartamento
         extends Eleicao
-        implements DirecaoDepartamentoInt, Serializable {
+        implements DirecaoDepartamentoInt, Serializable
+{
     private Departamento departamento;
 
     public DirecaoDepartamento() throws RemoteException {
@@ -18,5 +19,10 @@ public class DirecaoDepartamento
     @Override
     public boolean isDirecaoDepartamento() throws RemoteException {
         return true;
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nELEIÇÂO DIREÇÃO DEPARTAMENTO - " + super.inLinePrint();
     }
 }

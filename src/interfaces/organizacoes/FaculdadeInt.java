@@ -17,4 +17,7 @@ public interface FaculdadeInt extends ModelInt {
 
     long newDepartamento(long id) throws RemoteException;
     long getDepartamento(int i) throws RemoteException;
+
+    String printDepartamentos() throws RemoteException;
+    String inLinePrint() throws RemoteException;
 }

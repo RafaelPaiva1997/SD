@@ -8,4 +8,6 @@ import java.rmi.RemoteException;
 public interface NucleoEstudantesInt extends EleicaoInt {
 
     boolean isNucleoEstudantes() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }

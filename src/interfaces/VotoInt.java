@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 /**
  * Created by Carlos on 21-10-2017.
  */
-public interface ListaInt extends ModelInt {
-    String printPessoas() throws RemoteException;
+public interface VotoInt extends ModelInt {
     String inLinePrint() throws RemoteException;
 }

@@ -53,4 +53,14 @@ public class Faculdade
     public long getDepartamento(int i) throws RemoteException {
         return safePut(departamentos.get(i));
     }
+
+    @Override
+    public String printDepartamentos() throws RemoteException {
+        return printLinkedList(departamentos);
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nFACULDADE - Nome: " + nome;
+    }
 }

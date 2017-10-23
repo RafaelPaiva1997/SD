@@ -16,4 +16,6 @@ public interface AlunoInt extends PessoaInt {
     boolean isAluno() throws RemoteException;
 
     String print() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }

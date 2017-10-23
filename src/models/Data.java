@@ -8,7 +8,8 @@ import java.rmi.RemoteException;
 /**
  * Created by Carlos on 20-10-2017.
  */
-public class Data extends Model implements DataInt, Serializable {
+public class Data extends Model implements DataInt, Serializable
+{
 
     private int ano;
     private int mes;
@@ -140,5 +141,10 @@ public class Data extends Model implements DataInt, Serializable {
         if (minuto != -1) out += "\nMinuto - " + minuto;
         if (dia != -1) out += "\nDia    - " + dia;
         return out;
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nDATA - " + print();
     }
 }

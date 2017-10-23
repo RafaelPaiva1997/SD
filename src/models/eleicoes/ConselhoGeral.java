@@ -7,7 +7,8 @@ import java.rmi.RemoteException;
 
 public class ConselhoGeral
         extends Eleicao
-        implements ConselhoGeralInt, Serializable {
+        implements ConselhoGeralInt, Serializable
+{
     public ConselhoGeral() throws RemoteException {
         super();
     }
@@ -15,5 +16,10 @@ public class ConselhoGeral
     @Override
     public boolean isConselhoGeral() throws RemoteException {
         return true;
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nELEIÇÃO CONSELHO GERAL - " + super.inLinePrint();
     }
 }

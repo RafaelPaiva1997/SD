@@ -62,4 +62,9 @@ public class Aluno
                 "\nNº Aluno        - " + numeroAluno +
                 "\nCurso           - " + curso;
     }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nALUNO - " + super.inLinePrint() + " Nº Aluno: " + numeroAluno;
+    }
 }

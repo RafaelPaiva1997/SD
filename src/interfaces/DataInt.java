@@ -25,4 +25,6 @@ public interface DataInt extends ModelInt {
     String print() throws RemoteException;
 
     String fullPrint() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }

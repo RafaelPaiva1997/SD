@@ -8,4 +8,6 @@ import java.rmi.RemoteException;
 public interface ConselhoGeralInt extends EleicaoInt {
 
     boolean isConselhoGeral() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }
