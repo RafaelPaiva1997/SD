@@ -53,6 +53,6 @@ public class Voto
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nVOTO - Nome: " + pessoa.getNome() + " Eleição: " + eleicao.getTitulo() + " Lista " + lista.getNome();
+        return "VOTO - Nome: " + pessoa.getNome() + " Eleição: " + eleicao.getTitulo() + " Lista " + lista.getNome() + "\n";
     }
 }

@@ -84,10 +84,11 @@ public abstract class Model
 
     public String printLinkedList(LinkedList l) throws RemoteException {
         String out = "";
+        int i = 0;
         Model e;
         for (Object o : l) {
             e = (Model) o;
-            out = out.concat(e.inLinePrint());
+            out = out.concat(i + "->" +e.inLinePrint());
         }
         return out;
     }

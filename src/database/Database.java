@@ -87,6 +87,16 @@ public class Database
     }
 
     @Override
+    public String printFaculdades() throws RemoteException {
+        return printLinkedList(faculdades);
+    }
+
+    @Override
+    public String printEleicoes() throws RemoteException {
+        return printLinkedList(eleicoes);
+    }
+
+    @Override
     public String inLinePrint() throws RemoteException {
         return "DATABASE";
     }

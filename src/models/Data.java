@@ -145,6 +145,6 @@ public class Data extends Model implements DataInt, Serializable
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nDATA - " + print();
+        return "DATA - " + print() + "\n";
     }
 }

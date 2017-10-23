@@ -73,6 +73,6 @@ public class Lista
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nLISTA - Nome: " + nome + " Eleição: " + eleicao.getTitulo();
+        return "LISTA - Nome: " + nome + " Eleição: " + eleicao.getTitulo() + "\n";
     }
 }

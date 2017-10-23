@@ -66,6 +66,6 @@ public class Faculdade
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nFACULDADE - Nome: " + nome;
+        return "FACULDADE - Nome: " + nome + "\n";
     }
 }

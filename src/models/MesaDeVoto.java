@@ -82,6 +82,6 @@ public class MesaDeVoto
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nMESA DE VOTO - Departamento: " + departamento.getNome() + " Faculdade: " + departamento.getFaculdade().getNome();
+        return "MESA DE VOTO - Departamento: " + departamento.getNome() + " Faculdade: " + departamento.getFaculdade().getNome() + "\n";
     }
 }

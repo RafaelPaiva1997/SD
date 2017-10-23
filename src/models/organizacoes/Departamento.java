@@ -98,6 +98,6 @@ public class Departamento
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nDEPARTAMENTO - Nome: " + nome + " Faculdade: " + faculdade.getNome();
+        return "DEPARTAMENTO - Nome: " + nome + " Faculdade: " + faculdade.getNome() + "\n";
     }
 }

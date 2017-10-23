@@ -45,6 +45,6 @@ public class Funcionario
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nFUNCIONÁRIO" + super.inLinePrint() + " Função: " + funcao;
+        return "FUNCIONÁRIO" + super.inLinePrint() + " Função: " + funcao + "\n";
     }
 }

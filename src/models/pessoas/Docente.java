@@ -45,6 +45,6 @@ public class Docente
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nDOCENTE - " + super.inLinePrint() + " Cargo: " + cargo;
+        return "DOCENTE - " + super.inLinePrint() + " Cargo: " + cargo + "\n";
     }
 }

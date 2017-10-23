@@ -13,9 +13,11 @@ import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
 import models.pessoas.Pessoa;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -26,17 +28,49 @@ public class AdminConsole {
     private static String ip = "192.168.1.67";
     private static int port = 8000;
 
+    private static int escolhe(String s1, String s2, String s3, LinkedList l) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            int r1
+
+            if (l.isEmpty()) {
+                System.out.print(s1);
+                sc.nextLine();
+                return -1;
+            }
+
+            System.out.print(s2);
+
+            r1 = sc.nextInt();
+
+            while (r1 < 0 || r1 > l.size() - 1) {
+                System.out.print(s3);
+                r1 = sc.nextInt();
+            }
+
+            return r1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    private static FaculdadeInt escolheFaculdade(DatabaseInt databaseInt) {
+        try {
+            return  (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(escolhe(
+                    "Não Existem Faculdades. Por favor insira uma.\n",
+                    "Escolha a faculdade:\n" + databaseInt.printFaculdades(),
+                    "Por favor insira um número de faculdade válido.\n",
+                    databaseInt.getFaculdades()))));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private static boolean newPessoa(DatabaseInt databaseInt) {
         Scanner sc = new Scanner(System.in);
         try {
-            if (databaseInt.getFaculdades().isEmpty()) {
-                System.out.print("Não Existem Faculdades. Por favor insira uma.");
-                sc.nextLine();
-                return false;
-            }
-
-
-
             FaculdadeInt faculdadeInt;
             DepartamentoInt departamentoInt;
             PessoaInt pessoaInt;
@@ -46,23 +80,7 @@ public class AdminConsole {
             FuncionarioInt funcionarioInt;
             int r1;
 
-
-
-            System.out.print("Escolha a faculdade:\n");
-
-            for(int i = 0; i < databaseInt.getFaculdades().size(); i++) {
-                faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String .valueOf(databaseInt.getFaculdade(i)));
-                System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > databaseInt.getFaculdades().size() - 1) {
-                System.out.print("Por favor insira um número de faculdade válido.\n");
-                r1 = sc.nextInt();
-            }
-
-            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+            faculdadeInt = escolheFaculdade(databaseInt);
 
 
 

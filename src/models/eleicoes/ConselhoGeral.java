@@ -20,6 +20,6 @@ public class ConselhoGeral
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nELEIÇÃO CONSELHO GERAL - " + super.inLinePrint();
+        return "ELEIÇÃO CONSELHO GERAL - " + super.inLinePrint() + "\n";
     }
 }

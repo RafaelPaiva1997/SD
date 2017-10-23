@@ -23,7 +23,7 @@ public class NucleoEstudantes
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nELEIÇÃO NÚCLEO ESTUDANTES - " + super.inLinePrint();
+        return "ELEIÇÃO NÚCLEO ESTUDANTES - " + super.inLinePrint() + "\n";
     }
 }
 

@@ -23,6 +23,6 @@ public class DirecaoDepartamento
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nELEIÇÂO DIREÇÃO DEPARTAMENTO - " + super.inLinePrint();
+        return "ELEIÇÂO DIREÇÃO DEPARTAMENTO - " + super.inLinePrint() + "\n";
     }
 }

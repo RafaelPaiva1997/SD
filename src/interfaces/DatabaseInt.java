@@ -27,4 +27,7 @@ public interface DatabaseInt extends ModelInt {
 
     boolean deleteFaculdade(int i) throws RemoteException;
     boolean deleteEleicao(int i) throws RemoteException;
+
+    String printFaculdades() throws RemoteException;
+    String printEleicoes() throws RemoteException;
 }

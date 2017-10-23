@@ -65,6 +65,6 @@ public class Aluno
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "\nALUNO - " + super.inLinePrint() + " Nº Aluno: " + numeroAluno;
+        return "ALUNO - " + super.inLinePrint() + " Nº Aluno: " + numeroAluno + "\n";
     }
 }
