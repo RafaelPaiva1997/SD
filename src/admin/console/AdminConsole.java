@@ -1,5 +1,6 @@
 package admin.console;
 
+import database.Database;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
 import interfaces.organizacoes.DepartamentoInt;
@@ -8,7 +9,11 @@ import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
 import interfaces.pessoas.FuncionarioInt;
 import interfaces.pessoas.PessoaInt;
+import models.organizacoes.Departamento;
+import models.organizacoes.Faculdade;
+import models.pessoas.Pessoa;
 
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -18,8 +23,8 @@ import java.util.Scanner;
  */
 public class AdminConsole {
     
-    private static String ip = "localhost";
-    private static int port = 7000;
+    private static String ip = "192.168.1.67";
+    private static int port = 8000;
     
     private static boolean newPessoa(DatabaseInt databaseInt) {
         Scanner sc = new Scanner(System.in);
@@ -110,10 +115,10 @@ public class AdminConsole {
                     pessoaInt = (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.newFuncionario(11)));
                     break;
             }
-
+            System.out.print("Insira o Nome: ");
             sc.nextLine();
 
-            System.out.print("Insira o Nome: ");
+
             while (!pessoaInt.setNome(sc.nextLine()))
                 System.out.print("Por favor insira um nome só com letras.\n");
 
@@ -407,6 +412,7 @@ public class AdminConsole {
         return true;
     }
 
+
     private static boolean editDepartamento(DepartamentoInt departamentoInt) {
         return true;
     }
@@ -415,13 +421,13 @@ public class AdminConsole {
         return true;
     }
 
-    private static boolean editPessoa(DatabaseInt databaseInt) {
+    private static PessoaInt esolhePessoa(DatabaseInt databaseInt) {
         Scanner sc = new Scanner(System.in);
         try {
             if (databaseInt.getFaculdades().isEmpty()) {
                 System.out.print("Não Existem Faculdades. Por favor insira uma.\n");
                 sc.nextLine();
-                return false;
+                return null;
             }
 
 
@@ -451,7 +457,7 @@ public class AdminConsole {
 
             if (faculdadeInt.getDepartamentos().isEmpty()) {
                 System.out.print("Esta faculdade não tem departamentos. Por favor insira um.");
-                return false;
+                return null;
             }
 
 
@@ -472,7 +478,7 @@ public class AdminConsole {
 
             if (faculdadeInt.getDepartamentos().isEmpty()) {
                 System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
-                return false;
+                return null;
             }
 
 
@@ -489,7 +495,181 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de pessoa válido.\n");
             }
 
-            return editPessoa((PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1))));
+            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1)));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static boolean ApagarPessoas (Departamento departamentoInt)  {
+        Scanner sc = new Scanner(System.in);
+        int r1;
+        try {
+            for (int i = 0; i < departamentoInt.getPessoas().size(); i++) {
+                DepartamentoInt pessoaInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(i)));
+                System.out.print(i + " - " + pessoaInt.getNome() + "\n");
+            }
+            r1 = sc.nextInt();
+
+            while (r1 < 0 || r1 > departamentoInt.getPessoas().size() - 1) {
+                System.out.print("Por favor insira um número de pessoa válido.\n");
+            }
+
+            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1)));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static FaculdadeInt esolheFaculdade(DatabaseInt databaseInt) {
+        Scanner sc = new Scanner(System.in);
+        try {
+            int r1;
+            FaculdadeInt faculdadeInt;
+            for (int i = 0; i < databaseInt.getFaculdades().size(); i++) {
+                faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
+                System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
+            }
+
+            r1 = sc.nextInt();
+
+            while (r1 < 0 || r1 > databaseInt.getFaculdades().size() - 1) {
+                System.out.print("Por favor insira um número de faculdade válido.\n");
+                r1 = sc.nextInt();
+            }
+
+            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+            return  faculdadeInt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    private static DepartamentoInt escolheDepartamento(Faculdade faculdadeInt){
+        Scanner sc = new Scanner(System.in);
+        try {
+            int r1;
+
+            DepartamentoInt departamentoInt;
+            for (int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
+                departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(i)));
+                System.out.print(i + " - " + departamentoInt.getNome() + "\n");
+            }
+
+            r1 = sc.nextInt();
+
+            while (r1 < 0 || r1 > faculdadeInt.getDepartamentos().size() - 1) {
+                System.out.print("Por favor insira um número de departamento válido.\n");
+            }
+
+            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(r1)));
+            if (faculdadeInt.getDepartamentos().isEmpty()) {
+                System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
+                return null;
+            }
+            return departamentoInt;
+
+        }catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
+            apagarPessoas(departamentoInt = escolheDepartamento(esolheFaculdade(databaseInt()))));
+    private static boolean newFaculdade(DatabaseInt databaseInt) throws RemoteException {
+        Scanner sc = new Scanner(System.in);
+        try{
+            int r1;
+            FaculdadeInt faculdadeInt;
+            DepartamentoInt departamentoInt;
+            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.newFaculdade(11)));
+            System.out.println("Insira um nome.\n");
+            sc.nextLine();
+
+            while (!faculdadeInt.setNome(sc.nextLine()))
+                System.out.print("Por favor insira um nome correto.\n");
+
+
+            System.out.print("Deseja adicionar departamentos á faculdade?\n");
+            String resposta;
+            resposta=sc.nextLine();
+
+            if (resposta.matches("Sim") || resposta.matches("sim") || resposta.matches("s")){
+                System.out.println("1-Criar novo departamento" +
+                                    "2-Adicionar departamentos ja existentes");
+
+                switch (sc.nextInt()) {
+                    case 1:
+
+                        System.out.println("oi");
+
+                    case 2:
+
+                        for (int i = 0; i < databaseInt.getDepartamento().size(); i++) {
+                            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getDepartamento(i)));
+                            System.out.printf(i + "-" + departamentoInt.getNome());
+
+                        }
+                        r1 = sc.nextInt();
+
+                        while (r1 < 0 || r1 > databaseInt.getDepartamento().size() - 1) {
+                            System.out.print("Por favor insira um número de departamento válido.\n");
+                        }
+
+                        departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getDepartamento(r1)));
+                        if (databaseInt.getDepartamento().isEmpty()) {
+                            System.out.print("Não existem departamentos\n");
+                            return false;
+                        }
+
+                }
+
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public static boolean newDepartamento(Database databaseInt) throws RemoteException{
+        Scanner sc = new Scanner(System.in);
+        try{
+            int r1;
+            FaculdadeInt faculdadeInt;
+            DepartamentoInt departamentoInt;
+            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.newDepartamento(11)));
+            System.out.println("Insira um nome.\n");
+            sc.nextLine();
+
+            while (!departamentoInt.setNome(sc.nextLine()))
+                System.out.print("Por favor insira um nome correto.\n");
+
+            System.out.print("Indique a faculdade a que pertence");
+            for (int i=0;i<databaseInt.getFaculdades().size();i++){
+                faculdadeInt =( FaculdadeInt)LocateRegistry.getRegistry(ip,port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
+                System.out.println(i + "-" + faculdadeInt.getNome());
+            }
+            r1 = sc.nextInt();
+
+            while (r1 < 0 || r1 > databaseInt.getDepartamento().size() - 1) {
+                System.out.print("Por favor insira um número de departamento válido.\n");
+            }
+
+            faculdadeInt = (Faculdade) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+
+            if (databaseInt.getDepartamento().isEmpty()) {
+                System.out.print("Não existem departamentos\n");
+                return false;
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -505,7 +685,10 @@ public class AdminConsole {
             while (true) {
                 System.out.print("Que fazer?\n" +
                         "1 - Nova Pessoa\n" +
-                        "2 - Editar Pessoa\n");
+                        "2 - Editar Pessoa\n" +
+                        "3 - Apagar Pessoa\n" +
+                        "4 - Criar Faculdade\n"+
+                        "5 - Criar Departamento\n ");
 
                 while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
                     System.out.print("Por favor insira um número correspondente a uma das opções disponíveis.\n");
@@ -516,8 +699,22 @@ public class AdminConsole {
                         break;
 
                     case 2:
-                        editPessoa(databaseInt);
+                        editPessoa(esolhePessoa(databaseInt));
                         break;
+
+                    case 3:
+                        ApagarPessoas(databaseInt);
+                        break;
+
+
+                    case 4:
+                        newFaculdade(databaseInt);
+                        break;
+
+                    case 5:
+                        newDepartamento(databaseInt);
+                        break;;
+
                 }
             }
         } catch (Exception e) {
