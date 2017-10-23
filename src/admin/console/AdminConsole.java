@@ -253,8 +253,6 @@ public class AdminConsole {
                     "nº telemovel",
                     "no telemóvel",
                     "no telemovel",
-                    "telemóvel",
-                    "telemovel",
                     "morada",
                     "código postal",
                     "codigo postal",
@@ -270,9 +268,8 @@ public class AdminConsole {
                     "data nascimento"
             }).contains(String.valueOf((r2 = sc.nextLine()).toLowerCase()).toLowerCase()) ||
                     pessoaInt.isAluno() && Arrays.toString(new String[]{
-                            "nº aluno",
+                            "nºaluno",
                             "no aluno",
-                            "aluno",
                             "curso"
                     }).contains(String.valueOf((r2)).toLowerCase()) ||
                     pessoaInt.isFuncionario() && Arrays.toString(new String[]{
@@ -304,8 +301,6 @@ public class AdminConsole {
                 case "nº telemovel":
                 case "no telemóvel":
                 case "no telemovel":
-                case "telemóvel":
-                case"telemovel":
                     while (!pessoaInt.setTelemovel(editProperty(sc, "Nº Telemóvel", String.valueOf(pessoaInt.getTelemovel()))))
                         System.out.print("Por favor insira um número de telemóvel com apenas 9 dígitos.\n");
                     break;
@@ -365,7 +360,6 @@ public class AdminConsole {
                     break;
                 case "nº aluno":
                 case "no aluno":
-                case "aluno":
                     alunoInt = (AlunoInt) pessoaInt;
                     while (!alunoInt.setNumeroAluno(editProperty(sc, "Nº Aluno", String.valueOf(alunoInt.getNumeroAluno()))))
                         System.out.print("Por favor insira um número de aluno com apenas 10 digitos.\n");
@@ -418,70 +412,6 @@ public class AdminConsole {
     }
 
     private static boolean editData(DataInt dataInt) {
-        Scanner sc = new Scanner(System.in);
-        try {
-            int r1;
-            String r2;
-            sc.nextLine();
-
-            System.out.print(dataInt.fullPrint() +
-                    "\nEscolha o campo a editar: ");
-
-            while (!(Arrays.toString(new String[]{
-                    "ano",
-                    "mes",
-                    "dia",
-                    "hora",
-                    "minuto",
-                    "segundo"
-            }).contains(String.valueOf((r2 = sc.nextLine()).toLowerCase()).toLowerCase())))
-                System.out.print("Por favor insira uma característica correspondente a uma das disponíveis.\n");
-
-            r1 = 0;
-            do {
-                if (r1++ != 0) System.out.print("Por favor insira valores válidos para a data.\n");
-                switch (r2.toLowerCase()) {
-                    case "ano":
-                        dataInt.setAno(Integer.parseInt(editProperty(sc, "Ano", String.valueOf(dataInt.getAno()))));
-                        break;
-                    case "mes":
-                        dataInt.setMes(Integer.parseInt(editProperty(sc, "Mês", String.valueOf(dataInt.getMes()))));
-                        break;
-                    case "dia":
-                        dataInt.setDia(Integer.parseInt(editProperty(sc, "Dia", String.valueOf(dataInt.getDia()))));
-                        break;
-                    case "hora":
-                        dataInt.setHora(Integer.parseInt(editProperty(sc, "Hora", String.valueOf(dataInt.getHora()))));
-                        break;
-                    case "minuto":
-                        dataInt.setMinuto(Integer.parseInt(editProperty(sc, "Minuto", String.valueOf(dataInt.getMinuto()))));
-                        break;
-                    case "segundo":
-                        dataInt.setSegundo(Integer.parseInt(editProperty(sc, "Segundo", String.valueOf(dataInt.getSegundo()))));
-                        break;
-                }
-            } while (!dataInt.test());
-
-            System.out.print("Quer editar mais alguma Propriedade?\n" +
-                    "1 - Sim\n" +
-                    "2 - Não\n");
-
-            while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
-                System.out.print("Por favor insira um número correspondente a uma das opções disponíveis.\n");
-
-            switch (r1) {
-                case 1:
-                    editData(dataInt);
-                    break;
-
-                case 2:
-                    return true;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
         return true;
     }
 
