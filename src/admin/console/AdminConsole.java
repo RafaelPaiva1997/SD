@@ -22,10 +22,10 @@ import java.util.Scanner;
  * Created by Carlos on 19-10-2017.
  */
 public class AdminConsole {
-    
+
     private static String ip = "192.168.1.67";
     private static int port = 8000;
-    
+
     private static boolean newPessoa(DatabaseInt databaseInt) {
         Scanner sc = new Scanner(System.in);
         try {
@@ -100,7 +100,7 @@ public class AdminConsole {
             pessoaInt = null;
 
             while(!Arrays.toString(new int[]{1,2,3}).contains(String.valueOf((r1 = sc.nextInt()))))
-                    System.out.print("Por favor insira um número correspondente a um dos tipos disponíveis.\n");
+                System.out.print("Por favor insira um número correspondente a um dos tipos disponíveis.\n");
 
             switch (r1) {
                 case 1:
@@ -233,7 +233,7 @@ public class AdminConsole {
 
     private static String editProperty(Scanner sc, String p, String v) {
         System.out.print(p + " Antigo: " + v +
-        "\n" + p + " Novo: ");
+                "\n" + p + " Novo: ");
         return sc.nextLine();
     }
 
@@ -516,11 +516,11 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de pessoa válido.\n");
             }
 
-            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1)));
+            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.delete(departamentoInt.delete(departamentoInt.getPessoa(r1)))));
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
@@ -573,12 +573,12 @@ public class AdminConsole {
             return departamentoInt;
 
         }catch (Exception e) {
-        e.printStackTrace();
-        return null;
+            e.printStackTrace();
+            return null;
+        }
     }
-}
 
-            apagarPessoas(departamentoInt = escolheDepartamento(esolheFaculdade(databaseInt()))));
+    apagarPessoas(departamentoInt = escolheDepartamento(esolheFaculdade(databaseInt()))));
     private static boolean newFaculdade(DatabaseInt databaseInt) throws RemoteException {
         Scanner sc = new Scanner(System.in);
         try{
@@ -599,7 +599,7 @@ public class AdminConsole {
 
             if (resposta.matches("Sim") || resposta.matches("sim") || resposta.matches("s")){
                 System.out.println("1-Criar novo departamento" +
-                                    "2-Adicionar departamentos ja existentes");
+                        "2-Adicionar departamentos ja existentes");
 
                 switch (sc.nextInt()) {
                     case 1:
@@ -721,5 +721,5 @@ public class AdminConsole {
             e.printStackTrace();
         }
     }
-    
+
 }
