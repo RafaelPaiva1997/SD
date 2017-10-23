@@ -516,11 +516,11 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de pessoa válido.\n");
             }
 
-            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1)));
+            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.delete(departamentoInt.delete(departamentoInt.getPessoa(r1)))));
 
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 

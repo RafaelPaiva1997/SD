@@ -16,7 +16,7 @@ public interface DepartamentoInt extends ModelInt {
     LinkedList<Pessoa> getPessoas() throws RemoteException;
 
     boolean setNome(String nome) throws RemoteException;
-
+    boolean delete(Pessoa pessoa) throws RemoteException;
     long newAluno(long id) throws RemoteException;
     long newDocente(long id) throws RemoteException;
     long newFuncionario(long id) throws RemoteException;

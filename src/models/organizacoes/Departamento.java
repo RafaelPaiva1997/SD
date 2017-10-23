@@ -95,4 +95,8 @@ public class Departamento
     public String inLinePrint() throws RemoteException {
         return "\nDEPARTAMENTO - Nome: " + nome + " Faculdade: " + faculdade.getNome();
     }
+
+    public boolean delete(Pessoa pessoa) throws RemoteException{
+
+    }
 }
