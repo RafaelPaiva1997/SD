@@ -55,6 +55,11 @@ public class Faculdade
     }
 
     @Override
+    public boolean deleteDepartamento(int i) throws RemoteException {
+        return departamentos.remove(i) != null;
+    }
+
+    @Override
     public String printDepartamentos() throws RemoteException {
         return printLinkedList(departamentos);
     }

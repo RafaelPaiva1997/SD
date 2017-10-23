@@ -75,4 +75,19 @@ public class Database
     public boolean add(Pessoa e, int p1, int p2) throws RemoteException {
         return faculdades.get(p1).getDepartamentos().get(p2).getPessoas().add(e);
     }
+
+    @Override
+    public boolean deleteFaculdade(int i) throws RemoteException {
+        return faculdades.remove(i) != null;
+    }
+
+    @Override
+    public boolean deleteEleicao(int i) throws RemoteException {
+        return eleicoes.remove(i) != null;
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "DATABASE";
+    }
 }

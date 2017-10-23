@@ -19,6 +19,32 @@ public class Voto
 
     public Voto() throws RemoteException {
         super();
+        data = new Data();
+    }
+
+    @Override
+    public long getPessoa() {
+        return safePut(pessoa);
+    }
+
+    @Override
+    public long getEleicao() {
+        return safePut(eleicao);
+    }
+
+    @Override
+    public long getLista() {
+        return safePut(lista);
+    }
+
+    @Override
+    public long getMesaDeVoto() {
+        return safePut(mesaDeVoto);
+    }
+
+    @Override
+    public long getData() {
+        return safePut(data);
     }
 
     public void setEleicao(Eleicao eleicao) {

@@ -21,6 +21,7 @@ public interface DepartamentoInt extends ModelInt {
     long newDocente(long id) throws RemoteException;
     long newFuncionario(long id) throws RemoteException;
     long getPessoa(int i) throws RemoteException;
+    boolean deletePessoa(int i) throws RemoteException;
 
     String printPessoas() throws RemoteException;
     String inLinePrint() throws RemoteException;

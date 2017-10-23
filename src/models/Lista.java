@@ -14,20 +14,57 @@ public class Lista
 {
     private String nome;
     private Eleicao eleicao;
-    private LinkedList<Pessoa> pessoas;
+    private final LinkedList<Pessoa> pessoas;
 
     public Lista() throws RemoteException {
         super();
+        pessoas = new LinkedList<>();
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    @Override
+    public long getEleicao() {
+        return safePut(eleicao);
     }
 
+    @Override
+    public LinkedList<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    @Override
+    public boolean setNome(String nome) {
+        boolean flag = true;
+        if (lenghtMaior(nome, 0) &&
+                isAlpha(nome))
+            this.nome = nome;
+        else
+            flag = false;
+        return flag;
+    }
+
+    public void setEleicao(Eleicao eleicao) {
+        this.eleicao = eleicao;
+    }
+
+    @Override
+    public boolean add(Pessoa e) throws RemoteException {
+        return pessoas.add(e);
+    }
+
+    @Override
+    public long getPessoa(int i) throws RemoteException {
+        return safePut(pessoas.get(i));
+    }
+
+    @Override
+    public boolean deletePessoa(int i) throws RemoteException {
+        return pessoas.remove(i) != null;
+    }
 
     @Override
     public String printPessoas() throws RemoteException {

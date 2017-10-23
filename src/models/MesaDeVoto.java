@@ -23,12 +23,51 @@ public class MesaDeVoto
         eleicoes = new LinkedList<>();
     }
 
+    @Override
+    public long getDepartamento() {
+        return safePut(departamento);
+    }
+
+    @Override
+    public LinkedList<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    @Override
+    public LinkedList<Eleicao> getEleicoes() {
+        return eleicoes;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
     public boolean add(Eleicao e) {
         return eleicoes.add(e);
     }
 
     public boolean add(Pessoa e) {
         return pessoas.add(e);
+    }
+
+    @Override
+    public long getPessoa(int i) throws RemoteException {
+        return safePut(pessoas.get(i));
+    }
+
+    @Override
+    public long getEleicao(int i) throws RemoteException {
+        return safePut(eleicoes.get(i));
+    }
+
+    @Override
+    public boolean deletePessoa(int i) throws RemoteException {
+        return pessoas.remove(i) != null;
+    }
+
+    @Override
+    public boolean deleteEleicao(int i) throws RemoteException {
+        return eleicoes.remove(i) != null;
     }
 
     @Override

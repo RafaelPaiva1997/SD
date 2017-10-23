@@ -37,6 +37,5 @@ public interface PessoaInt extends ModelInt {
     boolean isFuncionario() throws RemoteException;
 
     String print() throws RemoteException;
-
     String inLinePrint() throws RemoteException;
 }

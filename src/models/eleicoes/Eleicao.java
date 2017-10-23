@@ -104,8 +104,18 @@ public abstract class Eleicao
     }
 
     @Override
-    public long getMesadeVoto(int i) throws RemoteException {
+    public long getMesaDeVoto(int i) throws RemoteException {
         return safePut(mesasDeVoto.get(i));
+    }
+
+    @Override
+    public boolean deleteVoto(int i) throws RemoteException {
+        return !(votos.remove(i) == null);
+    }
+
+    @Override
+    public boolean deleteMesaDeVoto(int i) throws RemoteException {
+        return mesasDeVoto.remove(i) != null;
     }
 
     @Override

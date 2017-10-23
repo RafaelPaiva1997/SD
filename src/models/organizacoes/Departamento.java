@@ -87,6 +87,11 @@ public class Departamento
     }
 
     @Override
+    public boolean deletePessoa(int i) throws RemoteException {
+        return pessoas.remove(i) != null;
+    }
+
+    @Override
     public String printPessoas() throws RemoteException {
         return printLinkedList(pessoas);
     }
