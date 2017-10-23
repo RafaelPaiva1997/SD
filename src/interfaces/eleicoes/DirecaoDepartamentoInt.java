@@ -8,4 +8,6 @@ import java.rmi.RemoteException;
 public interface DirecaoDepartamentoInt extends EleicaoInt {
 
     boolean isDirecaoDepartamento() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }

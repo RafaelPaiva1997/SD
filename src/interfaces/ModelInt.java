@@ -11,4 +11,5 @@ public interface ModelInt extends Remote {
     void setId(long id) throws RemoteException;
 
     String print() throws RemoteException;
+    String inLinePrint() throws RemoteException;
 }

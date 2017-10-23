@@ -10,7 +10,8 @@ import java.rmi.RemoteException;
 
 public abstract class Pessoa
         extends Model
-        implements PessoaInt, Serializable {
+        implements PessoaInt, Serializable
+{
     protected String nome;
     protected String username;
     protected String password;
@@ -242,5 +243,10 @@ public abstract class Pessoa
                 "\nValidade C.C.   - " + validadeCC.print() +
                 "\nGénero          - " + genero +
                 "\nData Nascimento - " + dataNascimento.print();
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "Nome: " + nome + " Nº CC: " + numeroCC + " Departamento: " + departamento.getNome();
     }
 }

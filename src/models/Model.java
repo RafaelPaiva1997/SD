@@ -1,6 +1,7 @@
 package models;
 
 import interfaces.ModelInt;
+import models.organizacoes.Departamento;
 import rmi.RMIServer;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Model
+public abstract class Model
         extends java.rmi.server.UnicastRemoteObject
         implements ModelInt, Serializable
 {
@@ -80,4 +81,17 @@ public class Model
     public String print() throws RemoteException {
         return "\nId - " + id;
     }
+
+    public String printLinkedList(LinkedList l) throws RemoteException {
+        String out = "";
+        Model e;
+        for (Object o : l) {
+            e = (Model) o;
+            out = out.concat(e.inLinePrint());
+        }
+        return out;
+    }
+
+    @Override
+    public abstract String inLinePrint() throws RemoteException;
 }

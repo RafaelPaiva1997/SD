@@ -13,4 +13,6 @@ public interface DocenteInt extends PessoaInt {
     boolean isDocente() throws RemoteException;
 
     String print() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }

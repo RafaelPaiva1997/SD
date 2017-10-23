@@ -12,7 +12,8 @@ import java.util.LinkedList;
 
 public abstract class Eleicao
         extends Model
-        implements EleicaoInt, Serializable {
+        implements EleicaoInt, Serializable
+{
 
     protected String titulo;
     protected String descricao;
@@ -125,5 +126,20 @@ public abstract class Eleicao
     @Override
     public boolean isNucleoEstudantes() throws RemoteException {
         return false;
+    }
+
+    @Override
+    public String printVotos() throws RemoteException {
+        return printLinkedList(votos);
+    }
+
+    @Override
+    public String printMesasDeVoto() throws RemoteException {
+        return printLinkedList(mesasDeVoto);
+    }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "Título: " + titulo + " Data Início: " + dataInicio.print() + " Data Fim: " + dataFim.print();
     }
 }

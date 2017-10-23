@@ -32,4 +32,8 @@ public interface EleicaoInt extends ModelInt {
     boolean isDirecaoFaculdade() throws RemoteException;
     boolean isNucleoEstudantes() throws RemoteException;
 
+    String printVotos() throws RemoteException;
+    String printMesasDeVoto() throws RemoteException;
+    String inLinePrint() throws RemoteException;
+
 }

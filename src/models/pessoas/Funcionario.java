@@ -42,4 +42,9 @@ public class Funcionario
                 super.print() +
                 "\nFunção         - " + funcao;
     }
+
+    @Override
+    public String inLinePrint() throws RemoteException {
+        return "\nFUNCIONÁRIO" + super.inLinePrint() + " Função: " + funcao;
+    }
 }

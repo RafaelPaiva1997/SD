@@ -13,4 +13,6 @@ public interface FuncionarioInt extends PessoaInt {
     boolean isFuncionario() throws RemoteException;
 
     String print() throws RemoteException;
+
+    String inLinePrint() throws RemoteException;
 }
