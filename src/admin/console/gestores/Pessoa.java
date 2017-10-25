@@ -7,7 +7,6 @@ import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
 import interfaces.pessoas.FuncionarioInt;
 import interfaces.pessoas.PessoaInt;
-import models.organizacoes.*;
 
 import java.rmi.RemoteException;
 import static admin.console.AdminConsole.*;
@@ -24,7 +23,6 @@ public class Pessoa {
 
     public static boolean gerir(PessoaInt pessoaInt, DepartamentoInt departamentoInt) {
         try {
-            int pos = r1;
             getProperty( pessoaInt.print() +
                     "O que pretende fazer?:\n" +
                             "1 - Editar\n" +
@@ -41,11 +39,11 @@ public class Pessoa {
                     departamentoInt.deletePessoa(pessoaInt.getId());
                     break;
             }
+            return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public static PessoaInt escolhe(DepartamentoInt departamentoInt){
@@ -215,27 +213,58 @@ public class Pessoa {
 
             if (pessoaInt.isAluno()) {
                 alunoInt = (AlunoInt) pessoaInt;
-                System.out.print("Insira o Número de Aluno: ");
-                while (!alunoInt.setNumeroAluno(sc.nextLine()))
-                    System.out.print("Por favor insira um número de aluno com apenas 10 digitos.\n");
 
-                System.out.print("Insira um Curso: ");
-                while (!alunoInt.setCurso(sc.nextLine()))
-                    System.out.print("Por favora insira o nome do curso usando apenas letras.\n");
+                getProperty("Insira o Número de Aluno: ",
+                        "Por favor insira um número de aluno com apenas 10 digitos.\n",
+                        (() -> {
+                            try {
+                                return !alunoInt.setNumeroAluno(sc.nextLine());
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }));
+
+                getProperty("Insira o Curso: ",
+                        "Por favora insira o nome do curso usando apenas letras.\n",
+                        (() -> {
+                            try {
+                                return !alunoInt.setCurso(sc.nextLine());
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }));
             }
 
             if (pessoaInt.isDocente()) {
                 docenteInt = (DocenteInt) pessoaInt;
-                System.out.print("Insira o Cargo: ");
-                while (!docenteInt.setCargo(sc.nextLine()))
-                    System.out.print("Por favor insira um cargo com pelo menos 1 caractér.\n");
+
+                getProperty("Insira o Cargo: ",
+                        "Por favora insira o cargo usando apenas letras.\n",
+                        (() -> {
+                            try {
+                                return !docenteInt.setCargo(sc.nextLine());
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }));
             }
 
             if (pessoaInt.isFuncionario()) {
                 funcionarioInt = (FuncionarioInt) pessoaInt;
-                System.out.print("Insira a Função: ");
-                while (!funcionarioInt.setFuncao(sc.nextLine()))
-                    System.out.print("Por favor insira uma função com pelo menos 1 caractér.\n");
+
+                getProperty("Insira a Função: ",
+                        "Por favora insira a função usando apenas letras.\n",
+                        (() -> {
+                            try {
+                                return !funcionarioInt.setFuncao(sc.nextLine());
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }));
             }
 
             Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCC()));
@@ -346,7 +375,7 @@ public class Pessoa {
                 getProperty("Por favor insira um número de telemóvel com apenas 9 dígitos.\n",
                         () -> {
                             try {
-                                return !pessoaInt.setTelemovel(editProperty("Nº Telemóvel", pessoaInt.getTelemovel()));
+                                return !pessoaInt.setTelemovel(editProperty("Nº Telemóvel", String.valueOf(pessoaInt.getTelemovel())));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -389,7 +418,7 @@ public class Pessoa {
                 getProperty("Por favor insira um código postal no formato 0000-000.\n",
                         () -> {
                             try {
-                                return !pessoaInt.setNumeroCC(editProperty("Codigo Postal", pessoaInt.getNumeroCC()));
+                                return !pessoaInt.setNumeroCC(editProperty("Codigo Postal", String.valueOf(pessoaInt.getNumeroCC())));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -398,7 +427,7 @@ public class Pessoa {
             case "validade c.c.":
             case "validade cc":
                 try {
-                    Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCC())));
+                    Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCC()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -407,6 +436,7 @@ public class Pessoa {
             case "genero":
                 try {
                     System.out.print("Género Antigo: " + pessoaInt.getGenero());
+                    escolheGenero();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -414,7 +444,7 @@ public class Pessoa {
                 break;
             case "data nascimento":
                 try {
-                    Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimento())));
+                    Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimento()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -433,10 +463,10 @@ public class Pessoa {
                         });
             case "curso":
                 alunoInt = (AlunoInt) pessoaInt;
-                getProperty("Por favor insira o nome do curso usando apenas letras.\n",
+                getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
                         () -> {
                             try {
-                                return (!alunoInt.setCurso(editProperty("Curso", String.valueOf(alunoInt.getCurso()))));
+                                return (!alunoInt.setCurso(editProperty("Curso", alunoInt.getCurso())));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -447,7 +477,7 @@ public class Pessoa {
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
                         () -> {
                             try {
-                                return (!docenteInt.setCargo(editProperty("Cargo", String.valueOf(docenteInt.getCargo()))));
+                                return (!docenteInt.setCargo(editProperty("Cargo", docenteInt.getCargo())));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -461,7 +491,7 @@ public class Pessoa {
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
                         () -> {
                             try {
-                                return (!funcionarioInt.setFuncao(editProperty("Cargo", String.valueOf(funcionarioInt.getFuncao()))));
+                                return (!funcionarioInt.setFuncao(editProperty("Funcção", funcionarioInt.getFuncao())));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
