@@ -93,6 +93,10 @@ public abstract class Model
         return out;
     }
 
+    public boolean remove(LinkedList l, long id) {
+
+    }
+
     @Override
     public abstract String inLinePrint() throws RemoteException;
 }

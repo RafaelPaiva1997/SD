@@ -16,7 +16,7 @@ public interface DatabaseInt extends ModelInt {
     LinkedList<Faculdade> getFaculdades() throws RemoteException;
     LinkedList<Eleicao> getEleicoes() throws RemoteException;
 
-    long newFaculdade(long id) throws RemoteException;
+    long newFaculdade() throws RemoteException;
     long getFaculdade(int i) throws RemoteException;
 
     boolean add(Faculdade e) throws RemoteException;

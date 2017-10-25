@@ -17,12 +17,13 @@ public interface DepartamentoInt extends ModelInt {
 
     boolean setNome(String nome) throws RemoteException;
 
-    long newAluno(long id) throws RemoteException;
-    long newDocente(long id) throws RemoteException;
-    long newFuncionario(long id) throws RemoteException;
+    long newAluno() throws RemoteException;
+    long newDocente() throws RemoteException;
+    long newFuncionario() throws RemoteException;
     long getPessoa(int i) throws RemoteException;
-    boolean deletePessoa(int i) throws RemoteException;
+    boolean deletePessoa(long id) throws RemoteException;
 
     String printPessoas() throws RemoteException;
+    String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 }

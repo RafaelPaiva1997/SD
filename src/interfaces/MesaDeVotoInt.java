@@ -19,8 +19,8 @@ public interface MesaDeVotoInt extends ModelInt {
     boolean add(Eleicao e) throws RemoteException;
     long getPessoa(int i) throws RemoteException;
     long getEleicao(int i) throws RemoteException;
-    boolean deletePessoa(int i) throws RemoteException;
-    boolean deleteEleicao(int i) throws RemoteException;
+    boolean removePessoa(long id) throws RemoteException;
+    boolean removeEleicao(long id) throws RemoteException;
 
     String printPessoas() throws RemoteException;
     String printEleicoes() throws RemoteException;

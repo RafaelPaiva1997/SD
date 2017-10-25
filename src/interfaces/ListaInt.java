@@ -17,7 +17,7 @@ public interface ListaInt extends ModelInt {
 
     boolean add(Pessoa e) throws RemoteException;
     long getPessoa(int i) throws RemoteException;
-    boolean deletePessoa(int i) throws RemoteException;
+    boolean removePessoa(long id) throws RemoteException;
 
     String printPessoas() throws RemoteException;
     String inLinePrint() throws RemoteException;

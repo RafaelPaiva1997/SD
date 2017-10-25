@@ -36,24 +36,13 @@ public class Database
     }
 
     @Override
-    public long newFaculdade(long id) throws RemoteException {
-        Faculdade e = new Faculdade();
-        e.setId(id);
-        synchronized (faculdades) {
-            faculdades.add(e);
-            faculdades.getLast().put();
-        }
-        return e.getId();
+    public long newFaculdade() throws RemoteException {
+        return safeAddPut(faculdades, new Faculdade());
     }
 
     @Override
     public long getFaculdade(int i) throws RemoteException {
-        long out = -1;
-        synchronized (faculdades) {
-            if (faculdades.get(i).put())
-                out = faculdades.get(i).getId();
-        }
-        return out;
+        return safePut(faculdades.get(i));
     }
 
     @Override

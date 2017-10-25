@@ -15,10 +15,11 @@ public interface FaculdadeInt extends ModelInt {
 
     boolean setNome(String nome) throws RemoteException;
 
-    long newDepartamento(long id) throws RemoteException;
+    long newDepartamento() throws RemoteException;
     long getDepartamento(int i) throws RemoteException;
-    boolean deleteDepartamento(int i) throws RemoteException;
+    boolean deleteDepartamento(long id) throws RemoteException;
 
     String printDepartamentos() throws RemoteException;
+    String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 }

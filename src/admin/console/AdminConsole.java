@@ -12,26 +12,66 @@ import interfaces.pessoas.PessoaInt;
 import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
 import models.pessoas.Pessoa;
-
+import
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by Carlos on 19-10-2017.
  */
 public class AdminConsole {
 
-    private static String ip = "192.168.1.67";
-    private static int port = 8000;
+    public static String ip = "192.168.1.67";
+    public static int port = 8000;
+    public static Scanner sc = new Scanner(System.in);
+    public static int r1;
+    public static String r2;
 
-    private static int escolhe(String s1, String s2, String s3, LinkedList l) {
+    public static Remote getRegistry(long id) {
+        try {
+            return LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static void getProperty(String s1, BooleanSupplier call) {
+        while (call.getAsBoolean())
+            System.out.print(s1);
+    }
+
+    public static void getProperty(String s1, String s2, BooleanSupplier call) {
+        System.out.print(s1);
+        getProperty(s2, () -> call.getAsBoolean());
+    }
+    public static void getProperty(String s1, String s2, String s3 Boolean)
+
+    public static String editProperty(String p, String v) {
+        System.out.print(p + " Antigo: " + v +
+                "\n" + p + " Novo: ");
+        return sc.nextLine();
+    }
+
+    public static boolean contains(String[] a, String s) {
+        return Arrays.toString(a).toLowerCase().contains(s.toLowerCase());
+    }
+
+    public static boolean contains(int[] a, int i) {
+        return Arrays.toString(a).toLowerCase().contains(String.valueOf(i).toLowerCase());
+    }
+
+    public static int escolhe(String s1, String s2, String s3, LinkedList l) {
         Scanner sc = new Scanner(System.in);
         try {
-            int r1
+            int r1;
 
             if (l.isEmpty()) {
                 System.out.print(s1);
@@ -55,381 +95,27 @@ public class AdminConsole {
         }
     }
 
-    private static FaculdadeInt escolheFaculdade(DatabaseInt databaseInt) {
+
+
+
+
+
+
+    private static DatabaseInt escolheEleicao(DatabaseInt databaseInt){
+        int i;
         try {
-            return  (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(escolhe(
-                    "Não Existem Faculdades. Por favor insira uma.\n",
-                    "Escolha a faculdade:\n" + databaseInt.printFaculdades(),
-                    "Por favor insira um número de faculdade válido.\n",
-                    databaseInt.getFaculdades()))));
+            if ((i = escolhe(
+                    "Não Existem pessoa. Por favor insira uma.\n",
+                    "Escolha a pessoa:\n" + databaseInt.printEleicoes(),
+                    "Por favor insira um número de pessoa válido.\n",
+                    databaseInt.getEleicoes())) == -1)
+                return null;
+            return  (DatabaseInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getEleicao(i)));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-
-    private static boolean newPessoa(DatabaseInt databaseInt) {
-        Scanner sc = new Scanner(System.in);
-        try {
-            FaculdadeInt faculdadeInt;
-            DepartamentoInt departamentoInt;
-            PessoaInt pessoaInt;
-            DataInt dataInt;
-            AlunoInt alunoInt;
-            DocenteInt docenteInt;
-            FuncionarioInt funcionarioInt;
-            int r1;
-
-            faculdadeInt = escolheFaculdade(databaseInt);
-
-
-
-            if (faculdadeInt.getDepartamentos().isEmpty()) {
-                System.out.print("Esta faculdade não tem departamentos. Por favor insira um.");
-                return false;
-            }
-
-
-
-            System.out.print("Escolha o departamento:\n");
-
-            for(int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
-                departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(i)));
-                System.out.print(i + " - " + departamentoInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > faculdadeInt.getDepartamentos().size() - 1) {
-                System.out.print("Por favor insira um número de departamento válido.\n");
-            }
-
-            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(r1)));
-
-
-
-            System.out.print(
-                    "Escolha o tipo de pessoa a inserir:\n" +
-                            "1 - Aluno\n" +
-                            "2 - Docente\n" +
-                            "3 - Funcionário\n"
-            );
-
-            pessoaInt = null;
-
-            while(!Arrays.toString(new int[]{1,2,3}).contains(String.valueOf((r1 = sc.nextInt()))))
-                System.out.print("Por favor insira um número correspondente a um dos tipos disponíveis.\n");
-
-            switch (r1) {
-                case 1:
-                    pessoaInt = (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.newAluno(11)));
-                    break;
-
-                case 2:
-                    pessoaInt = (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.newDocente(11)));
-                    break;
-
-                case 3:
-                    pessoaInt = (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.newFuncionario(11)));
-                    break;
-            }
-            System.out.print("Insira o Nome: ");
-            sc.nextLine();
-
-
-            while (!pessoaInt.setNome(sc.nextLine()))
-                System.out.print("Por favor insira um nome só com letras.\n");
-
-            System.out.print("Insira o Username: ");
-            while (!pessoaInt.setUsername(sc.nextLine()))
-                System.out.print("Por favor insira um username com entre 8 a 20 caracteres.\n");
-
-            System.out.print("Insira a Password: ");
-            while (!pessoaInt.setPassword(sc.nextLine()))
-                System.out.print("Por favor insira uma password com entre 8 a 20 caracteres.\n");
-
-            System.out.print("Insira o número de telemovél: ");
-            while (!pessoaInt.setTelemovel(sc.nextLine()))
-                System.out.print("Por favor insira um número de telemóvel com apenas 9 dígitos.\n");
-
-            System.out.print("Insira a Morada: ");
-            while (!pessoaInt.setMorada(sc.nextLine()))
-                System.out.print("Por favor insira pelo menos 1 caracter na morada.\n");
-
-            System.out.print("Insira Código Postal: ");
-            while (!pessoaInt.setCodigoPostal(sc.nextLine()))
-                System.out.print("Por favor insira um código postal neste formato '0000-000'.\n");
-
-            System.out.print("Insira Localidade: ");
-            while (!pessoaInt.setLocalidade(sc.nextLine()))
-                System.out.print("Por favor insira uma localidade com pelo menos 1 caractér.\n");
-
-            System.out.print("Insira o número do Cartão de Cidadão: ");
-            while (!pessoaInt.setNumeroCC(sc.nextLine()))
-                System.out.print("Por favor insira um número de cartão de cidadão com apenas 8 dígitos.\n");
-
-            if (pessoaInt.isAluno()) {
-                alunoInt = (AlunoInt) pessoaInt;
-                System.out.print("Insira o Número de Aluno: ");
-                while (!alunoInt.setNumeroAluno(sc.nextLine()))
-                    System.out.print("Por favor insira um número de aluno com apenas 10 digitos.\n");
-
-                System.out.print("Insira um Curso: ");
-                while (!alunoInt.setCurso(sc.nextLine()))
-                    System.out.print("Por favora insira o nome do curso usando apenas letras.\n");
-            }
-
-            if (pessoaInt.isDocente()) {
-                docenteInt = (DocenteInt) pessoaInt;
-                System.out.print("Insira o Cargo: ");
-                while (!docenteInt.setCargo(sc.nextLine()))
-                    System.out.print("Por favor insira um cargo com pelo menos 1 caractér.\n");
-            }
-
-            if (pessoaInt.isFuncionario()) {
-                funcionarioInt = (FuncionarioInt)  pessoaInt;
-                System.out.print("Insira a Função: ");
-                while(!funcionarioInt.setFuncao(sc.nextLine()))
-                    System.out.print("Por favor insira uma função com pelo menos 1 caractér.\n");
-            }
-
-
-            dataInt = (DataInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(pessoaInt.getValidadeCC()));
-            r1 = 0;
-            do {
-                if(r1++ != 0) System.out.print("Por favor insira valores válidos para a validade do cartão de cidadão.\n");
-                System.out.print("Insira o ano da validade do cartão de cidadão: ");
-                dataInt.setAno(sc.nextInt());
-                System.out.print("Insira o mês da validade do cartão de cidadão: ");
-                dataInt.setMes(sc.nextInt());
-                System.out.print("Insira o dia da validade do cartão de cidadão: ");
-                dataInt.setDia(sc.nextInt());
-            } while(!dataInt.test());
-
-            dataInt = (DataInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(pessoaInt.getDataNascimento()));
-            r1 = 0;
-            do {
-                if(r1++ != 0) System.out.print("Por favor insira valores válidos para a data de nascimento.\n");
-                System.out.print("Insira o ano da data de nascimento: ");
-                dataInt.setAno(sc.nextInt());
-                System.out.print("Insira o mês da data de nascimento: ");
-                dataInt.setMes(sc.nextInt());
-                System.out.print("Insira o dia da data de nascimento: ");
-                dataInt.setDia(sc.nextInt());
-            } while(!dataInt.test());
-
-            System.out.print(
-                    "Escolha um Género:\n" +
-                            "1 - Masculino\n" +
-                            "2 - Femenino\n" +
-                            "3 - Outro\n"
-            );
-
-            while(!Arrays.toString(new int[]{1,2,3}).contains(String.valueOf((r1 = sc.nextInt()))))
-                System.out.print("Por favor insira um número correspondente a um dos géneros disponíveis.\n");
-
-            switch (r1) {
-                case 1:
-                    pessoaInt.setGenero("Masculino");
-                    break;
-
-                case 2:
-                    pessoaInt.setGenero("Feminino");
-                    break;
-
-                case 3:
-                    pessoaInt.setGenero("Outro");
-                    break;
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    private static String editProperty(Scanner sc, String p, String v) {
-        System.out.print(p + " Antigo: " + v +
-                "\n" + p + " Novo: ");
-        return sc.nextLine();
-    }
-
-    private static boolean editPessoa(PessoaInt pessoaInt) {
-        Scanner sc = new Scanner(System.in);
-        try {
-            AlunoInt alunoInt;
-            DocenteInt docenteInt;
-            FuncionarioInt funcionarioInt;
-
-            int r1;
-            String r2;
-
-            System.out.print(pessoaInt.print() + "\nPor favor insira a propriedade a editar: ");
-
-            while (!(Arrays.toString(new String[]{
-                    "nome",
-                    "username",
-                    "password",
-                    "departamento",
-                    "nº telemóvel",
-                    "nº telemovel",
-                    "no telemóvel",
-                    "no telemovel",
-                    "morada",
-                    "código postal",
-                    "codigo postal",
-                    "localidade",
-                    "número c.c.",
-                    "numero c.c.",
-                    "número cc",
-                    "numero cc",
-                    "validade c.c.",
-                    "validade cc",
-                    "género",
-                    "genero",
-                    "data nascimento"
-            }).contains(String.valueOf((r2 = sc.nextLine()).toLowerCase()).toLowerCase()) ||
-                    pessoaInt.isAluno() && Arrays.toString(new String[]{
-                            "nºaluno",
-                            "no aluno",
-                            "curso"
-                    }).contains(String.valueOf((r2)).toLowerCase()) ||
-                    pessoaInt.isFuncionario() && Arrays.toString(new String[]{
-                            "função",
-                            "funçao",
-                            "funcão",
-                            "funcao"
-                    }).contains(String.valueOf((r2)).toLowerCase()) ||
-                    pessoaInt.isDocente() && "cargo".equals(String.valueOf((r2)).toLowerCase())))
-                System.out.print("Por favor insira uma característica correspondente a uma das disponíveis.\n");
-
-            switch (r2.toLowerCase()) {
-                case "nome":
-                    while (!pessoaInt.setNome(editProperty(sc, "Nome", pessoaInt.getNome())))
-                        System.out.print("Por favor insira um nome só com letras.\n");
-                    break;
-                case "username":
-                    while (!pessoaInt.setUsername(editProperty(sc, "Username", pessoaInt.getUsername())))
-                        System.out.print("Por favor insira um username com entre 8 a 20 caracteres.\n");
-                    break;
-                case "password":
-                    while (!pessoaInt.setPassword(editProperty(sc, "Password", pessoaInt.getPassword())))
-                        System.out.print("Por favor insira uma password com entre 8 a 20 caracteres.\n");
-                    break;
-                case "departamento":
-                    editDepartamento((DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(pessoaInt.getDepartamentoInt())));
-                    break;
-                case "nº telemóvel":
-                case "nº telemovel":
-                case "no telemóvel":
-                case "no telemovel":
-                    while (!pessoaInt.setTelemovel(editProperty(sc, "Nº Telemóvel", String.valueOf(pessoaInt.getTelemovel()))))
-                        System.out.print("Por favor insira um número de telemóvel com apenas 9 dígitos.\n");
-                    break;
-                case "morada":
-                    while (!pessoaInt.setMorada(editProperty(sc, "Morada", pessoaInt.getMorada())))
-                        System.out.print("Por favor insira pelo menos 1 caracter na morada.\n");
-                    break;
-                case "código postal":
-                case "codigo postal":
-                    while (!pessoaInt.setCodigoPostal(editProperty(sc, "Código Postal", pessoaInt.getCodigoPostal())))
-                        System.out.print("Por favor insira um código postal neste formato '0000-000'.\n");
-                    break;
-                case "localidade":
-                    while (!pessoaInt.setLocalidade(editProperty(sc, "Localidade", pessoaInt.getLocalidade())))
-                        System.out.print("Por favor insira uma localidade com pelo menos 1 caractér.\n");
-                    break;
-                case "número c.c.":
-                case "numero c.c.":
-                case "número cc":
-                case "numero cc":
-                    while (!pessoaInt.setNumeroCC(editProperty(sc, "Número C.C.", String.valueOf(pessoaInt.getNumeroCC()))))
-                        System.out.print("Por favor insira um número de cartão de cidadão com apenas 8 dígitos.\n");
-                    break;
-                case "validade c.c.":
-                case "validade cc":
-                    editData((DataInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(pessoaInt.getValidadeCC())));
-                    break;
-                case "género":
-                case "genero":
-                    System.out.print(
-                            "Género Antigo: " + pessoaInt.getGenero() +
-                                    "Escolha um Género:\n" +
-                                    "1 - Masculino\n" +
-                                    "2 - Femenino\n" +
-                                    "3 - Outro\n"
-                    );
-
-                    while (!Arrays.toString(new int[]{1, 2, 3}).contains(String.valueOf((r1 = sc.nextInt()))))
-                        System.out.print("Por favor insira um número correspondente a um dos géneros disponíveis.\n");
-
-                    switch (r1) {
-                        case 1:
-                            pessoaInt.setGenero("Masculino");
-                            break;
-
-                        case 2:
-                            pessoaInt.setGenero("Feminino");
-                            break;
-
-                        case 3:
-                            pessoaInt.setGenero("Outro");
-                            break;
-                    }
-                    break;
-                case "data nascimento":
-                    editData((DataInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(pessoaInt.getDataNascimento())));
-                    break;
-                case "nº aluno":
-                case "no aluno":
-                    alunoInt = (AlunoInt) pessoaInt;
-                    while (!alunoInt.setNumeroAluno(editProperty(sc, "Nº Aluno", String.valueOf(alunoInt.getNumeroAluno()))))
-                        System.out.print("Por favor insira um número de aluno com apenas 10 digitos.\n");
-                    break;
-                case "curso":
-                    alunoInt = (AlunoInt) pessoaInt;
-                    while (!alunoInt.setCurso(editProperty(sc, "Curso", alunoInt.getCurso())))
-                        System.out.print("Por favora insira o nome do curso usando apenas letras.\n");
-                    break;
-                case "cargo":
-                    docenteInt = (DocenteInt) pessoaInt;
-                    while (!docenteInt.setCargo(editProperty(sc, "Cargo", docenteInt.getCargo())))
-                        System.out.print("Por favor insira um cargo com pelo menos 1 caractér.\n");
-                    break;
-                case "função":
-                case "funçao":
-                case "funcão":
-                case "funcao":
-                    funcionarioInt = (FuncionarioInt) pessoaInt;
-                    while (!funcionarioInt.setFuncao(editProperty(sc, "Função", funcionarioInt.getFuncao())))
-                        System.out.print("Por favor insira uma função com pelo menos 1 caractér.\n");
-                    break;
-            }
-
-            System.out.print("Quer editar mais alguma Propriedade?\n" +
-                    "1 - Sim\n" +
-                    "2 - Não\n");
-
-            while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
-                System.out.print("Por favor insira um número correspondente a uma das opções disponíveis.\n");
-
-            switch (r1) {
-                case 1:
-                    editPessoa(pessoaInt);
-                    break;
-
-                case 2:
-                    return true;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
 
     private static boolean editDepartamento(DepartamentoInt departamentoInt) {
         return true;
@@ -459,7 +145,7 @@ public class AdminConsole {
             System.out.print("Escolha a faculdade:\n");
 
             for (int i = 0; i < databaseInt.getFaculdades().size(); i++) {
-                faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
+                faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(i)));
                 System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
             }
 
@@ -470,7 +156,7 @@ public class AdminConsole {
                 r1 = sc.nextInt();
             }
 
-            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1)));
 
 
             if (faculdadeInt.getDepartamentos().isEmpty()) {
@@ -482,7 +168,7 @@ public class AdminConsole {
             System.out.print("Escolha o departamento:\n");
 
             for (int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
-                departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(i)));
+                departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(i)));
                 System.out.print(i + " - " + departamentoInt.getNome() + "\n");
             }
 
@@ -492,7 +178,7 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de departamento válido.\n");
             }
 
-            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(r1)));
+            departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1)));
 
             if (faculdadeInt.getDepartamentos().isEmpty()) {
                 System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
@@ -500,10 +186,10 @@ public class AdminConsole {
             }
 
 
-            System.out.print("Escolha a Pessoa a Editar:\n");
+            System.out.print("Escolha a Pessoas a Editar:\n");
 
             for (int i = 0; i < departamentoInt.getPessoas().size(); i++) {
-                pessoaInt = (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(i)));
+                pessoaInt = (PessoaInt) getRegistry(departamentoInt.getPessoa(i)));
                 System.out.print(i + " - " + pessoaInt.getNome() + "\n");
             }
 
@@ -513,7 +199,7 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de pessoa válido.\n");
             }
 
-            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(r1)));
+            return (PessoaInt) getRegistry(departamentoInt.getPessoa(r1)));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -525,7 +211,7 @@ public class AdminConsole {
         int r1;
         try {
             for (int i = 0; i < departamentoInt.getPessoas().size(); i++) {
-                DepartamentoInt pessoaInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.getPessoa(i)));
+                DepartamentoInt pessoaInt = (DepartamentoInt) getRegistry(departamentoInt.getPessoa(i)));
                 System.out.print(i + " - " + pessoaInt.getNome() + "\n");
             }
             r1 = sc.nextInt();
@@ -534,7 +220,7 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de pessoa válido.\n");
             }
 
-            return (PessoaInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(departamentoInt.delete(departamentoInt.delete(departamentoInt.getPessoa(r1)))));
+            return (PessoaInt) getRegistry(departamentoInt.delete(departamentoInt.delete(departamentoInt.getPessoa(r1)))));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -548,7 +234,7 @@ public class AdminConsole {
             int r1;
             FaculdadeInt faculdadeInt;
             for (int i = 0; i < databaseInt.getFaculdades().size(); i++) {
-                faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
+                faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(i)));
                 System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
             }
 
@@ -559,7 +245,7 @@ public class AdminConsole {
                 r1 = sc.nextInt();
             }
 
-            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1)));
             return  faculdadeInt;
         } catch (Exception e) {
             e.printStackTrace();
@@ -573,7 +259,7 @@ public class AdminConsole {
 
             DepartamentoInt departamentoInt;
             for (int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
-                departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(i)));
+                departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(i)));
                 System.out.print(i + " - " + departamentoInt.getNome() + "\n");
             }
 
@@ -583,7 +269,7 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de departamento válido.\n");
             }
 
-            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(faculdadeInt.getDepartamento(r1)));
+            departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1)));
             if (faculdadeInt.getDepartamentos().isEmpty()) {
                 System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
                 return null;
@@ -603,7 +289,7 @@ public class AdminConsole {
             int r1;
             FaculdadeInt faculdadeInt;
             DepartamentoInt departamentoInt;
-            faculdadeInt = (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.newFaculdade(11)));
+            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.newFaculdade(11)));
             System.out.println("Insira um nome.\n");
             sc.nextLine();
 
@@ -627,7 +313,7 @@ public class AdminConsole {
                     case 2:
 
                         for (int i = 0; i < databaseInt.getDepartamento().size(); i++) {
-                            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getDepartamento(i)));
+                            departamentoInt = (DepartamentoInt) getRegistry(databaseInt.getDepartamento(i)));
                             System.out.printf(i + "-" + departamentoInt.getNome());
 
                         }
@@ -637,7 +323,7 @@ public class AdminConsole {
                             System.out.print("Por favor insira um número de departamento válido.\n");
                         }
 
-                        departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getDepartamento(r1)));
+                        departamentoInt = (DepartamentoInt) getRegistry(databaseInt.getDepartamento(r1)));
                         if (databaseInt.getDepartamento().isEmpty()) {
                             System.out.print("Não existem departamentos\n");
                             return false;
@@ -663,7 +349,7 @@ public class AdminConsole {
             int r1;
             FaculdadeInt faculdadeInt;
             DepartamentoInt departamentoInt;
-            departamentoInt = (DepartamentoInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.newDepartamento(11)));
+            departamentoInt = (DepartamentoInt) getRegistry(databaseInt.newDepartamento(11)));
             System.out.println("Insira um nome.\n");
             sc.nextLine();
 
@@ -672,7 +358,7 @@ public class AdminConsole {
 
             System.out.print("Indique a faculdade a que pertence");
             for (int i=0;i<databaseInt.getFaculdades().size();i++){
-                faculdadeInt =( FaculdadeInt)LocateRegistry.getRegistry(ip,port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
+                faculdadeInt =( FaculdadeInt)LocateRegistry.getRegistry((ip,port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
                 System.out.println(i + "-" + faculdadeInt.getNome());
             }
             r1 = sc.nextInt();
@@ -681,7 +367,7 @@ public class AdminConsole {
                 System.out.print("Por favor insira um número de departamento válido.\n");
             }
 
-            faculdadeInt = (Faculdade) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getFaculdade(r1)));
+            faculdadeInt = (Faculdade) getRegistry(databaseInt.getFaculdade(r1)));
 
             if (databaseInt.getDepartamento().isEmpty()) {
                 System.out.print("Não existem departamentos\n");
@@ -697,14 +383,14 @@ public class AdminConsole {
 
     public static void main(String[] args) {
         try {
-            DatabaseInt databaseInt = (DatabaseInt) LocateRegistry.getRegistry(ip, port).lookup("1");
+            DatabaseInt databaseInt = (DatabaseInt) LocateRegistry.getRegistry((ip, port).lookup("1");
             Scanner sc = new Scanner(System.in);
             int r1;
             while (true) {
                 System.out.print("Que fazer?\n" +
-                        "1 - Nova Pessoa\n" +
-                        "2 - Editar Pessoa\n" +
-                        "3 - Apagar Pessoa\n" +
+                        "1 - Nova Pessoas\n" +
+                        "2 - Editar Pessoas\n" +
+                        "3 - Apagar Pessoas\n" +
                         "4 - Criar Faculdade\n"+
                         "5 - Criar Departamento\n ");
 

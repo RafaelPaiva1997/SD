@@ -42,9 +42,8 @@ public class Faculdade
     }
 
     @Override
-    public long newDepartamento(long id) throws RemoteException {
+    public long newDepartamento() throws RemoteException {
         Departamento e = new Departamento();
-        e.setId(id);
         e.setFaculdade(this);
         return safeAddPut(departamentos, e);
     }
@@ -65,7 +64,14 @@ public class Faculdade
     }
 
     @Override
+    public String print() throws RemoteException {
+        return "   .FACULDADE" +
+                "\nNome          - " + nome +
+                "\nDepartamentos - " + departamentos.size();
+    }
+
+    @Override
     public String inLinePrint() throws RemoteException {
-        return "FACULDADE - Nome: " + nome + "\n";
+        return "FACULDADE - Nome: " + nome +"\n";
     }
 }

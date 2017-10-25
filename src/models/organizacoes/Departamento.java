@@ -25,8 +25,6 @@ public class Departamento
         pessoas = new LinkedList<>();
     }
 
-
-
     @Override
     public String getNome() {
         return nome;
@@ -58,25 +56,21 @@ public class Departamento
     }
 
     @Override
-    public long newAluno(long id) throws RemoteException {
-        Pessoa e = new Aluno();
-        return newPessoa(e, id);
+    public long newAluno() throws RemoteException {
+        return newPessoa(new Aluno());
     }
 
     @Override
-    public long newDocente(long id) throws RemoteException {
-        Pessoa e = new Docente();
-        return newPessoa(e, id);
+    public long newDocente() throws RemoteException {
+        return newPessoa(new Docente());
     }
 
     @Override
-    public long newFuncionario(long id) throws RemoteException {
-        Pessoa e = new Funcionario();
-        return newPessoa(e, id);
+    public long newFuncionario() throws RemoteException {
+        return newPessoa(new Funcionario());
     }
 
-    public long newPessoa(Pessoa e, long id) {
-        e.setId(id);
+    public long newPessoa(Pessoa e) {
         e.setDepartamento(this);
         return safeAddPut(pessoas, e);
     }
@@ -94,6 +88,13 @@ public class Departamento
     @Override
     public String printPessoas() throws RemoteException {
         return printLinkedList(pessoas);
+    }
+
+    @Override
+    public String print() throws RemoteException {
+        return "   .DEPARTAMENTO" +
+                "\nNome    - " + nome +
+                "\nPessoas - " + pessoas.size();
     }
 
     @Override
