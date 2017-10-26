@@ -9,5 +9,6 @@ public interface ConselhoGeralInt extends EleicaoInt {
 
     boolean isConselhoGeral() throws RemoteException;
 
+    String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 }

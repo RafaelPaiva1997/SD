@@ -1,7 +1,6 @@
 package admin.console.gestores;
 
 import admin.console.AdminConsole;
-import interfaces.DatabaseInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.organizacoes.FaculdadeInt;
 
@@ -15,7 +14,22 @@ public class Departamento {
 
     private static DepartamentoInt departamentoInt;
 
-    private static boolean gerir(DepartamentoInt departamentoInt, FaculdadeInt faculdadeInt){
+    public static DepartamentoInt escolhe(FaculdadeInt faculdadeInt){
+        try {
+            if ((r1 = AdminConsole.escolhe(
+                    "Não Existem departamentos. Por favor insira um.\n",
+                    "Escolha o departamento:\n" + faculdadeInt.printDepartamentos(),
+                    "Por favor insira um número de Departamento válido.\n",
+                    faculdadeInt.getDepartamentos())) == -1)
+                return null;
+            return  (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean gerir(DepartamentoInt departamentoInt, FaculdadeInt faculdadeInt){
         try{
             int pos = r1;
             getProperty( departamentoInt.print() +
@@ -43,21 +57,6 @@ public class Departamento {
             return false;
         }
         return true;
-    }
-
-    private static DepartamentoInt escolhe(FaculdadeInt faculdadeInt){
-        try {
-            if ((r1 = AdminConsole.escolhe(
-                    "Não Existem departamentos. Por favor insira um.\n",
-                    "Escolha o departamento:\n" + faculdadeInt.printDepartamentos(),
-                    "Por favor insira um número de Departamento válido.\n",
-                    faculdadeInt.getDepartamentos())) == -1)
-                return null;
-            return  (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1));
-        }catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public static boolean novo(FaculdadeInt faculdadeInt) {

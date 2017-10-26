@@ -7,7 +7,10 @@ import java.rmi.RemoteException;
  */
 public interface DirecaoFaculdadeInt extends EleicaoInt {
 
+    boolean setFaculdade(long id) throws RemoteException;
+
     boolean isDirecaoFaculdade() throws RemoteException;
 
+    String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 }

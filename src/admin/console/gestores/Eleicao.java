@@ -1,25 +1,69 @@
 package admin.console.gestores;
 
-import admin.console.gestores.Data;
-import database.Database;
+import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
-import interfaces.ModelInt;
-import interfaces.organizacoes.DepartamentoInt;
-import interfaces.organizacoes.FaculdadeInt;
+import interfaces.eleicoes.DirecaoDepartamentoInt;
+import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
+import interfaces.eleicoes.NucleoEstudantesInt;
+import models.eleicoes.NucleoEstudantes;
 
 import java.rmi.RemoteException;
 
 import static admin.console.AdminConsole.*;
-import static admin.console.AdminConsole.r1;
-
 /**
  * Created by Carlos on 24-10-2017.
  */
 public class Eleicao {
 
     private static EleicaoInt eleicaoInt;
+
+    public static EleicaoInt escolhe(DatabaseInt databaseInt) {
+        try {
+            if ((r1 = AdminConsole.escolhe(
+                    "Não Existem Faculdades. Por favor insira uma.\n",
+                    "Escolha a faculdade:\n" + databaseInt.printFaculdades(),
+                    "Por favor insira um número de faculdade válido.\n",
+                    databaseInt.getFaculdades())) == -1)
+                return null;
+            return (EleicaoInt) getRegistry(databaseInt.getEleicao(r1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
+        try {
+            int pos = r1;
+            getProperty(eleicaoInt.print() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Editar " +
+                            "2 - Apagar\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+
+
+            switch (r1) {
+                case 1:
+                    edit(eleicaoInt);
+                    break;
+
+                case 2:
+                    databaseInt.deleteEleicao(eleicaoInt.getId());
+                    break;
+
+                case 3:
+
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
     public static boolean novo(DatabaseInt databaseInt) {
         try {
@@ -92,46 +136,27 @@ public class Eleicao {
 
             Data.edit("a data de fim", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
 
+            if (eleicaoInt.isNucleoEstudantes()) {
+                NucleoEstudantesInt nucleoEstudantesInt = (NucleoEstudantesInt) eleicaoInt;
+                nucleoEstudantesInt.setDepartamento(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getId());
+            }
+
+            if (eleicaoInt.isDirecaoDepartamento()) {
+                DirecaoDepartamentoInt direcaoDepartamentoInt = (DirecaoDepartamentoInt) eleicaoInt;
+                direcaoDepartamentoInt.setDepartamento(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getId());
+            }
+
+            if (eleicaoInt.isDirecaoFaculdade()) {
+                DirecaoFaculdadeInt direcaoFaculdadeInt = (DirecaoFaculdadeInt) eleicaoInt;
+                direcaoFaculdadeInt.setFaculdade(Faculdade.escolhe(databaseInt).getId());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-    return true;
+        return true;
     }
-
-
-            private static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
-        try {
-            int pos = r1;
-            getProperty(eleicaoInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Editar " +
-                            "2 - Apagar\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
-
-
-            switch (r1) {
-                case 1:
-                    edit(eleicaoInt);
-                    break;
-
-                case 2:
-                    databaseInt.deleteEleicao(eleicaoInt.getId());
-                    break;
-
-                case 3:
-
-            }
-
-        } catch (Exception e){
-                e.printStackTrace();
-                return false;
-            }
-        }
-    }
-
 
     public static boolean edit(EleicaoInt ei) {
         eleicaoInt = ei;
@@ -182,6 +207,6 @@ public class Eleicao {
             e.printStackTrace();
             return false;
         }
-    return true;
+        return true;
     }
 }

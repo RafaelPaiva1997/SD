@@ -21,31 +21,6 @@ public class Pessoa {
     private static DocenteInt docenteInt;
     private static FuncionarioInt funcionarioInt;
 
-    public static boolean gerir(PessoaInt pessoaInt, DepartamentoInt departamentoInt) {
-        try {
-            getProperty( pessoaInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Editar\n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
-
-            switch (r1) {
-                case 1:
-                    edit(pessoaInt);
-                    break;
-                case 2:
-                    departamentoInt.deletePessoa(pessoaInt.getId());
-                    break;
-            }
-            return true;
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public static PessoaInt escolhe(DepartamentoInt departamentoInt){
         try {
             if ((r1 = AdminConsole.escolhe(
@@ -86,6 +61,31 @@ public class Pessoa {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean gerir(PessoaInt pessoaInt, DepartamentoInt departamentoInt) {
+        try {
+            getProperty( pessoaInt.print() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Editar\n" +
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+
+            switch (r1) {
+                case 1:
+                    edit(pessoaInt);
+                    break;
+                case 2:
+                    departamentoInt.deletePessoa(pessoaInt.getId());
+                    break;
+            }
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -279,7 +279,7 @@ public class Pessoa {
         }
     }
 
-    private static boolean edit(PessoaInt pi) {
+    public static boolean edit(PessoaInt pi) {
         pessoaInt = pi;
         try {
             getProperty(pessoaInt.print() + "\nPor favor insira a propriedade a editar: ",
