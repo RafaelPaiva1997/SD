@@ -97,13 +97,3 @@ public class Faculdade {
             return false;
         }
     }
-    private static int ApagarFaculdade(FaculdadeInt faculdade) {
-        try {
-            return (FaculdadeInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf((faculdadeInt.getDepartamento())));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-}

@@ -15,6 +15,37 @@ public class Departamento {
 
     private static DepartamentoInt departamentoInt;
 
+    private static boolean gerir(DepartamentoInt departamentoInt, FaculdadeInt faculdadeInt){
+        try{
+            int pos = r1;
+            getProperty( departamentoInt.print() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Editar "+
+                            "2 - Apagar\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+
+            switch (r1) {
+                case 1:
+                    edit(departamentoInt);
+                    break;
+
+                case 2:
+                    faculdadeInt.deleteDepartamento(departamentoInt.getId()) ;
+                    break;
+
+                case 3:
+                    break;
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    }
+
     private static DepartamentoInt escolhe(FaculdadeInt faculdadeInt){
         try {
             if ((r1 = AdminConsole.escolhe(
@@ -74,8 +105,7 @@ public class Departamento {
                 case "pessoas":
                     Pessoa.gerir(Pessoa.escolhe(departamentoInt), departamentoInt);
                     break;
-                    Faculdade.gerir(DatabaseInt database);
-                    Departamento.gerir(FaculdadeInt faculdade);
+
             }
 
             return true;
