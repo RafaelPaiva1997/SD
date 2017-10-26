@@ -427,7 +427,7 @@ public class Pessoa {
             case "validade c.c.":
             case "validade cc":
                 try {
-                    Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCC()));
+                    Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCCInt()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -444,7 +444,7 @@ public class Pessoa {
                 break;
             case "data nascimento":
                 try {
-                    Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimento()));
+                    Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimentoInt()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

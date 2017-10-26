@@ -42,7 +42,7 @@ public class AdminConsole {
             return null;
         }
     }
-    
+
     public static void getProperty(String s1, BooleanSupplier call) {
         while (call.getAsBoolean())
             System.out.print(s1);
