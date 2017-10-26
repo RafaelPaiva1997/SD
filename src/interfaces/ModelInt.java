@@ -8,7 +8,6 @@ import java.rmi.RemoteException;
  */
 public interface ModelInt extends Remote {
     long getId() throws RemoteException;
-    void setId(long id) throws RemoteException;
 
     String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
