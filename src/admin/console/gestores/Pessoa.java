@@ -110,7 +110,7 @@ public class Pessoa {
         try {
             getProperty( listaInt.print() +
                             "O que pretende fazer?:\n" +
-                            "1 - Adicionar\n" +
+                            "1 - Adicionar \n" +
                             "2 - Remover\n" +
                             "3 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",

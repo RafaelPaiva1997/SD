@@ -35,6 +35,8 @@ public class Eleicao {
             return null;
         }
     }
+    public static boolean gerir()
+
 
     public static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
         try {
@@ -214,7 +216,11 @@ public class Eleicao {
                      }
 
                  case "mesas de voto":
+                    try{
 
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
             }
          } catch (Exception e) {
              e.printStackTrace();
