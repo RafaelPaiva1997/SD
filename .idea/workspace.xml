@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c8d72c7-eb63-416d-9153-98d92d36b307" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/console/AdminConsole.java" afterPath="$PROJECT_DIR$/src/admin/console/AdminConsole.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java" afterPath="$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/console/gestores/Faculdade.java" afterPath="$PROJECT_DIR$/src/admin/console/gestores/Faculdade.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/console/gestores/Lista.java" afterPath="$PROJECT_DIR$/src/admin/console/gestores/Lista.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java" afterPath="$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/eleicoes/ConselhoGeral.java" afterPath="$PROJECT_DIR$/src/models/eleicoes/ConselhoGeral.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/eleicoes/DirecaoDepartamento.java" afterPath="$PROJECT_DIR$/src/models/eleicoes/DirecaoDepartamento.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/eleicoes/DirecaoFaculdade.java" afterPath="$PROJECT_DIR$/src/models/eleicoes/DirecaoFaculdade.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/eleicoes/NucleoEstudantes.java" afterPath="$PROJECT_DIR$/src/models/eleicoes/NucleoEstudantes.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,18 +34,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pessoa.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/pessoas/Pessoa.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3925">
-              <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="254" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ConselhoGeral.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/eleicoes/ConselhoGeral.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -61,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Eleicao.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Eleicao.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+            <state relative-caret-position="466">
+              <caret line="215" column="17" lean-forward="false" selection-start-line="215" selection-start-column="17" selection-end-line="215" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,8 +69,8 @@
       <file leaf-file-name="Lista.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Lista.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="837">
+              <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -105,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pessoa.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Pessoa.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="46" column="52" lean-forward="false" selection-start-line="46" selection-start-column="52" selection-end-line="46" selection-end-column="52" />
+            <state relative-caret-position="480">
+              <caret line="126" column="16" lean-forward="false" selection-start-line="126" selection-start-column="16" selection-end-line="126" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,11 +100,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Departamento.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Departamento.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="AdminConsole.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/admin/console/AdminConsole.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="403" column="30" lean-forward="true" selection-start-line="403" selection-start-column="30" selection-end-line="403" selection-end-column="30" />
+            <state relative-caret-position="126">
+              <caret line="395" column="0" lean-forward="false" selection-start-line="395" selection-start-column="0" selection-end-line="395" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -225,10 +218,10 @@
         <option value="$PROJECT_DIR$/src/models/eleicoes/NucleoEstudantes.java" />
         <option value="$PROJECT_DIR$/src/models/eleicoes/DirecaoFaculdade.java" />
         <option value="$PROJECT_DIR$/src/admin/console/gestores/Faculdade.java" />
+        <option value="$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java" />
+        <option value="$PROJECT_DIR$/src/admin/console/gestores/Lista.java" />
         <option value="$PROJECT_DIR$/src/admin/console/AdminConsole.java" />
         <option value="$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java" />
-        <option value="$PROJECT_DIR$/src/admin/console/gestores/Lista.java" />
-        <option value="$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java" />
       </list>
     </option>
   </component>
@@ -977,12 +970,12 @@
       <option name="presentableId" value="Default" />
       <updated>1508109701760</updated>
       <workItem from="1508109706533" duration="2043000" />
-      <workItem from="1508987272619" duration="21398000" />
+      <workItem from="1508987272619" duration="23476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23441000" />
+    <option name="totallyTimeSpent" value="25519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1376" height="780" extended-state="0" />
@@ -1236,14 +1229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Departamento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/pessoas/Pessoa.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3925">
@@ -1286,20 +1271,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java">
+    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin/console/AdminConsole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="403" column="30" lean-forward="true" selection-start-line="403" selection-start-column="30" selection-end-line="403" selection-end-column="30" />
+        <state relative-caret-position="480">
+          <caret line="126" column="16" lean-forward="false" selection-start-line="126" selection-start-column="16" selection-end-line="126" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1316,20 +1291,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Departamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Lista.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="837">
+          <caret line="82" column="43" lean-forward="false" selection-start-line="82" selection-start-column="43" selection-end-line="82" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Pessoa.java">
+    <entry file="file://$PROJECT_DIR$/src/admin/console/AdminConsole.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="46" column="52" lean-forward="false" selection-start-line="46" selection-start-column="52" selection-end-line="46" selection-end-column="52" />
+        <state relative-caret-position="126">
+          <caret line="395" column="0" lean-forward="false" selection-start-line="395" selection-start-column="0" selection-end-line="395" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/admin/console/gestores/Eleicao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="215" column="17" lean-forward="false" selection-start-line="215" selection-start-column="17" selection-end-line="215" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

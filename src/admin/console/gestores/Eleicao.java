@@ -3,11 +3,13 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
+import interfaces.ListaInt;
 import interfaces.eleicoes.DirecaoDepartamentoInt;
 import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.eleicoes.NucleoEstudantesInt;
 import models.eleicoes.NucleoEstudantes;
+import models.pessoas.*;
 
 import java.rmi.RemoteException;
 
@@ -163,52 +165,58 @@ public class Eleicao {
         try {
             getProperty(eleicaoInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
-                    () -> contains(new String[]{"título", "descrição", "data de inicío", "data de fim", "listas"}, r2 = sc.nextLine()));
+                    () -> contains(new String[]{"título", "descrição", "data de inicío", "data de fim", "listas", " mesas de voto"}, r2 = sc.nextLine()));
 
             switch (r2.toLowerCase()) {
-                case "título":
-                    getProperty("Por favor insira um título só com letras.\n",
-                            () -> {
-                                try {
-                                    return !eleicaoInt.setTitulo(editProperty("Título", eleicaoInt.getTitulo()));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                return false;
-                            });
-                    break;
+                 case "título":
+                     getProperty("Por favor insira um título só com letras.\n",
+                             () -> {
+                                 try {
+                                     return !eleicaoInt.setTitulo(editProperty("Título", eleicaoInt.getTitulo()));
+                                 } catch (Exception e) {
+                                     e.printStackTrace();
+                                 }
+                                 return false;
+                             });
+                     break;
 
-                case "descrição":
-                    getProperty("Por favor insira uma descrição só com letras.\n",
-                            () -> {
-                                try {
-                                    return !eleicaoInt.setDescricao(editProperty("Descrição", eleicaoInt.getDescricao()));
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                return false;
-                            });
-                case "data de inicío":
-                    try {
-                        Data.edit("a data de inicio.\n",(DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                 case "descrição":
+                     getProperty("Por favor insira uma descrição só com letras.\n",
+                             () -> {
+                                 try {
+                                     return !eleicaoInt.setDescricao(editProperty("Descrição", eleicaoInt.getDescricao()));
+                                 } catch (Exception e) {
+                                     e.printStackTrace();
+                                 }
+                                 return false;
+                             });
+                 case "data de inicío":
+                     try {
+                         Data.edit("a data de inicio.\n",(DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
 
-                case "data de fim":
-                    try {
-                        Data.edit("a data de fim\n",(DataInt)getRegistry(eleicaoInt.getDataFimInt()));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                 case "data de fim":
+                     try {
+                         Data.edit("a data de fim\n",(DataInt)getRegistry(eleicaoInt.getDataFimInt()));
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
 
-                case "listas":
+                 case "listas":
+                     try{
+                         ListaInt listaInt=Lista.escolhe(ei);
+                         Lista.gerir(listaInt, eleicaoInt);
+
+                     }catch (Exception e){
+                         e.printStackTrace();
+                     }
+
+                 case "mesas de voto":
 
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-}
+         } catch (Exception e) {
+             e.printStackTrace();
+             return false;
+         }

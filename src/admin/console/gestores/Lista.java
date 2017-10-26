@@ -7,6 +7,7 @@ import interfaces.eleicoes.DirecaoDepartamentoInt;
 import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.eleicoes.NucleoEstudantesInt;
+import interfaces.pessoas.PessoaInt;
 import models.eleicoes.NucleoEstudantes;
 import interfaces.ListaInt;
 import java.rmi.RemoteException;
@@ -21,9 +22,9 @@ public class Lista {
     public static ListaInt escolhe(EleicaoInt eleicaoInt) {
         try {
             if ((r1 = AdminConsole.escolhe(
-                    "Não Existem Faculdades. Por favor insira uma.\n",
-                    "Escolha a faculdade:\n" + eleicaoInt.printListas(),
-                    "Por favor insira um número de faculdade válido.\n",
+                    "Não Existem listas. Por favor insira uma.\n",
+                    "Escolha a lista:\n" + eleicaoInt.printListas(),
+                    "Por favor insira um número de uma lista válida.\n",
                     eleicaoInt.getListas())) == -1)
                 return null;
             return (ListaInt) getRegistry(listaInt.getId());
@@ -32,6 +33,13 @@ public class Lista {
             return null;
         }
     }
+    public static boolean gerir(EleicaoInt eleicaoInt){
+
+    }
+}
+
+
+
     public static boolean gerir(ListaInt listaInt, EleicaoInt eleicaoInt) throws RemoteException {
         try {
             int pos = r1;
@@ -45,7 +53,7 @@ public class Lista {
 
             switch (r1) {
                 case 1:
-                    edit(listaInt);
+                    edit(listaInt, eleicaoInt);
                     break;
 
                 case 2:
@@ -80,7 +88,9 @@ public class Lista {
                             });
                     break;
                 case "pessoas":
-
+                    PessoaInt pessoaInt;
+                    pessoaInt = Pessoa.escolhe(listaInt);
+                    Pessoa.gerir(pessoaInt,listaInt,eleicaoInt);
                     break;
             }
         } catch (RemoteException e) {

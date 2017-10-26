@@ -3,6 +3,7 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.ListaInt;
+import interfaces.eleicoes.EleicaoInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
@@ -105,7 +106,7 @@ public class Pessoa {
             return false;
         }
     }
-    public static boolean gerir(PessoaInt pessoaInt, ListaInt listaInt){
+    public static boolean gerir(PessoaInt pessoaInt, ListaInt listaInt, EleicaoInt eleicaoInt){
         try {
             getProperty( listaInt.print() +
                             "O que pretende fazer?:\n" +
@@ -117,10 +118,11 @@ public class Pessoa {
 
             switch (r1) {
                 case 1:
-                    edit(pessoaInt);
+                    listaInt.addPessoa(pessoaInt.getId());
                     break;
+
                 case 2:
-                    departamentoInt.deletePessoa(pessoaInt.getId());
+                    eleicaoInt.deleteLista(listaInt.getId());
                     break;
                 case 3:
 

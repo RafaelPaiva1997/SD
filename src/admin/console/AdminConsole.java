@@ -393,7 +393,7 @@ public class AdminConsole {
                         "4 - Gerir Faculdades\n " +
                         "5 - Criar eleição\n" +
                         "6 - Gerir eleição\n" +
-                        "7 - "
+
                 );
 
                 while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
