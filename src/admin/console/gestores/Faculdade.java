@@ -17,12 +17,12 @@ public class Faculdade {
     private static FaculdadeInt faculdadeInt;
 
 
-    public static boolean gerir(FaculdadeInt faculdadeInt,DatabaseInt databaseInt) throws RemoteException {
-        try{
+    public static boolean gerir(FaculdadeInt faculdadeInt, DatabaseInt databaseInt) throws RemoteException {
+        try {
             int pos = r1;
-            getProperty( faculdadeInt.print() +
+            getProperty(faculdadeInt.print() +
                             "O que pretende fazer?:\n" +
-                            "1 - Editar "+
+                            "1 - Editar " +
                             "2 - Apagar\n" +
                             "3 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
@@ -38,13 +38,12 @@ public class Faculdade {
                     break;
 
                 case 3:
-                    break;
             }
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
-
+        return true;
     }
 
 
@@ -56,7 +55,7 @@ public class Faculdade {
                     "Por favor insira um número de faculdade válido.\n",
                     databaseInt.getFaculdades())) == -1)
                 return null;
-            return  (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1));
+            return (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -97,3 +96,4 @@ public class Faculdade {
             return false;
         }
     }
+}

@@ -267,8 +267,8 @@ public class Pessoa {
                         }));
             }
 
-            Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCC()));
-            Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimento()));
+            Data.editData("a validade do cartão de cidadão", (DataInt) getRegistry(pessoaInt.getValidadeCCInt()));
+            Data.editData("a data de nascimento", (DataInt) getRegistry(pessoaInt.getDataNascimentoInt()));
 
             escolheGenero();
             return true;

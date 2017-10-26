@@ -42,8 +42,7 @@ public class Departamento {
             e.printStackTrace();
             return false;
         }
-
-    }
+        return true;
     }
 
     private static DepartamentoInt escolhe(FaculdadeInt faculdadeInt){
