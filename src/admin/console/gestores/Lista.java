@@ -69,7 +69,7 @@ public class Lista {
         return true;
     }
 
-    public static boolean edit(ListaInt fi, EleicaoInt eleicaoInt) {
+    public static boolean edit(ListaInt fi) {
         listaInt = fi;
         try {
             getProperty(listaInt.print() + "\nPor favor insira a propriedade a ediar: ",
@@ -88,9 +88,7 @@ public class Lista {
                             });
                     break;
                 case "pessoas":
-                    PessoaInt pessoaInt;
-                    pessoaInt = Pessoa.escolhe(listaInt);
-                    Pessoa.gerir(pessoaInt,listaInt,eleicaoInt);
+                    Pessoa.gerir(pessoa,listaInt);
                     break;
             }
         } catch (RemoteException e) {

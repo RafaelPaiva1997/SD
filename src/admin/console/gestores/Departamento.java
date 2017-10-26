@@ -101,7 +101,7 @@ public class Departamento {
                     break;
 
                 case "pessoas":
-                    Pessoa.gerir(Pessoa.escolhe(departamentoInt), departamentoInt);
+                    Pessoa.gerir(departamentoInt);
                     break;
 
             }

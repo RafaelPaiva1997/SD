@@ -80,24 +80,29 @@ public class Pessoa {
         }
     }
 
-    public static boolean gerir(PessoaInt pessoaInt, DepartamentoInt departamentoInt) {
+    public static boolean gerir(DepartamentoInt departamentoInt) {
         try {
             getProperty( pessoaInt.print() +
                             "O que pretende fazer?:\n" +
-                            "1 - Editar\n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
+                            "1 - Adicionar\n" +
+                            "2 - Editar\n" +
+                            "3 - Remover\n" +
+                            "4 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+                    () -> !contains(new int[]{1, 2, 3, 4}, (r1 = sc.nextInt())));
 
             switch (r1) {
                 case 1:
-                    edit(pessoaInt);
+                    Pessoa.novo(departamentoInt);
                     break;
                 case 2:
-                    departamentoInt.deletePessoa(pessoaInt.getId());
+                    edit(pessoaInt);
                     break;
                 case 3:
+                    if ()
+                    departamentoInt.deletePessoa(pessoaInt.getId());
+                    break;
+                case 4:
 
             }
             return true;
@@ -106,7 +111,8 @@ public class Pessoa {
             return false;
         }
     }
-    public static boolean gerir(PessoaInt pessoaInt, ListaInt listaInt, EleicaoInt eleicaoInt){
+
+    public static boolean gerir(ListaInt listaInt){
         try {
             getProperty( listaInt.print() +
                             "O que pretende fazer?:\n" +
@@ -118,11 +124,10 @@ public class Pessoa {
 
             switch (r1) {
                 case 1:
-                    listaInt.addPessoa(pessoaInt.getId());
+                    listaInt.addPessoa(esc);
                     break;
 
                 case 2:
-                    eleicaoInt.deleteLista(listaInt.getId());
                     break;
                 case 3:
 

@@ -25,7 +25,6 @@ public class MesadeVoto {
 
             switch (r1) {
                 case 1:
-                    listaInt.addPessoa(pessoaInt.getId());
                     break;
 
                 case 2:
