@@ -1,6 +1,9 @@
 package database;
 
+import models.Lista;
+import models.MesaDeVoto;
 import models.Model;
+import models.Voto;
 import models.eleicoes.Eleicao;
 import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
@@ -44,10 +47,42 @@ public class Database
                     for (Departamento departamento : faculdade.getDepartamentos()) {
                         if (id == departamento.getId())
                             return false;
+                        synchronized (departamento.getPessoas()) {
+                            for (Pessoa pessoa : departamento.getPessoas())
+                                if (id == pessoa.getId() ||
+                                        id == pessoa.getValidadeCC().getId() ||
+                                        id == pessoa.getDataNascimento().getId())
+                                    return false;
+                        }
                     }
                 }
             }
         }
+        synchronized (eleicoes) {
+            for (Eleicao eleicao : eleicoes) {
+                if (id == eleicao.getId() ||
+                        id == eleicao.getDataInicio().getId() ||
+                        id == eleicao.getDataFim().getId())
+                    return false;
+                synchronized (eleicao.getVotos()) {
+                    for (Voto voto : eleicao.getVotos())
+                        if (id == voto.getId() ||
+                                id == voto.getData().getId())
+                            return false;
+                }
+                synchronized (eleicao.getMesasDeVoto()) {
+                    for (MesaDeVoto mesaDeVoto : eleicao.getMesasDeVoto())
+                        if (id == mesaDeVoto.getId())
+                            return false;
+                }
+                synchronized (eleicao.getListas()) {
+                    for (Lista lista : eleicao.getListas())
+                        if (id == lista.getId())
+                            return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

@@ -62,12 +62,12 @@ public class MesaDeVoto
 
     @Override
     public boolean removePessoa(long id) throws RemoteException {
-        return pessoas.remove(i) != null;
+        return remove(pessoas, id);
     }
 
     @Override
     public boolean removeEleicao(long id) throws RemoteException {
-        return eleicoes.remove(i) != null;
+        return remove(eleicoes, id);
     }
 
     @Override

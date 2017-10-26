@@ -81,8 +81,8 @@ public class Departamento
     }
 
     @Override
-    public boolean deletePessoa(int i) throws RemoteException {
-        return pessoas.remove(i) != null;
+    public boolean deletePessoa(long id) throws RemoteException {
+        return remove(pessoas, id);
     }
 
     @Override

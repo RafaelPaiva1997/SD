@@ -7,11 +7,11 @@ import java.rmi.RemoteException;
  */
 public interface VotoInt extends ModelInt {
 
-    long getPessoa() throws RemoteException;
-    long getEleicao() throws RemoteException;
-    long getLista() throws RemoteException;
-    long getMesaDeVoto() throws RemoteException;
-    long getData() throws RemoteException;
+    long getPessoaInt() throws RemoteException;
+    long getEleicaoInt() throws RemoteException;
+    long getListaInt() throws RemoteException;
+    long getMesaDeVotoInt() throws RemoteException;
+    long getDataInt() throws RemoteException;
 
     String inLinePrint() throws RemoteException;
 }

@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,11 +20,26 @@ public abstract class Model
 
     public Model() throws RemoteException {
         super();
+        while (!setId(generateRandomNumber(10)));
+    }
+
+    private long generateRandomNumber(int n) {
+        long min = (long) Math.pow(10, n - 1);
+        return ThreadLocalRandom.current().nextLong(min, min * 10);
     }
 
     @Override
     public long getId() {
         return id;
+    }
+
+    public boolean setId(long id) {
+        boolean flag = true;
+        if (RMIServer.database.avaibleID(id))
+            this.id = id;
+        else
+            flag = false;
+        return flag;
     }
 
     public boolean put() {
@@ -90,8 +106,21 @@ public abstract class Model
         return out;
     }
 
-    public boolean remove(LinkedList l, long id) {
+    public int find(LinkedList l, long id) {
+        synchronized (l) {
+            for (int i = 0; i < l.size(); i++) {
+                Model m = (Model) l.get(i);
+                if (id == m.getId())
+                    return i;
+            }
+        }
+        return -1;
+    }
 
+    public boolean remove(LinkedList l, long id) {
+        synchronized (l) {
+            return l.remove(find(l, id)) != null;
+        }
     }
 
     @Override

@@ -22,28 +22,48 @@ public class Voto
         data = new Data();
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public Eleicao getEleicao() {
+        return eleicao;
+    }
+
+    public Lista getLista() {
+        return lista;
+    }
+
+    public MesaDeVoto getMesaDeVoto() {
+        return mesaDeVoto;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
     @Override
-    public long getPessoa() {
+    public long getPessoaInt() {
         return safePut(pessoa);
     }
 
     @Override
-    public long getEleicao() {
+    public long getEleicaoInt() {
         return safePut(eleicao);
     }
 
     @Override
-    public long getLista() {
+    public long getListaInt() {
         return safePut(lista);
     }
 
     @Override
-    public long getMesaDeVoto() {
+    public long getMesaDeVotoInt() {
         return safePut(mesaDeVoto);
     }
 
     @Override
-    public long getData() {
+    public long getDataInt() {
         return safePut(data);
     }
 

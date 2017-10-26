@@ -2,11 +2,14 @@ package models.pessoas;
 
 import interfaces.pessoas.PessoaInt;
 import models.Data;
+import models.Lista;
+import models.MesaDeVoto;
 import models.Model;
 import models.organizacoes.Departamento;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 
 public abstract class Pessoa
         extends Model
@@ -28,9 +31,8 @@ public abstract class Pessoa
     public Pessoa() throws RemoteException {
         super();
         validadeCC = new Data();
-        validadeCC.setId(199);
         dataNascimento = new Data();
-        validadeCC.setId(200);
+
     }
 
 
@@ -83,6 +85,13 @@ public abstract class Pessoa
         return genero;
     }
 
+    public Data getValidadeCC() {
+        return validadeCC;
+    }
+
+    public Data getDataNascimento() {
+        return dataNascimento;
+    }
 
     @Override
     public boolean setNome(String nome) throws RemoteException {
@@ -199,12 +208,12 @@ public abstract class Pessoa
     }
 
     @Override
-    public long getValidadeCC() throws RemoteException {
+    public long getValidadeCCInt() throws RemoteException {
         return safePut(validadeCC);
     }
 
     @Override
-    public long getDataNascimento() throws RemoteException {
+    public long getDataNascimentoInt() throws RemoteException {
         return safePut(dataNascimento);
     }
 

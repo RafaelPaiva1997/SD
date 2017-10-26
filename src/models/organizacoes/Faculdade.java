@@ -2,6 +2,7 @@ package models.organizacoes;
 
 import interfaces.organizacoes.FaculdadeInt;
 import models.Model;
+import models.pessoas.Pessoa;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -54,8 +55,8 @@ public class Faculdade
     }
 
     @Override
-    public boolean deleteDepartamento(int i) throws RemoteException {
-        return departamentos.remove(i) != null;
+    public boolean deleteDepartamento(long id) throws RemoteException {
+        return remove(departamentos, id);
     }
 
     @Override

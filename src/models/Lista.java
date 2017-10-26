@@ -62,8 +62,8 @@ public class Lista
     }
 
     @Override
-    public boolean deletePessoa(int i) throws RemoteException {
-        return pessoas.remove(i) != null;
+    public boolean removePessoa(long id) throws RemoteException {
+        return remove(pessoas, id);
     }
 
     @Override

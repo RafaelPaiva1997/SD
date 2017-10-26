@@ -1,10 +1,7 @@
 package models.eleicoes;
 
 import interfaces.eleicoes.EleicaoInt;
-import models.Data;
-import models.MesaDeVoto;
-import models.Model;
-import models.Voto;
+import models.*;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -21,6 +18,7 @@ public abstract class Eleicao
     protected final Data dataFim;
     protected final LinkedList<Voto> votos;
     protected final LinkedList<MesaDeVoto> mesasDeVoto;
+    protected final LinkedList<Lista> listas;
 
     public Eleicao() throws RemoteException {
         super();
@@ -28,8 +26,7 @@ public abstract class Eleicao
         dataFim = new Data();
         votos = new LinkedList<>();
         mesasDeVoto = new LinkedList<>();
-        dataInicio.setId(201);
-        dataFim.setId(202);
+        listas = new LinkedList<>();
     }
 
     @Override
@@ -40,6 +37,14 @@ public abstract class Eleicao
     @Override
     public String getDescricao() {
         return descricao;
+    }
+
+    public Data getDataInicio() {
+        return dataInicio;
+    }
+
+    public Data getDataFim() {
+        return dataFim;
     }
 
     @Override
@@ -53,12 +58,17 @@ public abstract class Eleicao
     }
 
     @Override
-    public long getDataInicio() {
+    public LinkedList<Lista> getListas() {
+        return listas;
+    }
+
+    @Override
+    public long getDataInicioInt() {
         return safePut(dataInicio);
     }
 
     @Override
-    public long getDataFim() {
+    public long getDataFimInt() {
         return safePut(dataFim);
     }
 
@@ -99,6 +109,13 @@ public abstract class Eleicao
     }
 
     @Override
+    public long newLista() throws RemoteException {
+        Lista e = new Lista();
+        e.setEleicao(this);
+        return safeAddPut(listas, e);
+    }
+
+    @Override
     public long getVoto(int i) throws RemoteException {
         return safePut(votos.get(i));
     }
@@ -109,13 +126,23 @@ public abstract class Eleicao
     }
 
     @Override
+    public long getLista(int i) throws RemoteException {
+        return safePut(listas.get(i));
+    }
+
+    @Override
     public boolean deleteVoto(long id) throws RemoteException {
-        return !(votos.remove() == null);
+        return remove(votos, id);
     }
 
     @Override
     public boolean deleteMesaDeVoto(long id) throws RemoteException {
-        return mesasDeVoto.remove() != null;
+        return remove(mesasDeVoto, id);
+    }
+
+    @Override
+    public boolean deleteLista(long id) throws RemoteException {
+        return remove(listas, id);
     }
 
     @Override
@@ -139,6 +166,11 @@ public abstract class Eleicao
     }
 
     @Override
+    public String print() throws RemoteException {
+
+    }
+
+    @Override
     public String printVotos() throws RemoteException {
         return printLinkedList(votos);
     }
@@ -146,6 +178,11 @@ public abstract class Eleicao
     @Override
     public String printMesasDeVoto() throws RemoteException {
         return printLinkedList(mesasDeVoto);
+    }
+
+    @Override
+    public String printListas() throws RemoteException {
+        return printLinkedList(listas);
     }
 
     @Override

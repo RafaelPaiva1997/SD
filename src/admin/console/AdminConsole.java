@@ -52,7 +52,6 @@ public class AdminConsole {
         System.out.print(s1);
         getProperty(s2, () -> call.getAsBoolean());
     }
-    public static void getProperty(String s1, String s2, String s3 Boolean)
 
     public static String editProperty(String p, String v) {
         System.out.print(p + " Antigo: " + v +

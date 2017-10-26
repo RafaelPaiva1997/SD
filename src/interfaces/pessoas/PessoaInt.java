@@ -28,8 +28,8 @@ public interface PessoaInt extends ModelInt {
     boolean setNumeroCC(String numeroCC) throws RemoteException;
     boolean setGenero(String genero) throws RemoteException;
 
-    long getValidadeCC() throws RemoteException;
-    long getDataNascimento() throws RemoteException;
+    long getValidadeCCInt() throws RemoteException;
+    long getDataNascimentoInt() throws RemoteException;
     long getDepartamentoInt() throws RemoteException;
 
     boolean isAluno() throws RemoteException;
