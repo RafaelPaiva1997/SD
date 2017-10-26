@@ -109,13 +109,13 @@ public abstract class Eleicao
     }
 
     @Override
-    public boolean deleteVoto(int i) throws RemoteException {
-        return !(votos.remove(i) == null);
+    public boolean deleteVoto(long id) throws RemoteException {
+        return !(votos.remove() == null);
     }
 
     @Override
-    public boolean deleteMesaDeVoto(int i) throws RemoteException {
-        return mesasDeVoto.remove(i) != null;
+    public boolean deleteMesaDeVoto(long id) throws RemoteException {
+        return mesasDeVoto.remove() != null;
     }
 
     @Override

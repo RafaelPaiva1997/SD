@@ -35,6 +35,21 @@ public class Database
         return eleicoes;
     }
 
+    public boolean avaibleID(long id) {
+        synchronized (faculdades) {
+            for (Faculdade faculdade : faculdades) {
+                if (id == faculdade.getId())
+                    return false;
+                synchronized (faculdade.getDepartamentos()) {
+                    for (Departamento departamento : faculdade.getDepartamentos()) {
+                        if (id == departamento.getId())
+                            return false;
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public long newFaculdade() throws RemoteException {
         return safeAddPut(faculdades, new Faculdade());
@@ -66,13 +81,13 @@ public class Database
     }
 
     @Override
-    public boolean deleteFaculdade(int i) throws RemoteException {
-        return faculdades.remove(i) != null;
+    public boolean deleteFaculdade(long id) throws RemoteException {
+        return faculdades.remove() != null;
     }
 
     @Override
-    public boolean deleteEleicao(int i) throws RemoteException {
-        return eleicoes.remove(i) != null;
+    public boolean deleteEleicao(long id) throws RemoteException {
+        return eleicoes.remove() != null;
     }
 
     @Override
