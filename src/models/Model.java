@@ -106,6 +106,17 @@ public abstract class Model
         return out;
     }
 
+    public boolean add(LinkedList l, Model e) {
+        boolean flag = true;
+        synchronized (l) {
+            if (!l.contains(e))
+                l.add(e);
+            else
+                flag = false;
+        }
+        return flag;
+    }
+
     public int find(LinkedList l, long id) {
         synchronized (l) {
             for (int i = 0; i < l.size(); i++) {

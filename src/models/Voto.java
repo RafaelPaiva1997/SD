@@ -43,31 +43,31 @@ public class Voto
     }
 
     @Override
-    public long getPessoaInt() {
+    public long getPessoaInt() throws RemoteException {
         return safePut(pessoa);
     }
 
     @Override
-    public long getEleicaoInt() {
+    public long getEleicaoInt() throws RemoteException {
         return safePut(eleicao);
     }
 
     @Override
-    public long getListaInt() {
+    public long getListaInt() throws RemoteException {
         return safePut(lista);
     }
 
     @Override
-    public long getMesaDeVotoInt() {
+    public long getMesaDeVotoInt() throws RemoteException {
         return safePut(mesaDeVoto);
     }
 
     @Override
-    public long getDataInt() {
+    public long getDataInt() throws RemoteException {
         return safePut(data);
     }
 
-    public void setEleicao(Eleicao eleicao) {
+    public void setEleicao(Eleicao eleicao) throws RemoteException {
         this.eleicao = eleicao;
     }
 

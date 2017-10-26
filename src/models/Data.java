@@ -28,7 +28,7 @@ public class Data extends Model implements DataInt, Serializable
         segundo = -1;
     }
 
-    public boolean test() {
+    public boolean test() throws RemoteException {
         if (!((hora != -1 && minuto != -1 && segundo != -1) ||
                 (hora == -1 && minuto == -1 && segundo == -1)) ||
                 !((ano != -1 && mes != -1 && dia != -1) ||
@@ -61,62 +61,62 @@ public class Data extends Model implements DataInt, Serializable
     }
 
     @Override
-    public int getAno() {
+    public int getAno() throws RemoteException {
         return ano;
     }
 
     @Override
-    public int getMes() {
+    public int getMes() throws RemoteException {
         return mes;
     }
 
     @Override
-    public int getDia() {
+    public int getDia() throws RemoteException {
         return dia;
     }
 
     @Override
-    public int getHora() {
+    public int getHora() throws RemoteException {
         return hora;
     }
 
     @Override
-    public int getMinuto() {
+    public int getMinuto() throws RemoteException {
         return minuto;
     }
 
     @Override
-    public int getSegundo() {
+    public int getSegundo() throws RemoteException {
         return segundo;
     }
 
     @Override
-    public void setAno(int ano) {
+    public void setAno(int ano) throws RemoteException {
         this.ano = ano;
     }
 
     @Override
-    public void setMes(int mes) {
+    public void setMes(int mes) throws RemoteException {
         this.mes = mes;
     }
 
     @Override
-    public void setDia(int dia) {
+    public void setDia(int dia) throws RemoteException {
         this.dia = dia;
     }
 
     @Override
-    public void setHora(int hora) {
+    public void setHora(int hora) throws RemoteException {
         this.hora = hora;
     }
 
     @Override
-    public void setMinuto(int minuto) {
+    public void setMinuto(int minuto) throws RemoteException {
         this.minuto = minuto;
     }
 
     @Override
-    public void setSegundo(int segundo) {
+    public void setSegundo(int segundo) throws RemoteException {
         this.segundo = segundo;
     }
 

@@ -1,6 +1,7 @@
 package interfaces.organizacoes;
 
 import interfaces.ModelInt;
+import models.MesaDeVoto;
 import models.organizacoes.Faculdade;
 import models.pessoas.Pessoa;
 
@@ -13,6 +14,7 @@ import java.util.LinkedList;
 public interface DepartamentoInt extends ModelInt {
     String getNome() throws RemoteException;
     Faculdade getFaculdade() throws RemoteException;
+    MesaDeVoto getMesaDeVoto() throws RemoteException;
     LinkedList<Pessoa> getPessoas() throws RemoteException;
 
     boolean setNome(String nome) throws RemoteException;

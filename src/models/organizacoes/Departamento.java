@@ -1,6 +1,7 @@
 package models.organizacoes;
 
 import interfaces.organizacoes.DepartamentoInt;
+import models.MesaDeVoto;
 import models.Model;
 import models.pessoas.Aluno;
 import models.pessoas.Docente;
@@ -18,25 +19,32 @@ public class Departamento
 
     private String nome;
     private Faculdade faculdade;
+    private final MesaDeVoto mesaDeVoto;
     private final LinkedList<Pessoa> pessoas;
 
     public Departamento() throws RemoteException {
         super();
         pessoas = new LinkedList<>();
+        mesaDeVoto = new MesaDeVoto();
     }
 
     @Override
-    public String getNome() {
+    public String getNome() throws RemoteException {
         return nome;
     }
 
     @Override
-    public Faculdade getFaculdade() {
+    public Faculdade getFaculdade() throws RemoteException {
         return faculdade;
     }
 
     @Override
-    public LinkedList<Pessoa> getPessoas() {
+    public MesaDeVoto getMesaDeVoto() throws RemoteException {
+        return mesaDeVoto;
+    }
+
+    @Override
+    public LinkedList<Pessoa> getPessoas() throws RemoteException {
         return pessoas;
     }
 
@@ -51,7 +59,7 @@ public class Departamento
         return flag;
     }
 
-    public void setFaculdade(Faculdade faculdade) {
+    public void setFaculdade(Faculdade faculdade) throws RemoteException {
         this.faculdade = faculdade;
     }
 

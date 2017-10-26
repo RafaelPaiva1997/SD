@@ -16,12 +16,12 @@ public class Docente
     }
 
     @Override
-    public String getCargo() {
+    public String getCargo() throws RemoteException {
         return cargo;
     }
 
     @Override
-    public boolean setCargo(String cargo) {
+    public boolean setCargo(String cargo) throws RemoteException {
         boolean flag = true;
         if (lenghtMaior(cargo, 0) &&
                 isAlpha(cargo))

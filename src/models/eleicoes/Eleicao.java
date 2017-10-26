@@ -30,45 +30,45 @@ public abstract class Eleicao
     }
 
     @Override
-    public String getTitulo() {
+    public String getTitulo() throws RemoteException {
         return titulo;
     }
 
     @Override
-    public String getDescricao() {
+    public String getDescricao() throws RemoteException {
         return descricao;
     }
 
-    public Data getDataInicio() {
+    public Data getDataInicio() throws RemoteException {
         return dataInicio;
     }
 
-    public Data getDataFim() {
+    public Data getDataFim() throws RemoteException {
         return dataFim;
     }
 
     @Override
-    public LinkedList<Voto> getVotos() {
+    public LinkedList<Voto> getVotos() throws RemoteException {
         return votos;
     }
 
     @Override
-    public LinkedList<MesaDeVoto> getMesasDeVoto() {
+    public LinkedList<MesaDeVoto> getMesasDeVoto() throws RemoteException {
         return mesasDeVoto;
     }
 
     @Override
-    public LinkedList<Lista> getListas() {
+    public LinkedList<Lista> getListas() throws RemoteException {
         return listas;
     }
 
     @Override
-    public long getDataInicioInt() {
+    public long getDataInicioInt() throws RemoteException {
         return safePut(dataInicio);
     }
 
     @Override
-    public long getDataFimInt() {
+    public long getDataFimInt() throws RemoteException {
         return safePut(dataFim);
     }
 
@@ -84,7 +84,7 @@ public abstract class Eleicao
     }
 
     @Override
-    public boolean setDescricao(String descricao) {
+    public boolean setDescricao(String descricao) throws RemoteException {
         boolean flag = true;
         if (lenghtMaior(descricao, 0) &&
                 isAlpha(descricao))
@@ -99,13 +99,6 @@ public abstract class Eleicao
         Voto e = new Voto();
         e.setEleicao(this);
         return safeAddPut(votos, e);
-    }
-
-    @Override
-    public long newMesaDeVoto() throws RemoteException {
-        MesaDeVoto e = new MesaDeVoto();
-        e.add(this);
-        return safeAddPut(mesasDeVoto, e);
     }
 
     @Override

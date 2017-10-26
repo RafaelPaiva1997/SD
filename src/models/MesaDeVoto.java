@@ -4,6 +4,7 @@ import interfaces.MesaDeVotoInt;
 import models.eleicoes.Eleicao;
 import models.organizacoes.Departamento;
 import models.pessoas.Pessoa;
+import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -42,12 +43,14 @@ public class MesaDeVoto
         this.departamento = departamento;
     }
 
-    public boolean add(Eleicao e) {
-        return eleicoes.add(e);
+    @Override
+    public boolean addPessoa(long id) throws RemoteException {
+        return add(pessoas, RMIServer.database.get(id));
     }
 
-    public boolean add(Pessoa e) {
-        return pessoas.add(e);
+    @Override
+    public boolean addEleicao(long id) throws RemoteException {
+        return add(eleicoes, RMIServer.database.get(id));
     }
 
     @Override
@@ -83,5 +86,10 @@ public class MesaDeVoto
     @Override
     public String inLinePrint() throws RemoteException {
         return "MESA DE VOTO - Departamento: " + departamento.getNome() + " Faculdade: " + departamento.getFaculdade().getNome() + "\n";
+    }
+
+    @Override
+    public boolean isWorking() throws RemoteException {
+        return !eleicoes.isEmpty();
     }
 }

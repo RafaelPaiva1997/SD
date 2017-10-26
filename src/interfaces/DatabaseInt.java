@@ -17,13 +17,13 @@ public interface DatabaseInt extends ModelInt {
     LinkedList<Eleicao> getEleicoes() throws RemoteException;
 
     long newFaculdade() throws RemoteException;
+    long newConselhoGeral() throws RemoteException;
+    long newDirecaoDepartamento() throws RemoteException;
+    long newDirecaoFaculdade() throws RemoteException;
+    long newNucleoEstudantes() throws RemoteException;
+
     long getFaculdade(int i) throws RemoteException;
-
-    boolean add(Faculdade e) throws RemoteException;
-    boolean add(Eleicao e) throws RemoteException;
-
-    boolean add(Departamento e, int p) throws RemoteException;
-    boolean add(Pessoa e, int p1, int p2) throws RemoteException;
+    long getEleicao(int i) throws RemoteException;
 
     boolean deleteFaculdade(long id) throws RemoteException;
     boolean deleteEleicao(long id) throws RemoteException;

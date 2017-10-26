@@ -26,7 +26,6 @@ public interface EleicaoInt extends ModelInt {
     long getDataFimInt() throws RemoteException;
 
     long newVoto() throws RemoteException;
-    long newMesaDeVoto() throws RemoteException;
     long newLista() throws RemoteException;
 
     long getVoto(int i) throws RemoteException;

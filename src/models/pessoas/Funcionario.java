@@ -16,12 +16,12 @@ public class Funcionario
     }
 
     @Override
-    public String getFuncao() {
+    public String getFuncao() throws RemoteException {
         return funcao;
     }
 
     @Override
-    public boolean setFuncao(String funcao) {
+    public boolean setFuncao(String funcao) throws RemoteException {
         boolean flag = true;
         if (lenghtMaior(funcao, 0) &&
                 isAlpha(funcao))

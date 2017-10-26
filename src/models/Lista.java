@@ -3,6 +3,7 @@ package models;
 import interfaces.ListaInt;
 import models.eleicoes.Eleicao;
 import models.pessoas.Pessoa;
+import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -22,22 +23,22 @@ public class Lista
     }
 
     @Override
-    public String getNome() {
+    public String getNome() throws RemoteException {
         return nome;
     }
 
     @Override
-    public long getEleicao() {
+    public long getEleicao() throws RemoteException {
         return safePut(eleicao);
     }
 
     @Override
-    public LinkedList<Pessoa> getPessoas() {
+    public LinkedList<Pessoa> getPessoas() throws RemoteException {
         return pessoas;
     }
 
     @Override
-    public boolean setNome(String nome) {
+    public boolean setNome(String nome) throws RemoteException {
         boolean flag = true;
         if (lenghtMaior(nome, 0) &&
                 isAlpha(nome))
@@ -52,8 +53,8 @@ public class Lista
     }
 
     @Override
-    public boolean add(Pessoa e) throws RemoteException {
-        return pessoas.add(e);
+    public boolean addPessoa(long id) throws RemoteException {
+        return add(pessoas, RMIServer.database.get(id));
     }
 
     @Override
