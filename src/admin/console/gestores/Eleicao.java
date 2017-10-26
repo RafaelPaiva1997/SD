@@ -1,3 +1,5 @@
+package admin.console.gestores;
+
 import admin.console.gestores.Data;
 import database.Database;
 import interfaces.DataInt;
@@ -28,7 +30,7 @@ public class Eleicao {
                             "3 - Direcção de faculdade\n" +
                             "4 - Direcção de departamento\n",
                     "Por favor insira um número correspondente a um dos tipos disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, r1 = sc.nextInt()));
+                    () -> !contains(new int[]{1, 2, 3, 4}, r1 = sc.nextInt()));
             if (r1 == 1) {
                 try {
                     eleicaoInt = (EleicaoInt) getRegistry(databaseInt.newConselhoGeral());
@@ -86,29 +88,15 @@ public class Eleicao {
                     }));
             sc.nextLine();
 
-            getProperty("Insira hora de inicio: ",
-                    "Por favor insira um nome só com letras.\n",
-                    (() -> {
-                        try {
-                            return !pessoaInt.setNome(sc.nextLine());
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    }));
+            Data.edit("a data de inicio", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
 
-            getProperty("Insira o Username: ",
-                    "Por favor insira um username com entre 8 a 20 caracteres.\n",
-                    (() -> {
-                        try {
-                            return !pessoaInt.setUsername(sc.nextLine());
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                        return false;
-                    }));
+            Data.edit("a data de fim", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
+    return true;
     }
 
 
@@ -134,7 +122,7 @@ public class Eleicao {
                     break;
 
                 case 3:
-                    break;
+
             }
 
         } catch (Exception e){
@@ -177,14 +165,14 @@ public class Eleicao {
                             });
                 case "data de inicío":
                     try {
-                        Data.edit("Data de inicio.\n",(DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
+                        Data.edit("a data de inicio.\n",(DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 case "data de fim":
                     try {
-                        Data.edit("Data de fim\n",(DataInt)getRegistry(eleicaoInt.getDataFimInt()));
+                        Data.edit("a data de fim\n",(DataInt)getRegistry(eleicaoInt.getDataFimInt()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -194,5 +182,6 @@ public class Eleicao {
             e.printStackTrace();
             return false;
         }
+    return true;
     }
 }
