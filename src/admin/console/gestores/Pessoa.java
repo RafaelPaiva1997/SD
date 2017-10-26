@@ -2,6 +2,7 @@ package admin.console.gestores;
 
 import admin.console.AdminConsole;
 import interfaces.DataInt;
+import interfaces.ListaInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
@@ -30,6 +31,20 @@ public class Pessoa {
                     departamentoInt.getPessoas())) == -1)
                 return null;
             return (PessoaInt)  getRegistry(departamentoInt.getPessoa(r1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static PessoaInt escolhe(ListaInt listaInt) {
+        try {
+            if ((r1 = AdminConsole.escolhe(
+                    "Não Existem pessoas. Por favor insira uma.\n",
+                    "Escolha a pessoa:\n" + listaInt.printPessoas(),
+                    "Por favor insira um número de pessoa válido.\n",
+                    listaInt.getPessoas())) == -1)
+                return null;
+            return (PessoaInt)  getRegistry(listaInt.getPessoa(r1));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -81,12 +96,41 @@ public class Pessoa {
                 case 2:
                     departamentoInt.deletePessoa(pessoaInt.getId());
                     break;
+                case 3:
+
             }
             return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
+    }
+    public static boolean gerir(PessoaInt pessoaInt, ListaInt listaInt){
+        try {
+            getProperty( listaInt.print() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar\n" +
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+
+            switch (r1) {
+                case 1:
+                    edit(pessoaInt);
+                    break;
+                case 2:
+                    departamentoInt.deletePessoa(pessoaInt.getId());
+                    break;
+                case 3:
+
+            }
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     }
 
     public static boolean novo(DepartamentoInt departamentoInt) {

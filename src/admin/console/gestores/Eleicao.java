@@ -22,10 +22,10 @@ public class Eleicao {
     public static EleicaoInt escolhe(DatabaseInt databaseInt) {
         try {
             if ((r1 = AdminConsole.escolhe(
-                    "Não Existem Faculdades. Por favor insira uma.\n",
-                    "Escolha a faculdade:\n" + databaseInt.printFaculdades(),
-                    "Por favor insira um número de faculdade válido.\n",
-                    databaseInt.getFaculdades())) == -1)
+                    "Não Existem eleições. Por favor insira um.\n",
+                    "Escolha a eleição:\n" + databaseInt.printFaculdades(),
+                    "Por favor insira um número de eleição válido.\n",
+                    databaseInt.getEleicoes())) == -1)
                 return null;
             return (EleicaoInt) getRegistry(databaseInt.getEleicao(r1));
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class Eleicao {
         }
     }
 
-    private static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
+    public static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
         try {
             int pos = r1;
             getProperty(eleicaoInt.print() +
@@ -163,7 +163,7 @@ public class Eleicao {
         try {
             getProperty(eleicaoInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
-                    () -> contains(new String[]{"título", "descrição", "data de inicío", "data de fim"}, r2 = sc.nextLine()));
+                    () -> contains(new String[]{"título", "descrição", "data de inicío", "data de fim", "listas"}, r2 = sc.nextLine()));
 
             switch (r2.toLowerCase()) {
                 case "título":
@@ -201,6 +201,8 @@ public class Eleicao {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                case "listas":
 
             }
         } catch (Exception e) {

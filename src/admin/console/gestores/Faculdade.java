@@ -38,7 +38,7 @@ public class Faculdade {
                             "2 - Apagar\n" +
                             "3 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+                    () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
 
             switch (r1) {
                 case 1:

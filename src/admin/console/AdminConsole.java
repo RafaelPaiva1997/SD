@@ -1,5 +1,6 @@
 package admin.console;
 
+import admin.console.gestores.*;
 import database.Database;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
@@ -12,7 +13,6 @@ import interfaces.pessoas.PessoaInt;
 import models.organizacoes.Departamento;
 import models.organizacoes.Faculdade;
 import models.pessoas.Pessoa;
-import
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -387,37 +387,42 @@ public class AdminConsole {
             int r1;
             while (true) {
                 System.out.print("Que fazer?\n" +
-                        "1 - Nova Pessoas\n" +
-                        "2 - Editar Pessoas\n" +
-                        "3 - Apagar Pessoas\n" +
-                        "4 - Criar Faculdade\n"+
-                        "5 - Criar Departamento\n ");
+                        "1 - Criar pessoa\n" +
+                        "2 - Gerir pessoas\n" +
+                        "3 - Criar Faculdade\n"+
+                        "4 - Gerir Faculdades\n " +
+                        "5 - Criar eleição\n" +
+                        "6 - Gerir eleição\n" +
+                        "7 - "
+                );
 
                 while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
                     System.out.print("Por favor insira um número correspondente a uma das opções disponíveis.\n");
 
                 switch (r1) {
                     case 1:
-                        newPessoa(databaseInt);
+                        admin.console.gestores.Pessoa.novo(admin.console.gestores.Departamento.escolhe(admin.console.gestores.Faculdade.escolhe(databaseInt)));
                         break;
 
                     case 2:
-                        editPessoa(esolhePessoa(databaseInt));
+                        admin.console.gestores.Pessoa.gerir(admin.console.gestores.Pessoa.escolhe())
                         break;
 
                     case 3:
-                        ApagarPessoas(databaseInt);
+                        admin.console.gestores.Faculdade.novo(databaseInt);
                         break;
 
 
                     case 4:
-                        newFaculdade(databaseInt);
+                        admin.console.gestores.Faculdade.gerir(admin.console.gestores.Faculdade.escolhe(databaseInt),databaseInt);
                         break;
 
                     case 5:
-                        newDepartamento(databaseInt);
-                        break;;
+                        admin.console.gestores.Eleicao.novo(databaseInt);
+                        break;
 
+                    case 6:
+                        admin.console.gestores.Eleicao.gerir(databaseInt,admin.console.gestores.Eleicao.escolhe(databaseInt));
                 }
             }
         } catch (Exception e) {
