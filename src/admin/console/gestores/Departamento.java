@@ -112,4 +112,28 @@ public class Departamento {
             return false;
         }
     }
+    public static boolean remove(FaculdadeInt faculdadeInt) {
+        try {
+            if ((faculdadeInt = escolhe(departamentoInt)).hasReferences()) {
+                getProperty("Esta pessoa esta registada em:\n"
+                                + pessoaInt.printReferences() +
+                                "\nPretende apagá-la na mesma? ",
+                        "Por favor insira sim ou não.\n",
+                        () -> contains(new String[]{
+                                "sim",
+                                "não",
+                                "nao",
+                                "s",
+                                "n"
+                        }, r2 = sc.nextLine()));
+            }
+            if (contains(new String[]{"sim", "s"}, r2))
+                departamentoInt.deletePessoa(pessoaInt.getId());
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
 }

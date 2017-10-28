@@ -75,4 +75,17 @@ public class Faculdade
     public String inLinePrint() throws RemoteException {
         return "FACULDADE - Nome: " + nome +"\n";
     }
+
+    @Override
+    public boolean hasReferences() throws RemoteException {
+        for (Departamento e : departamentos)
+            if (e.hasReferences())
+                return true;
+        return false;
+    }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        return null;
+    }
 }

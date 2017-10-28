@@ -94,6 +94,14 @@ public class Departamento
     }
 
     @Override
+    public boolean hasReferences() throws RemoteException {
+        for (Pessoa e : pessoas)
+            if (e.hasReferences())
+                return true;
+        return mesaDeVoto.hasReferences();
+    }
+
+    @Override
     public String printPessoas() throws RemoteException {
         return printLinkedList(pessoas);
     }
@@ -108,5 +116,15 @@ public class Departamento
     @Override
     public String inLinePrint() throws RemoteException {
         return "DEPARTAMENTO - Nome: " + nome + " Faculdade: " + faculdade.getNome() + "\n";
+    }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        StringBuilder out = new StringBuilder();
+        out.append("   ." + nome + "\n");
+        for (Pessoa e : pessoas)
+            out.append(e.printReferences());
+        out.append(mesaDeVoto.printReferences()) ;
+        return out.toString();
     }
 }

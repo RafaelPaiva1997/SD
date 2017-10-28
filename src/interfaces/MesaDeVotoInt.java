@@ -22,9 +22,12 @@ public interface MesaDeVotoInt extends ModelInt {
     boolean removePessoa(long id) throws RemoteException;
     boolean removeEleicao(long id) throws RemoteException;
 
+    boolean hasReferences() throws RemoteException;
+
     String printPessoas() throws RemoteException;
     String printEleicoes() throws RemoteException;
     String inLinePrint() throws RemoteException;
+    String printReferences() throws RemoteException;
 
     boolean isWorking() throws RemoteException;
 }

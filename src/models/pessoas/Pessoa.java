@@ -285,6 +285,7 @@ public abstract class Pessoa
     @Override
     public String printReferences() throws RemoteException {
         StringBuilder out = new StringBuilder();
+        out.append("   ." + nome + "\n");
         for (Lista e : listas)
             out.append(e.inLinePrint());
         for (MesaDeVoto e : mesasDeVoto)
