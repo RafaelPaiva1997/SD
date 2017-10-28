@@ -32,6 +32,7 @@ public class Voto {
             return null;
         }
     }
+
     public static VotoInt escolhe(ListaInt listaInt){
 
         try {
@@ -63,6 +64,7 @@ public class Voto {
             return null;
         }
     }
+
     public static VotoInt escolhe(PessoaInt pessoaInt){
 
         try {
@@ -83,8 +85,8 @@ public class Voto {
         try {
             AdminConsole.gerir(eleicaoInt.printVotos() +
                             "O que pretende fazer?:\n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
+                            "1 - Remover\n" +
+                            "2 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2},
                     new BooleanSupplier[]{
@@ -101,8 +103,8 @@ public class Voto {
         try {
             AdminConsole.gerir(listaInt.printVotos() +
                             "O que pretende fazer?:\n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
+                            "1 - Remover\n" +
+                            "2 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2},
                     new BooleanSupplier[]{
@@ -119,8 +121,8 @@ public class Voto {
         try {
             AdminConsole.gerir(mesaDeVotoInt.printVotos() +
                             "O que pretende fazer?:\n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
+                            "1 - Remover\n" +
+                            "2 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2},
                     new BooleanSupplier[]{
@@ -192,5 +194,6 @@ public class Voto {
     }
 
     public static boolean novo(DatabaseInt databaseInt) {
+        return true;
     }
 }

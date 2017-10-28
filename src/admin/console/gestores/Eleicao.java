@@ -155,6 +155,9 @@ public class Eleicao {
     public static boolean edit(EleicaoInt ei) {
         eleicaoInt = ei;
         try {
+
+            sc.nextLine();
+
             getProperty(eleicaoInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> contains(new String[]{

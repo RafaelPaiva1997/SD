@@ -22,8 +22,8 @@ public class Database
     private final LinkedList<Faculdade> faculdades;
     private final LinkedList<Eleicao> eleicoes;
 
-    public Database() throws RemoteException {
-        super();
+    public Database(int id) throws RemoteException {
+        super(id);
         faculdades = new LinkedList<>();
         eleicoes = new LinkedList<>();
     }

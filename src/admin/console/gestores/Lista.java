@@ -57,6 +57,8 @@ public class Lista {
         try {
             listaInt = (ListaInt) getRegistry(eleicaoInt.newLista());
 
+            sc.nextLine();
+
             getProperty("Insira o Nome: ",
                     "Por favor insira um nome só com letras",
                     () -> {
@@ -78,6 +80,9 @@ public class Lista {
     public static boolean edit(ListaInt fi) {
         listaInt = fi;
         try {
+
+            sc.nextLine();
+
             getProperty(listaInt.print() + "\nPor favor insira a propriedade a ediar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> contains(new String[]{"nome", "pessoas"}, r2 = sc.nextLine()));

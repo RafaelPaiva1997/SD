@@ -78,6 +78,8 @@ public class Pessoa {
                     pessoaInt.setGenero("Outro");
                     break;
             }
+
+            sc.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -318,6 +320,9 @@ public class Pessoa {
     public static boolean edit(PessoaInt pi) {
         pessoaInt = pi;
         try {
+
+            sc.nextLine();
+
             getProperty(pessoaInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> {

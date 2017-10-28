@@ -23,6 +23,10 @@ public abstract class Model
         while (!setId(generateRandomNumber(10)));
     }
 
+    public Model(long id) throws RemoteException {
+        this.id = id;
+    }
+
     private long generateRandomNumber(int n) {
         long min = (long) Math.pow(10, n - 1);
         return ThreadLocalRandom.current().nextLong(min, min * 10);

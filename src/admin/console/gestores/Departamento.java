@@ -58,6 +58,8 @@ public class Departamento {
         try {
             departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.newDepartamento());
 
+            sc.nextLine();
+
             getProperty("Insira o Nome: ",
                     "Por favor insira um nome só com letras",
                     () -> {
@@ -78,6 +80,7 @@ public class Departamento {
     public static boolean edit(DepartamentoInt di) {
         departamentoInt = di;
         try {
+            sc.nextLine();
             getProperty(departamentoInt.print() + "\nPor favor insira a propriedade a ediar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> contains(new String[]{"nome", "pessoas"}, r2 = sc.nextLine()));

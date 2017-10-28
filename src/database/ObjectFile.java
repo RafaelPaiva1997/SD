@@ -7,14 +7,6 @@ public class ObjectFile {
 
     private Database database;
 
-    public ObjectFile() {
-        try {
-            database = new Database();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void read() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database.ser"));
@@ -22,7 +14,7 @@ public class ObjectFile {
             ois.close();
         } catch (Exception e) {
             try {
-                database = new Database();
+                database = new Database(1);
             } catch (RemoteException re) {
                 re.printStackTrace();
             }

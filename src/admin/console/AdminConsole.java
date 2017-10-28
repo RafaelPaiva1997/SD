@@ -1,23 +1,9 @@
 package admin.console;
 
 import admin.console.gestores.*;
-import database.Database;
-import interfaces.DataInt;
 import interfaces.DatabaseInt;
-import interfaces.organizacoes.DepartamentoInt;
-import interfaces.organizacoes.FaculdadeInt;
-import interfaces.pessoas.AlunoInt;
-import interfaces.pessoas.DocenteInt;
-import interfaces.pessoas.FuncionarioInt;
-import interfaces.pessoas.PessoaInt;
-import models.organizacoes.Departamento;
-import models.organizacoes.Faculdade;
-import models.pessoas.Pessoa;
-import java.rmi.NotBoundException;
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -28,8 +14,8 @@ import java.util.function.BooleanSupplier;
  */
 public class AdminConsole {
 
-    public static String ip = "192.168.1.67";
-    public static int port = 8000;
+    public static String ip = "localhost";
+    public static int port = 7000;
     public static Scanner sc = new Scanner(System.in);
     public static int r1;
     public static String r2;
@@ -45,7 +31,7 @@ public class AdminConsole {
     }
 
     public static void getProperty(String s1, BooleanSupplier call) {
-        while (call.getAsBoolean())
+        while (!call.getAsBoolean())
             System.out.print(s1);
     }
 
@@ -99,10 +85,10 @@ public class AdminConsole {
         while(true) {
             getProperty(s1, s2, () -> !contains(a, (r1 = sc.nextInt())));
 
-            if (r1 == c.length - 1) return true;
+            if (r1 - 1 == c.length) return true;
 
-            for (int i = 0; i < c.length - 1; i++) {
-                if (i == r1) {
+            for (int i = 0; i < c.length; i++) {
+                if (i == r1 - 1) {
                     c[i].getAsBoolean();
                     i = c.length;
                 }
@@ -141,8 +127,10 @@ public class AdminConsole {
                             () -> gerirEleicoes(databaseInt),
                             () -> Voto.novo(databaseInt),
                     });
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -152,14 +140,11 @@ public class AdminConsole {
             databaseInt = (DatabaseInt) getRegistry(1);
             gerir("O que pretende fazer?:\n" +
                             "1 - Gerir Base de Dados\n" +
-                            "2 - Femenino\n" +
-                            "3 - Sair\n",
+                            "2 - Sair\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2, 3},
                     new BooleanSupplier[]{
                             () -> gerirBaseDados(databaseInt),
-                            () -> ,
-                            () -> ,
                     });
         } catch (Exception e) {
             e.printStackTrace();

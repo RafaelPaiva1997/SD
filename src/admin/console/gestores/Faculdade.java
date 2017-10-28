@@ -56,6 +56,8 @@ public class Faculdade {
         try {
             faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.newFaculdade());
 
+            sc.nextLine();
+
             getProperty("Insira o Nome: ",
                     "Por favor insira um nome só com letras",
                     () -> {
@@ -77,6 +79,7 @@ public class Faculdade {
     public static boolean edit(FaculdadeInt fi) {
         faculdadeInt = fi;
         try {
+            sc.nextLine();
             getProperty(faculdadeInt.print() + "\nPor favor insira a propriedade a ediar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> contains(new String[]{"nome", "departamentos"}, r2 = sc.nextLine()));

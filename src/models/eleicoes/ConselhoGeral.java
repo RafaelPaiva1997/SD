@@ -24,8 +24,4 @@ public class ConselhoGeral
     public String inLinePrint() throws RemoteException {
         return "ELEIÇÃO CONSELHO GERAL - " + super.inLinePrint() + "\n";
     }
-    @Override
-    public String print() throws RemoteException{
-
-    }
 }
