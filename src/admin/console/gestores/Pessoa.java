@@ -3,6 +3,8 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.ListaInt;
+import interfaces.MesaDeVotoInt;
+import interfaces.eleicoes.EleicaoInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
@@ -581,6 +583,24 @@ public class Pessoa {
     public static boolean removeLista(PessoaInt pessoaInt) {
         try {
             return pessoaInt.addLista(Lista.escolhe(pessoaInt).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean addMesaDeVoto(PessoaInt pessoaInt) {
+        try {
+            return pessoaInt.addMesaDeVoto(((MesaDeVotoInt) getRegistry(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getMesaDeVotoInt())).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean removeMesaDeVoto(PessoaInt pessoaInt) {
+        try {
+            return pessoaInt.removeMesaDeVoto(MesadeVoto.escolhe(pessoaInt).getId());
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;

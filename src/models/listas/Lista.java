@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 
-public class Lista
+public abstract class Lista
         extends Model
         implements ListaInt, Serializable
 {
@@ -64,7 +64,7 @@ public class Lista
     @Override
     public boolean addPessoa(long id) throws RemoteException {
         Pessoa e = (Pessoa) RMIServer.database.get(id);
-        return !pessoas.contains(e) && add(pessoas, e) && add(e.getListas(), this);
+        return canJoin(e) && !pessoas.contains(e) && add(pessoas, e) && add(e.getListas(), this);
     }
 
     @Override
@@ -143,5 +143,9 @@ public class Lista
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean canJoin(Pessoa e){
+        return false;
     }
 }

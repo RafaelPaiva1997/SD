@@ -1,11 +1,14 @@
 package models.eleicoes;
 
 import interfaces.eleicoes.DirecaoDepartamentoInt;
+import models.listas.Lista;
 import models.organizacoes.Departamento;
+import models.pessoas.Pessoa;
 import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 
 public class DirecaoDepartamento
         extends Eleicao
@@ -15,6 +18,22 @@ public class DirecaoDepartamento
 
     public DirecaoDepartamento() throws RemoteException {
         super();
+    }
+
+    @Override
+    public LinkedList<Lista> getListas(Pessoa p) {
+        LinkedList<Lista> out = new LinkedList<>();
+        for (Lista l : listas) {
+            try {
+                if (p.isDocente() && l.isListaDocentes() &&
+                        p.getDepartamento().getId() == departamento.getId())
+                    out.add(l);
+                return null;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return out;
     }
 
     public Departamento getDepartamento() {
@@ -33,6 +52,11 @@ public class DirecaoDepartamento
     @Override
     public boolean isDirecaoDepartamento() throws RemoteException {
         return true;
+    }
+
+    @Override
+    public boolean canJoin(Lista e) {
+        return e.isListaDocentes();
     }
 
     @Override

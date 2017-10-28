@@ -23,11 +23,26 @@ public class MesadeVoto {
         try {
             if ((r1 = AdminConsole.escolhe(
                     "Não Existem Mesas de Voto. Por favor insira uma.\n",
-                    "Escolha a Mesa de Voto:\n" + databaseInt.printFaculdades(),
+                    "Escolha a Mesa de Voto:\n" + eleicaoInt.printMesasDeVoto(),
                     "Por favor insira um número de mesa de voto válido.\n",
                     databaseInt.getFaculdades())) == -1)
                 return null;
             return (MesaDeVotoInt) getRegistry(eleicaoInt.getMesaDeVoto(r1));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static MesaDeVotoInt escolhe(PessoaInt pessoaInt) {
+        try {
+            if ((r1 = AdminConsole.escolhe(
+                    "Não Existem Mesas de Voto. Por favor insira uma.\n",
+                    "Escolha a Mesa de Voto:\n" + pessoaInt.printMesasDeVoto(),
+                    "Por favor insira um número de mesa de voto válido.\n",
+                    databaseInt.getFaculdades())) == -1)
+                return null;
+            return (MesaDeVotoInt) getRegistry(pessoaInt.getMesaDeVoto(r1));
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -71,6 +86,7 @@ public class MesadeVoto {
             return false;
         }
     }
+
     public static boolean gerir(PessoaInt pessoaInt) {
         try {
             AdminConsole.gerir(pessoaInt.printMesasDeVoto() +
@@ -81,6 +97,8 @@ public class MesadeVoto {
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2, 3},
                     new BooleanSupplier[]{
+                            () -> Pessoa.addMesaDeVoto(pessoaInt),
+                            () -> Pessoa.removeMesaDeVoto(pessoaInt)
                     });
             return true;
         } catch (RemoteException e) {

@@ -92,7 +92,36 @@ public class Lista {
 
     public static boolean novo(EleicaoInt eleicaoInt) {
         try {
-            listaInt = (ListaInt) getRegistry(eleicaoInt.newLista());
+            getProperty(
+                    "Escolha o tipo de Lista a inserir:\n" +
+                            "1 - Alunos\n" +
+                            "2 - Docentes\n" +
+                            "3 - Funcionários\n",
+                    "Por favor insira um número correspondente a um dos tipos disponíveis.\n",
+                    () -> !contains(new int[]{1, 2, 3}, r1 = sc.nextInt()));
+
+            if (r1 == 1) {
+                try {
+                    listaInt = (ListaInt) getRegistry(eleicaoInt.newListaAlunos());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else if (r1 == 2) {
+                try {
+                    listaInt = (ListaInt) getRegistry(eleicaoInt.newListaDocentes());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            } else {
+                try {
+                    listaInt = (ListaInt) getRegistry(eleicaoInt.newListaFuncionarios());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
 
             sc.nextLine();
 

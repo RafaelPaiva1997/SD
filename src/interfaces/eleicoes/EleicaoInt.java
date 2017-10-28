@@ -2,6 +2,7 @@ package interfaces.eleicoes;
 
 import java.rmi.RemoteException;
 
+import com.sun.org.apache.regexp.internal.RE;
 import interfaces.ModelInt;
 import models.listas.Lista;
 import models.MesaDeVoto;
@@ -26,7 +27,9 @@ public interface EleicaoInt extends ModelInt {
     long getDataInicioInt() throws RemoteException;
     long getDataFimInt() throws RemoteException;
 
-    long newLista() throws RemoteException;
+    long newListaAlunos() throws RemoteException;
+    long newListaDocentes() throws RemoteException;
+    long newListaFuncionarios() throws RemoteException;
     boolean addMesaDeVoto(long id) throws RemoteException;
 
     long getVoto(int i) throws RemoteException;

@@ -3,6 +3,9 @@ package models.eleicoes;
 import interfaces.eleicoes.EleicaoInt;
 import models.*;
 import models.listas.Lista;
+import models.listas.ListaAlunos;
+import models.listas.ListaDocentes;
+import models.listas.ListaFuncionarios;
 import models.pessoas.Pessoa;
 import rmi.RMIServer;
 
@@ -67,44 +70,11 @@ public abstract class Eleicao
 
     @Override
     public LinkedList<Lista> getListas(long id) throws RemoteException {
-        LinkedList<Lista> out = new LinkedList<>();
         Pessoa p = (Pessoa) RMIServer.database.get(id);
-        for (Lista l : listas) {
-            if (isConselhoGeral()) {
-                if (p.isAluno() &&
-                        l.isListaAlunos())
-                        out.add(l);
-                if (p.isDocente() &&
-                        l.isListaDocentes())
-                        out.add(l);
-                if (p.isFuncionario() &&
-                        l.isListaFuncionarios())
-                        out.add(l);
-            }
-            if (isNucleoEstudantes()) {
-                NucleoEstudantes ne = (NucleoEstudantes) this;
-                if (p.isAluno() &&
-                        p.getDepartamento().getId() == ne.getDepartamento().getId() &&
-                        l.isListaAlunos())
-                    out.add(l);
-            }
-            if (isDirecaoDepartamento()) {
-                DirecaoDepartamento dd = (DirecaoDepartamento) this;
-                if (p.isDocente() &&
-                        p.getDepartamento().getId() == dd.getDepartamento().getId() &&
-                        l.isListaAlunos())
-                    out.add(l);
-            }
-            if (isDirecaoFaculdade()) {
-                DirecaoFaculdade df = (DirecaoFaculdade) this;
-                if (p.isDocente() &&
-                        p.getDepartamento().getFaculdade().getId() == df.getFaculdade().getId() &&
-                        l.isListaAlunos())
-                    out.add(l);
-            }
-        }
-        return null;
+        return getListas(p);
     }
+
+    public abstract LinkedList<Lista> getListas(Pessoa p);
 
     @Override
     public long getDataInicioInt() throws RemoteException {
@@ -139,10 +109,30 @@ public abstract class Eleicao
     }
 
     @Override
-    public long newLista() throws RemoteException {
-        Lista e = new Lista();
+    public long newListaAlunos() throws RemoteException {
+        Lista e = new ListaAlunos();
         e.setEleicao(this);
-        return safeAddPut(listas, e);
+        if (canJoin(e))
+            return safeAddPut(listas, e);
+        return -1;
+    }
+
+    @Override
+    public long newListaDocentes() throws RemoteException {
+        Lista e = new ListaDocentes();
+        e.setEleicao(this);
+        if (canJoin(e))
+            return safeAddPut(listas, e);
+        return -1;
+    }
+
+    @Override
+    public long newListaFuncionarios() throws RemoteException {
+        Lista e = new ListaFuncionarios();
+        e.setEleicao(this);
+        if (canJoin(e))
+            return safeAddPut(listas, e);
+        return -1;
     }
 
     @Override
@@ -273,5 +263,9 @@ public abstract class Eleicao
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean canJoin(Lista e) {
+        return false;
     }
 }

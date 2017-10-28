@@ -1,11 +1,14 @@
 package models.eleicoes;
 
 import interfaces.eleicoes.NucleoEstudantesInt;
+import models.listas.Lista;
 import models.organizacoes.Departamento;
+import models.pessoas.Pessoa;
 import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 
 public class NucleoEstudantes
         extends Eleicao
@@ -15,6 +18,22 @@ public class NucleoEstudantes
 
     public NucleoEstudantes() throws RemoteException {
         super();
+    }
+
+    @Override
+    public LinkedList<Lista> getListas(Pessoa p) {
+        LinkedList<Lista> out = new LinkedList<>();
+        for (Lista l : listas) {
+            try {
+                if (p.isAluno() && l.isListaAlunos() &&
+                        p.getDepartamento().getId() == departamento.getId())
+                    out.add(l);
+                return null;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return out;
     }
 
     @Override
@@ -35,6 +54,10 @@ public class NucleoEstudantes
         return flag;
     }
 
+    @Override
+    public boolean canJoin(Lista e) {
+        return e.isListaAlunos();
+    }
 
     @Override
     public String inLinePrint() throws RemoteException {

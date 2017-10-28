@@ -131,6 +131,7 @@ public abstract class Pessoa
     @Override
     public boolean setUsername(String username) throws RemoteException {
         boolean flag = true;
+        this.username = "";
         if (RMIServer.database.searchPessoa("username-" + username).size() == 0 && lenghtEntre(username, 8, 20))
             this.username = username;
         else

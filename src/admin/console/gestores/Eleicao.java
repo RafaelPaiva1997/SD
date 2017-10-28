@@ -3,6 +3,7 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
+import interfaces.MesaDeVotoInt;
 import interfaces.eleicoes.DirecaoDepartamentoInt;
 import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
@@ -258,7 +259,7 @@ public class Eleicao {
 
     public static boolean addMesaDeVoto(EleicaoInt eleicaoInt) {
         try {
-            return eleicaoInt.addMesaDeVoto(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getMesaDeVoto().getId());
+            return eleicaoInt.addMesaDeVoto(((MesaDeVotoInt) getRegistry(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getMesaDeVotoInt())).getId());
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
