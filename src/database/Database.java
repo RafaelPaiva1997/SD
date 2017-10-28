@@ -211,4 +211,67 @@ public class Database
     public String inLinePrint() throws RemoteException {
         return "DATABASE";
     }
+
+    @Override
+    public LinkedList<Long> searchPessoa(String query) throws RemoteException {
+        LinkedList<Long> out = new LinkedList<>();
+        String[] q = query.split("-");
+        for (Faculdade faculdade : faculdades) {
+            for (Departamento departamento : faculdade.getDepartamentos()) {
+                for (Pessoa pessoa : departamento.getPessoas()) {
+                    switch (q[0]) {
+                        case "nome":
+                            if (pessoa.getNome().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "username":
+                            if (pessoa.getUsername().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "password":
+                            if (pessoa.getPassword().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "nº telemóvel":
+                            if (String.valueOf(pessoa.getTelemovel()).contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "morada":
+                            if (pessoa.getMorada().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "código postal":
+                            if (pessoa.getCodigoPostal().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+
+                        case "localidade":
+                            if (pessoa.getLocalidade().contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+
+                        case "número c.c.":
+                            if (String.valueOf(pessoa.getNumeroCC()).contains(q[1]))
+                                out.add(pessoa.getId());
+                            pessoa.put();
+                            break;
+                    }
+                }
+            }
+        }
+        return out;
+    }
 }
