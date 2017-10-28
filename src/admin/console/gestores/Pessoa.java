@@ -565,8 +565,10 @@ public class Pessoa {
             }
             if (contains(new String[]{"sim", "s"}, r2))
                 departamentoInt.deletePessoa(pessoaInt.getId());
+            return true;
         } catch (RemoteException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
