@@ -99,9 +99,9 @@ public class AdminConsole {
         while(true) {
             getProperty(s1, s2, () -> !contains(a, (r1 = sc.nextInt())));
 
-            if (r1 == c.length) return true;
+            if (r1 == c.length - 1) return true;
 
-            for (int i = 0; i < c.length; i++) {
+            for (int i = 0; i < c.length - 1; i++) {
                 if (i == r1) {
                     c[i].getAsBoolean();
                     i = c.length;
@@ -110,337 +110,57 @@ public class AdminConsole {
         }
     }
 
-
-
-
-
-
-
-    private static DatabaseInt escolheEleicao(DatabaseInt databaseInt){
-        int i;
+    public static boolean gerirFaculdades(DatabaseInt databaseInt) {
         try {
-            if ((i = escolhe(
-                    "Não Existem pessoa. Por favor insira uma.\n",
-                    "Escolha a pessoa:\n" + databaseInt.printEleicoes(),
-                    "Por favor insira um número de pessoa válido.\n",
-                    databaseInt.getEleicoes())) == -1)
-                return null;
-            return  (DatabaseInt) LocateRegistry.getRegistry(ip, port).lookup(String.valueOf(databaseInt.getEleicao(i)));
+            return admin.console.gestores.Faculdade.gerir(databaseInt);
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
-
-    private static boolean editDepartamento(DepartamentoInt departamentoInt) {
-        return true;
-    }
-
-    private static boolean editData(DataInt dataInt) {
-        return true;
-    }
-
-    private static PessoaInt esolhePessoa(DatabaseInt databaseInt) {
-        Scanner sc = new Scanner(System.in);
+    public static boolean gerirEleicoes(DatabaseInt databaseInt) {
         try {
-            if (databaseInt.getFaculdades().isEmpty()) {
-                System.out.print("Não Existem Faculdades. Por favor insira uma.\n");
-                sc.nextLine();
-                return null;
-            }
-
-
-            FaculdadeInt faculdadeInt;
-            DepartamentoInt departamentoInt;
-            PessoaInt pessoaInt;
-
-            int r1;
-
-
-            System.out.print("Escolha a faculdade:\n");
-
-            for (int i = 0; i < databaseInt.getFaculdades().size(); i++) {
-                faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(i)));
-                System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > databaseInt.getFaculdades().size() - 1) {
-                System.out.print("Por favor insira um número de faculdade válido.\n");
-                r1 = sc.nextInt();
-            }
-
-            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1)));
-
-
-            if (faculdadeInt.getDepartamentos().isEmpty()) {
-                System.out.print("Esta faculdade não tem departamentos. Por favor insira um.");
-                return null;
-            }
-
-
-            System.out.print("Escolha o departamento:\n");
-
-            for (int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
-                departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(i)));
-                System.out.print(i + " - " + departamentoInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > faculdadeInt.getDepartamentos().size() - 1) {
-                System.out.print("Por favor insira um número de departamento válido.\n");
-            }
-
-            departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1)));
-
-            if (faculdadeInt.getDepartamentos().isEmpty()) {
-                System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
-                return null;
-            }
-
-
-            System.out.print("Escolha a Pessoas a Editar:\n");
-
-            for (int i = 0; i < departamentoInt.getPessoas().size(); i++) {
-                pessoaInt = (PessoaInt) getRegistry(departamentoInt.getPessoa(i)));
-                System.out.print(i + " - " + pessoaInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > departamentoInt.getPessoas().size() - 1) {
-                System.out.print("Por favor insira um número de pessoa válido.\n");
-            }
-
-            return (PessoaInt) getRegistry(departamentoInt.getPessoa(r1)));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public static boolean ApagarPessoas (Departamento departamentoInt)  {
-        Scanner sc = new Scanner(System.in);
-        int r1;
-        try {
-            for (int i = 0; i < departamentoInt.getPessoas().size(); i++) {
-                DepartamentoInt pessoaInt = (DepartamentoInt) getRegistry(departamentoInt.getPessoa(i)));
-                System.out.print(i + " - " + pessoaInt.getNome() + "\n");
-            }
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > departamentoInt.getPessoas().size() - 1) {
-                System.out.print("Por favor insira um número de pessoa válido.\n");
-            }
-
-            return (PessoaInt) getRegistry(departamentoInt.delete(departamentoInt.delete(departamentoInt.getPessoa(r1)))));
-
+            return admin.console.gestores.Eleicao.gerir(databaseInt);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private static FaculdadeInt esolheFaculdade(DatabaseInt databaseInt) {
-        Scanner sc = new Scanner(System.in);
+    public static boolean gerirBaseDados(DatabaseInt databaseInt) {
         try {
-            int r1;
-            FaculdadeInt faculdadeInt;
-            for (int i = 0; i < databaseInt.getFaculdades().size(); i++) {
-                faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(i)));
-                System.out.print(i + " - " + faculdadeInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > databaseInt.getFaculdades().size() - 1) {
-                System.out.print("Por favor insira um número de faculdade válido.\n");
-                r1 = sc.nextInt();
-            }
-
-            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.getFaculdade(r1)));
-            return  faculdadeInt;
+            gerir("O que pretende fazer?:\n" +
+                            "1 - Gerir Faculdades\n" +
+                            "2 - Gerir Eleições\n" +
+                            "3 - Adicionar Voto\n" +
+                            "4 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3, 4},
+                    new BooleanSupplier[]{
+                            () -> gerirFaculdades(databaseInt),
+                            () -> gerirEleicoes(databaseInt),
+                            () -> Voto.novo(databaseInt),
+                    });
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
-        }
-    }
-    private static DepartamentoInt escolheDepartamento(Faculdade faculdadeInt){
-        Scanner sc = new Scanner(System.in);
-        try {
-            int r1;
-
-            DepartamentoInt departamentoInt;
-            for (int i = 0; i < faculdadeInt.getDepartamentos().size(); i++) {
-                departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(i)));
-                System.out.print(i + " - " + departamentoInt.getNome() + "\n");
-            }
-
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > faculdadeInt.getDepartamentos().size() - 1) {
-                System.out.print("Por favor insira um número de departamento válido.\n");
-            }
-
-            departamentoInt = (DepartamentoInt) getRegistry(faculdadeInt.getDepartamento(r1)));
-            if (faculdadeInt.getDepartamentos().isEmpty()) {
-                System.out.print("Este departamento não tem Pessoas, por favor insira uma..");
-                return null;
-            }
-            return departamentoInt;
-
-        }catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    apagarPessoas(departamentoInt = escolheDepartamento(esolheFaculdade(databaseInt()))));
-    private static boolean newFaculdade(DatabaseInt databaseInt) throws RemoteException {
-        Scanner sc = new Scanner(System.in);
-        try{
-            int r1;
-            FaculdadeInt faculdadeInt;
-            DepartamentoInt departamentoInt;
-            faculdadeInt = (FaculdadeInt) getRegistry(databaseInt.newFaculdade(11)));
-            System.out.println("Insira um nome.\n");
-            sc.nextLine();
-
-            while (!faculdadeInt.setNome(sc.nextLine()))
-                System.out.print("Por favor insira um nome correto.\n");
-
-
-            System.out.print("Deseja adicionar departamentos á faculdade?\n");
-            String resposta;
-            resposta=sc.nextLine();
-
-            if (resposta.matches("Sim") || resposta.matches("sim") || resposta.matches("s")){
-                System.out.println("1-Criar novo departamento" +
-                        "2-Adicionar departamentos ja existentes");
-
-                switch (sc.nextInt()) {
-                    case 1:
-
-                        System.out.println("oi");
-
-                    case 2:
-
-                        for (int i = 0; i < databaseInt.getDepartamento().size(); i++) {
-                            departamentoInt = (DepartamentoInt) getRegistry(databaseInt.getDepartamento(i)));
-                            System.out.printf(i + "-" + departamentoInt.getNome());
-
-                        }
-                        r1 = sc.nextInt();
-
-                        while (r1 < 0 || r1 > databaseInt.getDepartamento().size() - 1) {
-                            System.out.print("Por favor insira um número de departamento válido.\n");
-                        }
-
-                        departamentoInt = (DepartamentoInt) getRegistry(databaseInt.getDepartamento(r1)));
-                        if (databaseInt.getDepartamento().isEmpty()) {
-                            System.out.print("Não existem departamentos\n");
-                            return false;
-                        }
-
-                }
-
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-
-
-    }
-
-    public static boolean newDepartamento(Database databaseInt) throws RemoteException{
-        Scanner sc = new Scanner(System.in);
-        try{
-            int r1;
-            FaculdadeInt faculdadeInt;
-            DepartamentoInt departamentoInt;
-            departamentoInt = (DepartamentoInt) getRegistry(databaseInt.newDepartamento(11)));
-            System.out.println("Insira um nome.\n");
-            sc.nextLine();
-
-            while (!departamentoInt.setNome(sc.nextLine()))
-                System.out.print("Por favor insira um nome correto.\n");
-
-            System.out.print("Indique a faculdade a que pertence");
-            for (int i=0;i<databaseInt.getFaculdades().size();i++){
-                faculdadeInt =( FaculdadeInt)LocateRegistry.getRegistry((ip,port).lookup(String.valueOf(databaseInt.getFaculdade(i)));
-                System.out.println(i + "-" + faculdadeInt.getNome());
-            }
-            r1 = sc.nextInt();
-
-            while (r1 < 0 || r1 > databaseInt.getDepartamento().size() - 1) {
-                System.out.print("Por favor insira um número de departamento válido.\n");
-            }
-
-            faculdadeInt = (Faculdade) getRegistry(databaseInt.getFaculdade(r1)));
-
-            if (databaseInt.getDepartamento().isEmpty()) {
-                System.out.print("Não existem departamentos\n");
-                return false;
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
     public static void main(String[] args) {
+        sc = new Scanner(System.in);
         try {
-            databaseInt = (DatabaseInt) LocateRegistry.getRegistry((ip, port).lookup("1");
-            Scanner sc = new Scanner(System.in);
-            int r1;
-            while (true) {
-                System.out.print("Que fazer?\n" +
-                        "1 - Criar pessoa\n" +
-                        "2 - Gerir pessoas\n" +
-                        "3 - Criar Faculdade\n"+
-                        "4 - Gerir Faculdades\n " +
-                        "5 - Criar eleição\n" +
-                        "6 - Gerir eleição\n" +
-
-                );
-
-                while (!Arrays.toString(new int[]{1, 2}).contains(String.valueOf((r1 = sc.nextInt()))))
-                    System.out.print("Por favor insira um número correspondente a uma das opções disponíveis.\n");
-
-                switch (r1) {
-                    case 1:
-                        admin.console.gestores.Pessoa.novo(admin.console.gestores.Departamento.escolhe(admin.console.gestores.Faculdade.escolhe(databaseInt)));
-                        break;
-
-                    case 2:
-                        admin.console.gestores.Pessoa.gerir(admin.console.gestores.Pessoa.escolhe())
-                        break;
-
-                    case 3:
-                        admin.console.gestores.Faculdade.novo(databaseInt);
-                        break;
-
-
-                    case 4:
-                        admin.console.gestores.Faculdade.gerir(admin.console.gestores.Faculdade.escolhe(databaseInt),databaseInt);
-                        break;
-
-                    case 5:
-                        admin.console.gestores.Eleicao.novo(databaseInt);
-                        break;
-
-                    case 6:
-                        admin.console.gestores.Eleicao.gerir(databaseInt,admin.console.gestores.Eleicao.escolhe(databaseInt));
-                }
-            }
+            databaseInt = (DatabaseInt) getRegistry(1);
+            gerir("O que pretende fazer?:\n" +
+                            "1 - Gerir Base de Dados\n" +
+                            "2 - Femenino\n" +
+                            "3 - Sair\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3},
+                    new BooleanSupplier[]{
+                            () -> gerirBaseDados(databaseInt),
+                            () -> ,
+                            () -> ,
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }

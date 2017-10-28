@@ -37,13 +37,15 @@ public class Departamento {
                             "1 - Adicionar\n" +
                             "2 - Editar\n" +
                             "3 - Remover\n" +
-                            "4 - Voltar\n",
+                            "4 - Gerir Mesa De Voto\n" +
+                            "5 - Voltar\n",
                     "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
-                    new int[]{1, 2, 3, 4},
+                    new int[]{1, 2, 3, 4, 5},
                     new BooleanSupplier[]{
                             () -> novo(faculdadeInt),
                             () -> edit(escolhe(faculdadeInt)),
                             () -> remove(faculdadeInt),
+                            () -> MesadeVoto.gerir(escolhe(faculdadeInt))
                     });
             return true;
         } catch (RemoteException e) {

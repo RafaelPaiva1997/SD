@@ -1,6 +1,7 @@
 package admin.console.gestores;
 
 import admin.console.AdminConsole;
+import interfaces.DatabaseInt;
 import interfaces.ListaInt;
 import interfaces.MesaDeVotoInt;
 import interfaces.VotoInt;
@@ -188,5 +189,8 @@ public class Voto {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static boolean novo(DatabaseInt databaseInt) {
     }
 }

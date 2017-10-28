@@ -57,8 +57,7 @@ public class Pessoa {
     }
 
     public static void escolheGenero() {
-        getProperty(
-                "Escolha um Género:\n" +
+        getProperty("Escolha um Género:\n" +
                         "1 - Masculino\n" +
                         "2 - Femenino\n" +
                         "3 - Outro\n",
