@@ -14,7 +14,7 @@ import java.util.function.BooleanSupplier;
  */
 public class AdminConsole {
 
-    public static String ip = "localhost";
+    public static String ip = "192.168.56.1";
     public static int port = 7000;
     public static Scanner sc = new Scanner(System.in);
     public static int r1;

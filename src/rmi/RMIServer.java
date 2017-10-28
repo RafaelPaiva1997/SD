@@ -10,12 +10,12 @@ public class RMIServer {
 
     public static Registry registry;
     public static Database database;
-    public static String ip = "localhost";
+    public static String ip = "192.168.56.1";
     public static int port = 7000;
 
     public static void main(String[] args) {
         try {
-            registry = LocateRegistry.createRegistry(port);
+            registry = LocateRegistry.getRegistry(ip, port);
             database = new Database(1);
             database.setId(1);
             if (!database.put())
