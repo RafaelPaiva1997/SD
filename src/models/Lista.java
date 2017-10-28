@@ -69,6 +69,11 @@ public class Lista
     }
 
     @Override
+    public boolean hasReferences() throws RemoteException {
+        return !pessoas.isEmpty();
+    }
+
+    @Override
     public String printPessoas() throws RemoteException {
         return printLinkedList(pessoas);
     }
@@ -76,5 +81,14 @@ public class Lista
     @Override
     public String inLinePrint() throws RemoteException {
         return "LISTA - Nome: " + nome + " Eleição: " + eleicao.getTitulo() + "\n";
+    }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        StringBuilder out = new StringBuilder();
+        out.append("   ." + nome + "\n");
+        for (Pessoa e : pessoas)
+            out.append(e.inLinePrint());
+        return out.toString();
     }
 }

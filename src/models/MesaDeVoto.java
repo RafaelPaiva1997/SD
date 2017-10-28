@@ -76,6 +76,12 @@ public class MesaDeVoto
     }
 
     @Override
+    public boolean hasReferences() throws RemoteException {
+        return !eleicoes.isEmpty() && !pessoas.isEmpty();
+    }
+
+
+    @Override
     public String printPessoas() throws RemoteException {
         return printLinkedList(pessoas);
     }
@@ -93,5 +99,14 @@ public class MesaDeVoto
     @Override
     public boolean isWorking() throws RemoteException {
         return !eleicoes.isEmpty();
+    }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        StringBuilder out = new StringBuilder();
+        out.append("   ." + "realizada no departamento" + departamento + "\n");
+        for (Pessoa e : pessoas)
+            out.append(e.inLinePrint());
+        return out.toString();
     }
 }

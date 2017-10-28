@@ -158,6 +158,16 @@ public abstract class Eleicao
         return false;
     }
 
+    @Override
+    public boolean hasReferences() throws RemoteException {
+        for (MesaDeVoto e : mesasDeVoto)
+            if (e.hasReferences())
+                return true;
+        for (Lista e : listas)
+            if (e.hasReferences())
+                return true;
+        return !votos.isEmpty();
+    }
 
     @Override
     public String printVotos() throws RemoteException {
@@ -190,4 +200,18 @@ public abstract class Eleicao
                 "\nListas         - " + listas
                 ;
     }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        StringBuilder out = new StringBuilder();
+        out.append("   ." + titulo + "\n");
+        for (Voto e : votos)
+            out.append(e.inLinePrint());
+        for (MesaDeVoto e : mesasDeVoto)
+            out.append(e.printReferences());
+        for (Lista e : listas)
+            out.append(e.printReferences());
+        return out.toString();
+    }
+
 }
