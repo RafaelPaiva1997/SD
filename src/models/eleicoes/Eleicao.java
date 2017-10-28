@@ -2,6 +2,7 @@ package models.eleicoes;
 
 import interfaces.eleicoes.EleicaoInt;
 import models.*;
+import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -95,17 +96,16 @@ public abstract class Eleicao
     }
 
     @Override
-    public long newVoto() throws RemoteException {
-        Voto e = new Voto();
-        e.setEleicao(this);
-        return safeAddPut(votos, e);
-    }
-
-    @Override
     public long newLista() throws RemoteException {
         Lista e = new Lista();
         e.setEleicao(this);
         return safeAddPut(listas, e);
+    }
+
+    @Override
+    public boolean addMesaDeVoto(long id) throws RemoteException {
+        MesaDeVoto e = (MesaDeVoto) RMIServer.database.get(id);
+        return add(mesasDeVoto, e) && add(e.getEleicoes(), this);
     }
 
     @Override
@@ -124,15 +124,15 @@ public abstract class Eleicao
     }
 
     @Override
-    public boolean deleteMesaDeVoto(long id) throws RemoteException {
-        mesasDeVoto.get(find(mesasDeVoto, id)).getEleicoes().remove(this);
-        return remove(mesasDeVoto, id);
-    }
-
-    @Override
     public boolean deleteLista(long id) throws RemoteException {
         listas.get(find(listas, id)).delete();
         return remove(listas, id);
+    }
+
+    @Override
+    public boolean removeMesaDeVoto(long id) throws RemoteException {
+        mesasDeVoto.get(find(mesasDeVoto, id)).getEleicoes().remove(this);
+        return remove(mesasDeVoto, id);
     }
 
     @Override

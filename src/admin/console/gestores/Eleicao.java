@@ -3,14 +3,10 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.DatabaseInt;
-import interfaces.ListaInt;
 import interfaces.eleicoes.DirecaoDepartamentoInt;
 import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.eleicoes.NucleoEstudantesInt;
-import models.MesaDeVoto;
-import models.eleicoes.NucleoEstudantes;
-import models.pessoas.*;
 
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
@@ -59,37 +55,6 @@ public class Eleicao {
             e.printStackTrace();
             return false;
         }
-    }
-
-    public static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
-        try {
-            int pos = r1;
-            getProperty(eleicaoInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Editar " +
-                            "2 - Apagar\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
-
-
-            switch (r1) {
-                case 1:
-                    edit(eleicaoInt);
-                    break;
-
-                case 2:
-                    databaseInt.deleteEleicao(eleicaoInt.getId());
-                    break;
-
-                case 3:
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 
     public static boolean novo(DatabaseInt databaseInt) {
@@ -283,6 +248,24 @@ public class Eleicao {
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean addMesaDeVoto(EleicaoInt eleicaoInt) {
+        try {
+            return eleicaoInt.addMesaDeVoto(Departamento.escolhe(Faculdade.escolhe(databaseInt)).getMesaDeVoto().getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean removeMesaDeVoto(EleicaoInt eleicaoInt) {
+        try {
+            return eleicaoInt.removeMesaDeVoto(MesadeVoto.escolhe(eleicaoInt).getId());
+        } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }

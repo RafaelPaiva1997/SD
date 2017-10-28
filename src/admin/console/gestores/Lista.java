@@ -5,6 +5,7 @@ import interfaces.DatabaseInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.ListaInt;
 import java.rmi.RemoteException;
+import java.util.function.BooleanSupplier;
 
 import static admin.console.AdminConsole.*;
 import static admin.console.AdminConsole.databaseInt;
@@ -31,39 +32,47 @@ public class Lista {
     }
 
     public static boolean gerir(EleicaoInt eleicaoInt){
-
-    }
-}
-
-
-
-    public static boolean gerir(ListaInt listaInt, EleicaoInt eleicaoInt) throws RemoteException {
         try {
-            int pos = r1;
-            getProperty(listaInt.print() +
+            AdminConsole.gerir(eleicaoInt.printListas() +
                             "O que pretende fazer?:\n" +
-                            "1 - Editar " +
-                            "2 - Apagar\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
-
-            switch (r1) {
-                case 1:
-                    edit(listaInt, eleicaoInt);
-                    break;
-
-                case 2:
-                    eleicaoInt.deleteLista(listaInt.getId());
-                    break;
-
-                case 3:
-            }
+                            "1 - Adicionar\n" +
+                            "2 - Editar\n" +
+                            "3 - Remover\n" +
+                            "4 - Voltar\n",
+                    "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                    new int[]{1, 2, 3, 4},
+                    new BooleanSupplier[]{
+                            () -> novo(eleicaoInt),
+                            () -> edit(escolhe(eleicaoInt)),
+                            () -> remove(eleicaoInt),
+                    });
+            return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
+    }
+
+    public static boolean novo(EleicaoInt eleicaoInt) {
+        try {
+            listaInt = (ListaInt) getRegistry(eleicaoInt.newLista());
+
+            getProperty("Insira o Nome: ",
+                    "Por favor insira um nome só com letras",
+                    () -> {
+                        try {
+                            return listaInt.setNome(sc.nextLine());
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                            return false;
+                        }
+                    });
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean edit(ListaInt fi) {
@@ -85,7 +94,7 @@ public class Lista {
                             });
                     break;
                 case "pessoas":
-                    Pessoa.gerir(pessoa,listaInt);
+                    Pessoa.gerir(listaInt);
                     break;
             }
         } catch (RemoteException e) {
@@ -94,7 +103,7 @@ public class Lista {
         return true;
     }
 
-    public static boolean addPessoa(ListaInt listaInt, DatabaseInt databaseInt) {
+    public static boolean addPessoa(ListaInt listaInt) {
         try {
             return listaInt.addPessoa(Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
         } catch (RemoteException e) {
@@ -105,7 +114,31 @@ public class Lista {
 
     public static boolean removePessoa(ListaInt listaInt) {
         try {
-            return listaInt.removePessoa(Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
+            return listaInt.removePessoa(Pessoa.escolhe(listaInt).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean remove(EleicaoInt eleicaoInt) {
+        try {
+            if ((listaInt = escolhe(eleicaoInt)).hasReferences()) {
+                getProperty("Esta lista contem as seguintes referências:\n"
+                                + listaInt.printReferences() +
+                                "\nPretende apagá-la na mesma? ",
+                        "Por favor insira sim ou não.\n",
+                        () -> contains(new String[]{
+                                "sim",
+                                "não",
+                                "nao",
+                                "s",
+                                "n"
+                        }, r2 = sc.nextLine()));
+            }
+            if (contains(new String[]{"sim", "s"}, r2))
+                databaseInt.deleteFaculdade(listaInt.getId());
+            return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;

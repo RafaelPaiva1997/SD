@@ -25,15 +25,15 @@ public interface EleicaoInt extends ModelInt {
     long getDataInicioInt() throws RemoteException;
     long getDataFimInt() throws RemoteException;
 
-    long newVoto() throws RemoteException;
     long newLista() throws RemoteException;
+    boolean addMesaDeVoto(long id) throws RemoteException;
 
     long getVoto(int i) throws RemoteException;
     long getMesaDeVoto(int i) throws RemoteException;
     long getLista(int i) throws RemoteException;
 
-    boolean deleteMesaDeVoto(long id) throws RemoteException;
     boolean deleteLista(long id) throws RemoteException;
+    boolean removeMesaDeVoto(long id) throws RemoteException;
 
     boolean isConselhoGeral() throws RemoteException;
     boolean isDirecaoDepartamento() throws RemoteException;
