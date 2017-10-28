@@ -30,6 +30,7 @@ public interface MesaDeVotoInt extends ModelInt {
 
     boolean hasReferences() throws RemoteException;
 
+    String print() throws RemoteException;
     String printPessoas() throws RemoteException;
     String printEleicoes() throws RemoteException;
     String inLinePrint() throws RemoteException;

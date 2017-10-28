@@ -85,6 +85,15 @@ public class Lista
         return !(pessoas.isEmpty() && votos.isEmpty());
     }
 
+    public String print() throws RemoteException{
+        return super.print() +
+                "\nNome            - " + nome +
+                "\nEleição         -"  + eleicao +
+                "\nPessoas         -"  + pessoas.size() +
+                "\nVoto            - " + votos.size();
+    }
+
+
     @Override
     public String printVotos() throws RemoteException {
         return printLinkedList(votos);

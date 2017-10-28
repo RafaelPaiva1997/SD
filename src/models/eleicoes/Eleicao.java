@@ -194,7 +194,8 @@ public abstract class Eleicao
                 "\nData de inicio - " + dataInicio.inLinePrint() +
                 "\nData de fim    - " + dataFim.inLinePrint() +
                 "\nMesas de voto  - " + mesasDeVoto +
-                "\nListas         - " + listas
+                "\nListas         - " + listas +
+                "\nVotos          - " + votos.size()
                 ;
     }
 

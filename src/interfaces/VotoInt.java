@@ -13,6 +13,7 @@ public interface VotoInt extends ModelInt {
     long getMesaDeVotoInt() throws RemoteException;
     long getDataInt() throws RemoteException;
 
+    String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 
     void delete() throws RemoteException;

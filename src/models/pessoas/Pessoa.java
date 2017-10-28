@@ -279,7 +279,10 @@ public abstract class Pessoa
                 "\nNúmero C.C.     - " + numeroCC +
                 "\nValidade C.C.   - " + validadeCC.print() +
                 "\nGénero          - " + genero +
-                "\nData Nascimento - " + dataNascimento.print();
+                "\nData Nascimento - " + dataNascimento.print() +
+                "\nMesas de Voto   - " + mesasDeVoto.size() +
+                "\nLista           - " + listas.size() +
+                "\nVoto            - " + votos.size();
     }
 
     @Override

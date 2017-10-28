@@ -72,6 +72,15 @@ public class Voto
     }
 
     @Override
+    public String print() throws RemoteException {
+        return super.print() +
+                "\nPessoa     - " + pessoa  +
+                "\nEleição    - " + eleicao +
+                "\nLista      - " + lista
+                ;
+    }
+
+    @Override
     public String inLinePrint() throws RemoteException {
         return "VOTO - Nome: " + pessoa.getNome() + " Eleição: " + eleicao.getTitulo() + " Lista " + lista.getNome() + "\n";
     }

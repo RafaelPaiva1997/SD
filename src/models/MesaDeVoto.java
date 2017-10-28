@@ -92,6 +92,15 @@ public class MesaDeVoto
         return !(eleicoes.isEmpty() && pessoas.isEmpty() && votos.isEmpty());
     }
 
+    @Override
+    public String print() throws RemoteException {
+        return super.print() +
+                "\nDepartament     - " + departamento +
+                "\nEleição         -"  + eleicoes +
+                "\nPessoas         -"  + pessoas.size() +
+                "\nVoto            - " + votos.size();
+
+    }
 
     @Override
     public String printPessoas() throws RemoteException {
