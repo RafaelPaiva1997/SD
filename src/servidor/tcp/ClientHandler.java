@@ -1,16 +1,19 @@
 package servidor.tcp;
 
-import admin.console.gestores.Lista;
+import interfaces.ListaInt;
+import interfaces.VotoInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.pessoas.PessoaInt;
+import models.listas.Lista;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;
 
-public class ClientHandler extends Thread{
+public class ClientHandler extends Thread {
 
     private Socket socket;
     private boolean busy;
@@ -33,11 +36,13 @@ public class ClientHandler extends Thread{
         StringBuilder sb;
         while (true) {
             try {
+                logged = false;
                 countDownLatch = new CountDownLatch(1);
                 send("Terminal de Voto Ligado.\n");
                 System.out.print(receive());
                 countDownLatch.await();
-                do {
+                send("type|logged;key|" + logged);
+                while (!logged) {
                     s = receive();
                     if (s.split(";")[0].split("|")[1].equals("login")) {
                         username = s.split(";")[1].split("|")[1];
@@ -45,14 +50,28 @@ public class ClientHandler extends Thread{
                         logged = true;
                     }
                     send("return|" + logged);
-                } while (!logged);
-                sb = new StringBuilder("type|item_list;item_count|" + eleicaoInt.getListas().size() + 2 + ";");
-                for (int i = 0; i < eleicaoInt.getListas().size(); i++)
-                    sb.append("item_" + i + "_name|" + eleicaoInt.getListas().get(i).inLinePrint() + ";");
-                sb.append("item_" + eleicaoInt.getListas().size() + "_name|Voto em Branco;");
-                sb.append("item_" + eleicaoInt.getListas().size() + 1 + "_name|Voto Nulo;");
+                }
+                LinkedList<Lista> listas = eleicaoInt.getListas(pessoaInt.getId());
+                sb = new StringBuilder("type|item_list;item_count|" + listas.size() + 2 + ";");
+                for (int i = 0; i < listas.size(); i++)
+                    sb.append("item_" + i + "_name|" + listas.get(i).inLinePrint() + ";");
+                sb.append("item_" + listas.size() + "_name|Voto em Branco;");
+                sb.append("item_" + listas.size() + 1 + "_name|Voto Nulo;");
                 send(sb.toString());
                 s = receive();
+                if (Integer.parseInt(s.split(";")[1].split("|")[1]) < listas.size())
+                    ((VotoInt) ServidorTCP.getRegistry(ServidorTCP.databaseInt.newVoto())).novo(pessoaInt.getId(),
+                            eleicaoInt.getId(),
+                            eleicaoInt.getLista(Integer.parseInt(s.split(";")[1].split("|")[1])),
+                            ServidorTCP.mesaDeVotoInt.getId());
+                else if (Integer.parseInt(s.split(";")[1].split("|")[1]) == listas.size())
+                    ((VotoInt) ServidorTCP.getRegistry(ServidorTCP.databaseInt.newVoto())).novoBranco(pessoaInt.getId(),
+                            eleicaoInt.getId(),
+                            ServidorTCP.mesaDeVotoInt.getId());
+                else
+                    ((VotoInt) ServidorTCP.getRegistry(ServidorTCP.databaseInt.newVoto())).novoNulo(pessoaInt.getId(),
+                            eleicaoInt.getId(),
+                            ServidorTCP.mesaDeVotoInt.getId());
             } catch (Exception e) {
                 e.printStackTrace();
             }

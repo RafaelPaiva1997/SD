@@ -17,6 +17,10 @@ public class DirecaoFaculdade
         super();
     }
 
+    public Faculdade getFaculdade() {
+        return faculdade;
+    }
+
     @Override
     public boolean isDirecaoFaculdade() throws RemoteException {
         return true;

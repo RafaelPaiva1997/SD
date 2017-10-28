@@ -16,5 +16,8 @@ public interface VotoInt extends ModelInt {
     String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
 
+    void novo(long id1, long id2, long id3, long id4) throws RemoteException;
+    void novoBranco(long id1, long id2, long id3) throws RemoteException;
+    void novoNulo(long id1, long id2, long id3) throws RemoteException;
     void delete() throws RemoteException;
 }

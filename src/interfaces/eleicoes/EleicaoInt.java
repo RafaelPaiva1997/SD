@@ -3,7 +3,7 @@ package interfaces.eleicoes;
 import java.rmi.RemoteException;
 
 import interfaces.ModelInt;
-import models.Lista;
+import models.listas.Lista;
 import models.MesaDeVoto;
 import models.Voto;
 
@@ -18,6 +18,7 @@ public interface EleicaoInt extends ModelInt {
     LinkedList<Voto> getVotos() throws RemoteException;
     LinkedList<MesaDeVoto> getMesasDeVoto() throws RemoteException;
     LinkedList<Lista> getListas() throws RemoteException;
+    LinkedList<Lista> getListas(long id) throws RemoteException;
 
     boolean setTitulo(String titulo) throws RemoteException;
     boolean setDescricao(String descricao) throws RemoteException;

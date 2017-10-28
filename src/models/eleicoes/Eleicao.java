@@ -2,6 +2,8 @@ package models.eleicoes;
 
 import interfaces.eleicoes.EleicaoInt;
 import models.*;
+import models.listas.Lista;
+import models.pessoas.Pessoa;
 import rmi.RMIServer;
 
 import java.io.Serializable;
@@ -61,6 +63,47 @@ public abstract class Eleicao
     @Override
     public LinkedList<Lista> getListas() throws RemoteException {
         return listas;
+    }
+
+    @Override
+    public LinkedList<Lista> getListas(long id) throws RemoteException {
+        LinkedList<Lista> out = new LinkedList<>();
+        Pessoa p = (Pessoa) RMIServer.database.get(id);
+        for (Lista l : listas) {
+            if (isConselhoGeral()) {
+                if (p.isAluno() &&
+                        l.isListaAlunos())
+                        out.add(l);
+                if (p.isDocente() &&
+                        l.isListaDocentes())
+                        out.add(l);
+                if (p.isFuncionario() &&
+                        l.isListaFuncionarios())
+                        out.add(l);
+            }
+            if (isNucleoEstudantes()) {
+                NucleoEstudantes ne = (NucleoEstudantes) this;
+                if (p.isAluno() &&
+                        p.getDepartamento().getId() == ne.getDepartamento().getId() &&
+                        l.isListaAlunos())
+                    out.add(l);
+            }
+            if (isDirecaoDepartamento()) {
+                DirecaoDepartamento dd = (DirecaoDepartamento) this;
+                if (p.isDocente() &&
+                        p.getDepartamento().getId() == dd.getDepartamento().getId() &&
+                        l.isListaAlunos())
+                    out.add(l);
+            }
+            if (isDirecaoFaculdade()) {
+                DirecaoFaculdade df = (DirecaoFaculdade) this;
+                if (p.isDocente() &&
+                        p.getDepartamento().getFaculdade().getId() == df.getFaculdade().getId() &&
+                        l.isListaAlunos())
+                    out.add(l);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -164,6 +207,13 @@ public abstract class Eleicao
             if (e.hasReferences())
                 return true;
         return !votos.isEmpty();
+    }
+
+    public boolean hasVoted(Pessoa e) {
+        for (Voto v : votos)
+            if (v.getPessoa().getId() == e.getId())
+                return true;
+        return false;
     }
 
     @Override

@@ -17,6 +17,10 @@ public class DirecaoDepartamento
         super();
     }
 
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
     @Override
     public boolean setDepartamento(long id) throws RemoteException {
         boolean flag = true;

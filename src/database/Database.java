@@ -1,6 +1,6 @@
 package database;
 
-import models.Lista;
+import models.listas.Lista;
 import models.MesaDeVoto;
 import models.Model;
 import models.Voto;
@@ -174,6 +174,11 @@ public class Database
     }
 
     @Override
+    public long newVoto() throws RemoteException {
+        return safePut(new Voto());
+    }
+
+    @Override
     public long getFaculdade(int i) throws RemoteException {
         return safePut(faculdades.get(i));
     }
@@ -213,61 +218,64 @@ public class Database
     }
 
     @Override
-    public LinkedList<Long> searchPessoa(String query) throws RemoteException {
+    public LinkedList<Long> searchPessoa(String query, long id) throws RemoteException {
         LinkedList<Long> out = new LinkedList<>();
+        Eleicao eleicao = (Eleicao) get(id);
         String[] q = query.split("-");
         for (Faculdade faculdade : faculdades) {
             for (Departamento departamento : faculdade.getDepartamentos()) {
                 for (Pessoa pessoa : departamento.getPessoas()) {
-                    switch (q[0]) {
-                        case "nome":
-                            if (pessoa.getNome().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                    if (!eleicao.hasVoted(pessoa)) {
+                        switch (q[0]) {
+                            case "nome":
+                                if (pessoa.getNome().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "username":
-                            if (pessoa.getUsername().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "username":
+                                if (pessoa.getUsername().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "password":
-                            if (pessoa.getPassword().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "password":
+                                if (pessoa.getPassword().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "nº telemóvel":
-                            if (String.valueOf(pessoa.getTelemovel()).contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "nº telemóvel":
+                                if (String.valueOf(pessoa.getTelemovel()).contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "morada":
-                            if (pessoa.getMorada().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "morada":
+                                if (pessoa.getMorada().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "código postal":
-                            if (pessoa.getCodigoPostal().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "código postal":
+                                if (pessoa.getCodigoPostal().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
 
-                        case "localidade":
-                            if (pessoa.getLocalidade().contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "localidade":
+                                if (pessoa.getLocalidade().contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
 
-                        case "número c.c.":
-                            if (String.valueOf(pessoa.getNumeroCC()).contains(q[1]))
-                                out.add(pessoa.getId());
-                            pessoa.put();
-                            break;
+                            case "número c.c.":
+                                if (String.valueOf(pessoa.getNumeroCC()).contains(q[1]))
+                                    out.add(pessoa.getId());
+                                pessoa.put();
+                                break;
+                        }
                     }
                 }
             }

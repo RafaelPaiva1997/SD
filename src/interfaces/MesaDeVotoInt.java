@@ -12,8 +12,6 @@ import java.util.LinkedList;
  * Created by Carlos on 21-10-2017.
  */
 public interface MesaDeVotoInt extends ModelInt {
-
-    long getDepartamento() throws RemoteException;
     LinkedList<Pessoa> getPessoas() throws RemoteException;
     LinkedList<Eleicao> getEleicoes() throws RemoteException;
     LinkedList<Voto> getVotos() throws RemoteException;
@@ -25,6 +23,7 @@ public interface MesaDeVotoInt extends ModelInt {
     long getPessoa(int i) throws RemoteException;
     long getEleicao(int i) throws RemoteException;
     long getVoto(int i) throws RemoteException;
+    long getDepartamentoInt() throws RemoteException;
     boolean removePessoa(long id) throws RemoteException;
     boolean removeEleicao(long id) throws RemoteException;
 

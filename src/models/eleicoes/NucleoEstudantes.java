@@ -22,6 +22,10 @@ public class NucleoEstudantes
         return true;
     }
 
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
     @Override
     public boolean setDepartamento(long id) throws RemoteException {
         boolean flag = true;

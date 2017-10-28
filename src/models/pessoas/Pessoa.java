@@ -2,6 +2,7 @@ package models.pessoas;
 
 import interfaces.pessoas.PessoaInt;
 import models.*;
+import models.listas.Lista;
 import models.organizacoes.Departamento;
 import rmi.RMIServer;
 

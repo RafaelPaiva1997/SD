@@ -1,6 +1,8 @@
-package models;
+package models.listas;
 
 import interfaces.ListaInt;
+import models.Model;
+import models.Voto;
 import models.eleicoes.Eleicao;
 import models.pessoas.Pessoa;
 import rmi.RMIServer;
@@ -78,6 +80,18 @@ public class Lista
     @Override
     public long getVoto(int i) throws RemoteException {
         return safePut(votos.get(i));
+    }
+
+    public boolean isListaAlunos() {
+        return false;
+    }
+
+    public boolean isListaDocentes() {
+        return false;
+    }
+
+    public boolean isListaFuncionarios() {
+        return false;
     }
 
     @Override

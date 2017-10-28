@@ -17,18 +17,18 @@ import java.util.function.BooleanSupplier;
 
 public class ServidorTCP {
 
-    private static ClientReciever clientReciever;
-    private static MesaDeVotoInt mesaDeVotoInt;
-    private static DatabaseInt databaseInt;
-    private static EleicaoInt eleicaoInt;
-    private static String ipRMI;
-    private static int portRMI;
-    private static int portTCP;
-    private static int r1;
-    private static String r2;
-    private static Scanner sc;
-    private static String username;
-    private static String password;
+    public static ClientReciever clientReciever;
+    public static MesaDeVotoInt mesaDeVotoInt;
+    public static DatabaseInt databaseInt;
+    public static EleicaoInt eleicaoInt;
+    public static String ipRMI;
+    public static int portRMI;
+    public static int portTCP;
+    public static int r1;
+    public static String r2;
+    public static Scanner sc;
+    public static String username;
+    public static String password;
 
     public static Remote getRegistry(long id) {
         try {
@@ -227,41 +227,41 @@ public class ServidorTCP {
                     switch (r2.toLowerCase()) {
                         case "nome":
                             System.out.print("Insira o nome: ");
-                            pessoas = databaseInt.searchPessoa("nome-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("nome-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "username":
                             System.out.print("Insira o username: ");
-                            pessoas = databaseInt.searchPessoa("username-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("username-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "password":
                             System.out.print("Insira a password: ");
-                            pessoas = databaseInt.searchPessoa("password-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("password-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "nº telemóvel":
                         case "nº telemovel":
                         case "no telemóvel":
                         case "no telemovel":
                             System.out.print("Insira o nº telemóvel: ");
-                            pessoas = databaseInt.searchPessoa("nº telemóvel-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("nº telemóvel-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "morada":
                             System.out.print("Insira o morada: ");
-                            pessoas = databaseInt.searchPessoa("morada-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("morada-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "código postal":
                             System.out.print("Insira o código postal: ");
-                            pessoas = databaseInt.searchPessoa("código postal-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("código postal-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "localidade":
                             System.out.print("Insira o localidade: ");
-                            pessoas = databaseInt.searchPessoa("localidade-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("localidade-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                         case "número c.c.":
                         case "numero c.c.":
                         case "número cc":
                         case "numero cc":
                             System.out.print("número c.c.: ");
-                            pessoas = databaseInt.searchPessoa("número c.c.-" + sc.nextLine());
+                            pessoas = databaseInt.searchPessoa("número c.c.-" + sc.nextLine(), eleicaoInt.getId());
                             break;
                     }
 

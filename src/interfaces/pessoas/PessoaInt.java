@@ -1,7 +1,7 @@
 package interfaces.pessoas;
 
 import interfaces.ModelInt;
-import models.Lista;
+import models.listas.Lista;
 import models.MesaDeVoto;
 import models.Voto;
 

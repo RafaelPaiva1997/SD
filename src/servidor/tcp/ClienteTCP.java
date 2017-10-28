@@ -40,25 +40,31 @@ public class ClienteTCP {
             Scanner sc = new Scanner(System.in);
             String username;
             String password;
-            String listas;
+            String s;
+            int r;
             try {
                 socket = new Socket();
                 socket.connect(new InetSocketAddress(ip, port));
                 System.out.print(receive());
                 send("Terminal de Voto Ligado.\n");
-                do {
-                    System.out.print("Insira o username: ");
-                    username = sc.nextLine();
-                    System.out.print("Insira a password: ");
-                    password = sc.nextLine();
-                    send("type|login;username|" + username + ";password|" + password);
-                } while (!receive().split("|")[1].equals("true"));
-                listas = receive();
-                if (listas.split(";")[0].split("|")[1].equals("item_list")) {
-                    for (int i = 0; i < Integer.parseInt(listas.split(";")[1].split("|")[1]); i++)
-                        
+                if (receive().split(";")[0].split("|")[1].equals("false")) {
+                    do {
+                        System.out.print("Insira o username: ");
+                        username = sc.nextLine();
+                        System.out.print("Insira a password: ");
+                        password = sc.nextLine();
+                        send("type|login;username|" + username + ";password|" + password);
+                    } while (!receive().split("|")[1].equals("true"));
                 }
+                s = receive();
+                if (s.split(";")[0].split("|")[1].equals("item_list"))
+                    for (int i = 0; i < Integer.parseInt(s.split(";")[1].split("|")[1]); i++)
+                        System.out.print(s.split(";")[1 + i].split("|")[1] + "\n");
+                System.out.print("Insira o seu voto: ");
+                while ((r = sc.nextInt()) < 0 || r < Integer.parseInt(s.split(";")[1].split("|")[1]))
+                    System.out.print("Por favor insira uma das opções válidas.\n");
 
+                send("type|vote;key|" + r);
             } catch (Exception e) {
                 e.printStackTrace();
             }

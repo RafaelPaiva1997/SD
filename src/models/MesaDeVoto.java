@@ -28,9 +28,8 @@ public class MesaDeVoto
         votos = new LinkedList<>();
     }
 
-    @Override
-    public long getDepartamento() throws RemoteException  {
-        return safePut(departamento);
+    public Departamento getDepartamento() {
+        return departamento;
     }
 
     @Override
@@ -77,6 +76,11 @@ public class MesaDeVoto
     @Override
     public long getVoto(int i) throws RemoteException {
         return safePut(votos.get(i));
+    }
+
+    @Override
+    public long getDepartamentoInt() throws RemoteException  {
+        return safePut(departamento);
     }
 
     @Override

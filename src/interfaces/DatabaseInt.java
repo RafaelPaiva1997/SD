@@ -21,6 +21,7 @@ public interface DatabaseInt extends ModelInt {
     long newDirecaoDepartamento() throws RemoteException;
     long newDirecaoFaculdade() throws RemoteException;
     long newNucleoEstudantes() throws RemoteException;
+    long newVoto() throws RemoteException;
 
     long getFaculdade(int i) throws RemoteException;
     long getEleicao(int i) throws RemoteException;
@@ -31,5 +32,5 @@ public interface DatabaseInt extends ModelInt {
     String printFaculdades() throws RemoteException;
     String printEleicoes() throws RemoteException;
 
-    LinkedList<Long> searchPessoa(String query) throws RemoteException;
+    LinkedList<Long> searchPessoa(String query, long id) throws RemoteException;
 }
