@@ -17,6 +17,8 @@ public class ObjectFile {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database.ser"));
             database = (Database) ois.readObject();
             ois.close();
+        } catch (ClassNotFoundException | FileNotFoundException e) {
+            new File("database.ser");
         } catch (Exception e) {
             try {
                 database = new Database(1);
