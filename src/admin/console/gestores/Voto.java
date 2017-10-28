@@ -69,7 +69,7 @@ public class Voto {
                     "Não Existem votos. Por favor insira um.\n",
                     "Escolha o voto:\n" + pessoaInt.printVotos(),
                     "Por favor insira um número de voto válido.\n",
-                    pessoaInt.getVoto())) == -1)
+                    pessoaInt.getVotos())) == -1)
                 return null;
             return (VotoInt)  getRegistry(pessoaInt.getVoto(r1));
         } catch (Exception e) {
@@ -78,13 +78,12 @@ public class Voto {
         }
     }
 
-
     public static boolean gerir(EleicaoInt eleicaoInt) throws RemoteException{
         try {
             AdminConsole.gerir(eleicaoInt.printVotos() +
                             "O que pretende fazer?:\n" +
-                            "1 - Remover\n" +
-                            "2 - Voltar\n",
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2},
                     new BooleanSupplier[]{
