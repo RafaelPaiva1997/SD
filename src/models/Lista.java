@@ -62,7 +62,7 @@ public class Lista
     @Override
     public boolean addPessoa(long id) throws RemoteException {
         Pessoa e = (Pessoa) RMIServer.database.get(id);
-        return add(pessoas, e) && add(e.getListas(), this);
+        return !pessoas.contains(e) && add(pessoas, e) && add(e.getListas(), this);
     }
 
     @Override

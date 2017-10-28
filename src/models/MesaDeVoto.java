@@ -53,13 +53,13 @@ public class MesaDeVoto
     @Override
     public boolean addPessoa(long id) throws RemoteException {
         Pessoa e = (Pessoa) RMIServer.database.get(id);
-        return add(pessoas, e) && add(e.getMesasDeVoto(), this);
+        return !pessoas.contains(e) && add(pessoas, e) && add(e.getMesasDeVoto(), this);
     }
 
     @Override
     public boolean addEleicao(long id) throws RemoteException {
         Eleicao e = (Eleicao) RMIServer.database.get(id);
-        return add(eleicoes, e) && add(e.getMesasDeVoto(), this);
+        return !eleicoes.contains(e) && add(eleicoes, e) && add(e.getMesasDeVoto(), this);
     }
 
     @Override
