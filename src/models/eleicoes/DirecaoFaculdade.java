@@ -68,7 +68,6 @@ public class DirecaoFaculdade
     @Override
     public String print() throws RemoteException{
         return super.print() +
-                "\nFaculdade      - " + faculdade
-                ;
+                "\nFaculdade      - " + faculdade.getNome();
     }
 }

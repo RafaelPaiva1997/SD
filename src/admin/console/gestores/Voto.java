@@ -199,10 +199,10 @@ public class Voto {
         try {
             PessoaInt pessoaInt = Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt)));
             EleicaoInt eleicaoInt = Eleicao.escolhe(databaseInt);
-            if (eleicaoInt.isFinish()) {
+            /*if (eleicaoInt.isFinish()) {
                 System.out.print("Eleição já terminou!.\n");
                 return false;
-            }
+            }*/
             int n = eleicaoInt.getListas(pessoaInt.getId()).size();
             System.out.print("Escolha o seu voto:\n" +
                     eleicaoInt.printListas(pessoaInt.getId()) +

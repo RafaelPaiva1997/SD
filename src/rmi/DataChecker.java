@@ -15,6 +15,7 @@ public class DataChecker extends Thread {
         try {
             while (true) {
                 date = new Date();
+                data = new Data();
                 data.setAno(date.getYear());
                 data.setMes(date.getMonth());
                 data.setDia(date.getDay());
@@ -23,13 +24,11 @@ public class DataChecker extends Thread {
                 data.setSegundo(date.getSeconds());
                 if (!RMIServer.database.getEleicoes().isEmpty()) {
                     for (Eleicao e : RMIServer.database.getEleicoes()) {
-                        if (!e.isFinish()) {
-                            if (!e.isRunning() && data.maior(e.getDataInicio()))
-                                e.setRunning(true);
-                            if (e.isRunning() && data.maior(e.getDataFim())) {
-                                e.setRunning(false);
-                                e.setFinish(true);
-                            }
+                        if (!e.isRunning() && data.maior(e.getDataInicio()) && e.getDataFim().maior(data))
+                            e.setRunning(true);
+                        if (e.isRunning() && data.maior(e.getDataFim())) {
+                            e.setRunning(false);
+                            e.setFinish(true);
                         }
                     }
                 }

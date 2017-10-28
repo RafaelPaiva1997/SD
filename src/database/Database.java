@@ -184,7 +184,7 @@ public class Database
 
     @Override
     public long getEleicao(int i) throws RemoteException {
-        return safePut(faculdades.get(i));
+        return safePut(eleicoes.get(i));
     }
 
     @Override

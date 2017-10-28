@@ -31,6 +31,7 @@ public abstract class Eleicao
     public Eleicao() throws RemoteException {
         super();
         running = false;
+        finish = false;
         dataInicio = new Data();
         dataFim = new Data();
         votos = new LinkedList<>();
@@ -261,10 +262,9 @@ public abstract class Eleicao
                 "\nDescrição      - " + descricao +
                 "\nData de inicio - " + dataInicio.inLinePrint() +
                 "\nData de fim    - " + dataFim.inLinePrint() +
-                "\nMesas de voto  - " + mesasDeVoto +
-                "\nListas         - " + listas +
-                "\nVotos          - " + votos.size()
-                ;
+                "\nMesas de voto  - " + mesasDeVoto.size() +
+                "\nListas         - " + listas.size() +
+                "\nVotos          - " + votos.size();
     }
 
     @Override

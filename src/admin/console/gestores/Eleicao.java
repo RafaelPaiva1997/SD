@@ -25,7 +25,7 @@ public class Eleicao {
         try {
             if ((r1 = AdminConsole.escolhe(
                     "Não Existem eleições. Por favor insira um.\n",
-                    "Escolha a eleição:\n" + databaseInt.printFaculdades(),
+                    "Escolha a eleição:\n" + databaseInt.printEleicoes(),
                     "Por favor insira um número de eleição válido.\n",
                     databaseInt.getEleicoes())) == -1)
                 return null;
@@ -129,7 +129,7 @@ public class Eleicao {
 
             Data.edit("a data de inicio", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
 
-            Data.edit("a data de fim", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
+            Data.edit("a data de fim", (DataInt) getRegistry(eleicaoInt.getDataFimInt()));
 
             if (eleicaoInt.isNucleoEstudantes()) {
                 NucleoEstudantesInt nucleoEstudantesInt = (NucleoEstudantesInt) eleicaoInt;
@@ -212,7 +212,7 @@ public class Eleicao {
                 case "data de inicío":
                 case "data de inicio":
                     try {
-                        Data.edit("a data de inicio.\n", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
+                        Data.edit("a data de inicio", (DataInt) getRegistry(eleicaoInt.getDataInicioInt()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -220,7 +220,7 @@ public class Eleicao {
 
                 case "data de fim":
                     try {
-                        Data.edit("a data de fim\n", (DataInt) getRegistry(eleicaoInt.getDataFimInt()));
+                        Data.edit("a data de fim", (DataInt) getRegistry(eleicaoInt.getDataFimInt()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

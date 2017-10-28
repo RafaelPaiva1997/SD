@@ -67,8 +67,7 @@ public class NucleoEstudantes
     @Override
     public String print() throws RemoteException{
         return super.print() +
-                "\nDepartamento   - " + departamento
-                ;
+                "\nDepartamento   - " + departamento.getNome();
     }
 }
 

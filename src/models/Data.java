@@ -133,7 +133,7 @@ public class Data extends Model implements DataInt, Serializable
     public String print() throws RemoteException {
         String out = "";
         if (hora != -1 && minuto != -1 && segundo != -1)
-            out += hora + ":" + minuto + ":" + segundo + "   ";
+            out += hora + ":" + minuto + ":" + segundo + " ";
         if (ano != -1 && mes != -1 && dia != -1)
             out += dia + "/" + mes + "/" + ano;
         return out;
@@ -154,6 +154,6 @@ public class Data extends Model implements DataInt, Serializable
 
     @Override
     public String inLinePrint() throws RemoteException {
-        return "DATA - " + print() + "\n";
+        return "DATA - " + print();
     }
 }
