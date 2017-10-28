@@ -259,6 +259,19 @@ public abstract class Pessoa
     }
 
     @Override
+    public boolean addMesaDeVoto(long id) throws RemoteException {
+        MesaDeVoto e = (MesaDeVoto) RMIServer.database.get(id);
+        return add(mesasDeVoto, e) && add(e.getPessoas(), this);
+    }
+
+    @Override
+    public boolean removeMesaDeVoto(long id) throws RemoteException {
+        mesasDeVoto.get(find(mesasDeVoto, id)).getPessoas().remove(this);
+        return remove(mesasDeVoto, id);
+    }
+
+
+    @Override
     public boolean addLista(long id) throws RemoteException {
         Lista e = (Lista) RMIServer.database.get(id);
         return !listas.contains(e) && add(listas, e) && add(e.getPessoas(), this);

@@ -42,6 +42,7 @@ public interface PessoaInt extends ModelInt {
     long getVoto(int i) throws RemoteException;
     long getMesaDeVoto(int i) throws RemoteException;
 
+    boolean addMesaDeVoto(long id) throws RemoteException;
     boolean addLista(long id) throws RemoteException;
     boolean removeLista(long id) throws RemoteException;
 
@@ -49,6 +50,8 @@ public interface PessoaInt extends ModelInt {
     boolean isDocente() throws RemoteException;
     boolean isFuncionario() throws RemoteException;
     boolean hasReferences() throws RemoteException;
+
+    boolean removeMesaDeVoto(long id) throws RemoteException;
 
     String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
