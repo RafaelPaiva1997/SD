@@ -21,8 +21,11 @@ public interface ListaInt extends ModelInt {
     long getPessoa(int i) throws RemoteException;
     boolean removePessoa(long id) throws RemoteException;
 
+    long getVoto(int i) throws RemoteException;
+
     boolean hasReferences() throws RemoteException;
 
+    String printVotos() throws RemoteException;
     String printPessoas() throws RemoteException;
     String inLinePrint() throws RemoteException;
     String printReferences() throws RemoteException;
