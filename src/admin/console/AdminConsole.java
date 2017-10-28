@@ -95,6 +95,21 @@ public class AdminConsole {
         }
     }
 
+    public static boolean gerir(String s1, String s2, int[] a, BooleanSupplier[] c) {
+        while(true) {
+            getProperty(s1, s2, () -> !contains(a, (r1 = sc.nextInt())));
+
+            if (r1 == c.length) return true;
+
+            for (int i = 0; i < c.length; i++) {
+                if (i == r1) {
+                    c[i].getAsBoolean();
+                    i = c.length;
+                }
+            }
+        }
+    }
+
 
 
 

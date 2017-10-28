@@ -29,33 +29,39 @@ public class Faculdade {
         }
     }
 
-    public static boolean gerir(FaculdadeInt faculdadeInt, DatabaseInt databaseInt) throws RemoteException {
-        try {
-            int pos = r1;
-            getProperty(faculdadeInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Editar " +
-                            "2 - Apagar\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
+    public static boolean gerir(DatabaseInt databaseInt) throws RemoteException {
+        while (true) {
+            try {
+                int pos = r1;
+                getProperty(faculdadeInt.print() +
+                                "O que pretende fazer?:\n" +
+                                "1 - Editar " +
+                                "2 - Apagar\n" +
+                                "3 - Voltar\n",
+                        "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                        () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
 
-            switch (r1) {
-                case 1:
-                    edit(faculdadeInt);
-                    break;
+                switch (r1) {
+                    case 1:
 
-                case 2:
-                    databaseInt.deleteFaculdade(faculdadeInt.getId());
-                    break;
+                        break;
 
-                case 3:
+                    case 2:
+                        edit(faculdadeInt);
+                        break;
+
+                    case 3:
+                        databaseInt.deleteFaculdade(faculdadeInt.getId());
+                        break;
+
+                    case 4:
+                        return true;
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return false;
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public static boolean novo(DatabaseInt databaseInt) {

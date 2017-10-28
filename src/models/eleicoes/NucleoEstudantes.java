@@ -40,13 +40,7 @@ public class NucleoEstudantes
     @Override
     public String print() throws RemoteException{
         return super.print() +
-                "\nTítulo            - " + titulo +
-                "\nDescrição        - " + descricao +
-                "\nData de inicio   - " + dataInicio.inLinePrint() +
-                "\nData de fim       -" + dataFim.inLinePrint() +
-                "\nMesas de voto    - " + mesasDeVoto +
-                "\nListas           -"  + listas +
-                "\nDepartamento     -"  + departamento
+                "\nDepartamento   - " + departamento
                 ;
     }
 }

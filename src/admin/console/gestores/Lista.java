@@ -1,18 +1,14 @@
 package admin.console.gestores;
 
 import admin.console.AdminConsole;
-import interfaces.DataInt;
 import interfaces.DatabaseInt;
-import interfaces.eleicoes.DirecaoDepartamentoInt;
-import interfaces.eleicoes.DirecaoFaculdadeInt;
 import interfaces.eleicoes.EleicaoInt;
-import interfaces.eleicoes.NucleoEstudantesInt;
-import interfaces.pessoas.PessoaInt;
-import models.eleicoes.NucleoEstudantes;
 import interfaces.ListaInt;
 import java.rmi.RemoteException;
 
 import static admin.console.AdminConsole.*;
+import static admin.console.AdminConsole.databaseInt;
+
 /**
  * Created by Johny on 26/10/2017.
  */
@@ -33,6 +29,7 @@ public class Lista {
             return null;
         }
     }
+
     public static boolean gerir(EleicaoInt eleicaoInt){
 
     }
@@ -96,3 +93,22 @@ public class Lista {
         }
         return true;
     }
+
+    public static boolean addPessoa(ListaInt listaInt) {
+        try {
+            return listaInt.addPessoa(Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean removePessoa(ListaInt listaInt) {
+        try {
+            return listaInt.removePessoa(Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}

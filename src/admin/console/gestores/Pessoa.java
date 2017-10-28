@@ -10,6 +10,10 @@ import interfaces.pessoas.FuncionarioInt;
 import interfaces.pessoas.PessoaInt;
 
 import java.rmi.RemoteException;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+import java.util.function.BooleanSupplier;
+
 import static admin.console.AdminConsole.*;
 
 /**
@@ -80,79 +84,44 @@ public class Pessoa {
     }
 
     public static boolean gerir(DepartamentoInt departamentoInt) {
-        while(true) {
-            try {
-                getProperty(departamentoInt.printPessoas() +
-                                "O que pretende fazer?:\n" +
-                                "1 - Adicionar\n" +
-                                "2 - Editar\n" +
-                                "3 - Remover\n" +
-                                "4 - Voltar\n",
-                        "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                        () -> !contains(new int[]{1, 2, 3, 4}, (r1 = sc.nextInt())));
-
-                switch (r1) {
-                    case 1:
-                        Pessoa.novo(departamentoInt);
-                        break;
-
-                    case 2:
-                        edit(escolhe(departamentoInt));
-                        break;
-                    case 3:
-                        if ((pessoaInt = escolhe(departamentoInt)).hasReferences()) {
-                            getProperty("Esta pessoa esta registada em:\n"
-                                            + pessoaInt.printReferences() +
-                                            "\nPretende apagá-la na mesma? ",
-                                    "Por favor insira sim ou não.\n",
-                                    () -> contains(new String[]{
-                                            "sim",
-                                            "não",
-                                            "nao",
-                                            "s",
-                                            "n"
-                                    }, r2 = sc.nextLine()));
-                        }
-                        if (contains(new String[]{"sim", "s"}, r2))
-                            departamentoInt.deletePessoa(pessoaInt.getId());
-                        break;
-                    case 4:
-                        return true;
-                }
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                return false;
-            }
+        try {
+            AdminConsole.gerir(departamentoInt.printPessoas() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar\n" +
+                            "2 - Editar\n" +
+                            "3 - Remover\n" +
+                            "4 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3, 4},
+                    new BooleanSupplier[]{
+                            () -> Pessoa.novo(departamentoInt),
+                            () -> edit(escolhe(departamentoInt)),
+                            () -> remove(departamentoInt),
+                    });
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
     public static boolean gerir(ListaInt listaInt){
-        while (true) {
-            try {
-                getProperty(listaInt.print() +
-                                "O que pretende fazer?:\n" +
-                                "1 - Adicionar \n" +
-                                "2 - Remover\n" +
-                                "3 - Voltar\n",
-                        "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                        () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
-
-                switch (r1) {
-                    case 1:
-                        listaInt.addPessoa(escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
-                        break;
-
-                    case 2:
-                        listaInt.removePessoa(escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
-                        break;
-                    case 3:
-
-                }
-                return true;
-            } catch (RemoteException e) {
-                e.printStackTrace();
-                return false;
-            }
+        try {
+            AdminConsole.gerir(listaInt.print() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar \n" +
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3},
+                    new BooleanSupplier[]{
+                            () -> Lista.addPessoa(listaInt),
+                            () -> Lista.removePessoa(listaInt)
+                });
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -577,5 +546,27 @@ public class Pessoa {
             case 2:
         }
         return true;
+    }
+
+    public static boolean remove(DepartamentoInt departamentoInt) {
+        try {
+            if ((pessoaInt = escolhe(departamentoInt)).hasReferences()) {
+                getProperty("Esta pessoa esta registada em:\n"
+                                + pessoaInt.printReferences() +
+                                "\nPretende apagá-la na mesma? ",
+                        "Por favor insira sim ou não.\n",
+                        () -> contains(new String[]{
+                                "sim",
+                                "não",
+                                "nao",
+                                "s",
+                                "n"
+                        }, r2 = sc.nextLine()));
+            }
+            if (contains(new String[]{"sim", "s"}, r2))
+                departamentoInt.deletePessoa(pessoaInt.getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

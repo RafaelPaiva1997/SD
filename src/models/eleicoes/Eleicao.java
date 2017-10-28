@@ -158,10 +158,6 @@ public abstract class Eleicao
         return false;
     }
 
-    @Override
-    public String print() throws RemoteException {
-
-    }
 
     @Override
     public String printVotos() throws RemoteException {
@@ -181,5 +177,17 @@ public abstract class Eleicao
     @Override
     public String inLinePrint() throws RemoteException {
         return "Título: " + titulo + " Data Início: " + dataInicio.print() + " Data Fim: " + dataFim.print();
+    }
+
+    @Override
+    public String print() throws RemoteException{
+        return super.print() +
+                "\nTítulo         - " + titulo +
+                "\nDescrição      - " + descricao +
+                "\nData de inicio - " + dataInicio.inLinePrint() +
+                "\nData de fim    - " + dataFim.inLinePrint() +
+                "\nMesas de voto  - " + mesasDeVoto +
+                "\nListas         - " + listas
+                ;
     }
 }
