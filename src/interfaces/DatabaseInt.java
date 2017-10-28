@@ -30,4 +30,6 @@ public interface DatabaseInt extends ModelInt {
 
     String printFaculdades() throws RemoteException;
     String printEleicoes() throws RemoteException;
+
+    LinkedList<Long> searchPessoa(String query) throws RemoteException;
 }

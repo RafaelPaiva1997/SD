@@ -15,12 +15,14 @@ public class MesaDeVoto
         implements MesaDeVotoInt, Serializable
 {
     private Departamento departamento;
+    private boolean[] logins;
     private final LinkedList<Pessoa> pessoas;
     private final LinkedList<Eleicao> eleicoes;
     private final LinkedList<Voto> votos;
 
     public MesaDeVoto() throws RemoteException {
         super();
+        logins = new boolean[]{false, false, false};
         pessoas = new LinkedList<>();
         eleicoes = new LinkedList<>();
         votos = new LinkedList<>();
@@ -53,7 +55,7 @@ public class MesaDeVoto
     @Override
     public boolean addPessoa(long id) throws RemoteException {
         Pessoa e = (Pessoa) RMIServer.database.get(id);
-        return !pessoas.contains(e) && add(pessoas, e) && add(e.getMesasDeVoto(), this);
+        return !pessoas.contains(e) && pessoas.size() <= logins.length && add(pessoas, e) && add(e.getMesasDeVoto(), this);
     }
 
     @Override
@@ -93,6 +95,24 @@ public class MesaDeVoto
     }
 
     @Override
+    public boolean login(String username, String password) throws RemoteException {
+        for (int i = 0; i < pessoas.size(); i++){
+            if (!logins[i] && pessoas.get(i).getUsername().equals(username) &&
+                    pessoas.get(i).getPassword().equals(password)) {
+                logins[i] = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void shutdown() throws RemoteException {
+        for (int i = 0; i < logins.length; i++)
+            logins[i] = false;
+    }
+
+    @Override
     public String print() throws RemoteException {
         return super.print() +
                 "\nDepartament     - " + departamento +
@@ -119,7 +139,7 @@ public class MesaDeVoto
 
     @Override
     public boolean isWorking() throws RemoteException {
-        return !eleicoes.isEmpty();
+        return !eleicoes.isEmpty() && pessoas.size() == 3 && logins[0] && logins[1] && logins[2];
     }
 
     @Override
