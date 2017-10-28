@@ -4,6 +4,7 @@ import admin.console.AdminConsole;
 import interfaces.MesaDeVotoInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.organizacoes.DepartamentoInt;
+import interfaces.pessoas.PessoaInt;
 import models.MesaDeVoto;
 
 import java.rmi.RemoteException;
@@ -57,7 +58,24 @@ public class MesadeVoto {
         try {
             AdminConsole.gerir(departamentoInt.getMesaDeVoto().inLinePrint() +
                             "O que pretende fazer?:\n" +
-                            "1 - Gerir Pe \n" +
+                            "1 - Gerir \n" +
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3},
+                    new BooleanSupplier[]{
+                    });
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public static boolean gerir(PessoaInt pessoaInt) {
+        try {
+            AdminConsole.gerir(pessoaInt.printMesasDeVoto() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar \n" +
                             "2 - Remover\n" +
                             "3 - Voltar\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",

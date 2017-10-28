@@ -4,6 +4,8 @@ import admin.console.AdminConsole;
 import interfaces.DatabaseInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.ListaInt;
+import interfaces.pessoas.PessoaInt;
+
 import java.rmi.RemoteException;
 import java.util.function.BooleanSupplier;
 
@@ -31,6 +33,21 @@ public class Lista {
         }
     }
 
+    public static ListaInt escolhe(PessoaInt pessoaInt){
+        try {
+            if ((r1 = AdminConsole.escolhe(
+                    "Não Existem pessoa. Por favor insira uma.\n",
+                    "Escolha a pessoa:\n" + pessoaInt.printListas(),
+                    "Por favor insira um número de pessoa válido.\n",
+                    pessoaInt.getListas())) == -1)
+                return null;
+            return (ListaInt)  getRegistry(listaInt.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static boolean gerir(EleicaoInt eleicaoInt){
         try {
             AdminConsole.gerir(eleicaoInt.printListas() +
@@ -45,6 +62,26 @@ public class Lista {
                             () -> novo(eleicaoInt),
                             () -> edit(escolhe(eleicaoInt)),
                             () -> remove(eleicaoInt),
+                    });
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean gerir(PessoaInt pessoaInt){
+        try {
+            AdminConsole.gerir(pessoaInt.printListas() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar \n" +
+                            "2 - Remover\n" +
+                            "3 - Voltar\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    new int[]{1, 2, 3},
+                    new BooleanSupplier[]{
+                            () -> Pessoa.addLista(pessoaInt),
+                            () -> Pessoa.removeLista(pessoaInt)
                     });
             return true;
         } catch (RemoteException e) {

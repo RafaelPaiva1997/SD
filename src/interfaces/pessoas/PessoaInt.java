@@ -40,6 +40,10 @@ public interface PessoaInt extends ModelInt {
     long getDataNascimentoInt() throws RemoteException;
     long getDepartamentoInt() throws RemoteException;
     long getVoto(int i) throws RemoteException;
+    long getMesaDeVoto(int i) throws RemoteException;
+
+    boolean addLista(long id) throws RemoteException;
+    boolean removeLista(long id) throws RemoteException;
 
     boolean isAluno() throws RemoteException;
     boolean isDocente() throws RemoteException;
@@ -50,4 +54,6 @@ public interface PessoaInt extends ModelInt {
     String inLinePrint() throws RemoteException;
     String printVotos() throws RemoteException;
     String printReferences() throws RemoteException;
+    String printMesasDeVoto() throws RemoteException;
+    String printListas() throws RemoteException;
 }

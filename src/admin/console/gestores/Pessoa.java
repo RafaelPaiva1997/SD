@@ -8,6 +8,7 @@ import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
 import interfaces.pessoas.FuncionarioInt;
 import interfaces.pessoas.PessoaInt;
+import models.*;
 
 import java.rmi.RemoteException;
 import java.sql.CallableStatement;
@@ -347,7 +348,10 @@ public class Pessoa {
                                     "validade cc",
                                     "género",
                                     "genero",
-                                    "data nascimento"
+                                    "data nascimento",
+                                    "mesas de voto",
+                                    "lista",
+                                    "voto"
                             }, r2 = sc.nextLine()) ||
                                     pessoaInt.isAluno() && contains(new String[]{
                                             "nºaluno",
@@ -534,6 +538,22 @@ public class Pessoa {
                             }
                             return false;
                         });
+            case "mesa de voto":
+                MesadeVoto.gerir(pessoaInt);
+                break;
+
+            case "listas":
+                Lista.gerir(pessoaInt);
+                break;
+
+            case "Voto":
+                try {
+                    Voto.gerir(pessoaInt);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                break;
+
         }
 
         getProperty(
@@ -551,6 +571,24 @@ public class Pessoa {
             case 2:
         }
         return true;
+    }
+
+    public static boolean addLista(PessoaInt pessoaInt) {
+        try {
+            return pessoaInt.addLista(Lista.escolhe(Eleicao.escolhe(databaseInt)).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean removeLista(PessoaInt pessoaInt) {
+        try {
+            return pessoaInt.addLista(Lista.escolhe(pessoaInt).getId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static boolean remove(DepartamentoInt departamentoInt) {

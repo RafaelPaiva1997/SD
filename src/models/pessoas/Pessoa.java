@@ -3,6 +3,7 @@ package models.pessoas;
 import interfaces.pessoas.PessoaInt;
 import models.*;
 import models.organizacoes.Departamento;
+import rmi.RMIServer;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -87,6 +88,10 @@ public abstract class Pessoa
     public String getGenero() throws RemoteException {
         return genero;
     }
+    public  long getMesadeVoto(int i) throws RemoteException {
+        return safePut(mesasDeVoto.get(i));
+    }
+
 
     public Data getValidadeCC() {
         return validadeCC;
@@ -240,9 +245,26 @@ public abstract class Pessoa
         return safePut(departamento);
     }
 
+
+    @Override
+    public long getMesaDeVoto(int i) throws RemoteException {
+        return safePut(mesasDeVoto.get(i));
+    }
+
     @Override
     public long getVoto(int i) throws RemoteException {
         return safePut(votos.get(i));
+    }
+
+    @Override
+    public boolean addLista(long id) throws RemoteException {
+        Lista e = (Lista) RMIServer.database.get(id);
+        return !listas.contains(e) && add(listas, e) && add(e.getPessoas(), this);
+    }
+
+    @Override
+    public boolean removeLista(long id) throws RemoteException {
+        return remove(listas, id) && remove(((Lista) RMIServer.database.get(id)).getPessoas(), this.id);
     }
 
     @Override
@@ -293,6 +315,16 @@ public abstract class Pessoa
     @Override
     public String printVotos() throws RemoteException {
         return printLinkedList(votos);
+    }
+
+    @Override
+    public String printMesasDeVoto() throws RemoteException {
+        return printLinkedList(mesasDeVoto);
+    }
+
+    @Override
+    public String printListas() throws RemoteException {
+        return printLinkedList(listas);
     }
 
     @Override
