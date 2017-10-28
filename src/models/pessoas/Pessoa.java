@@ -241,6 +241,11 @@ public abstract class Pessoa
     }
 
     @Override
+    public long getVoto(int i) throws RemoteException {
+        return safePut(votos.get(i));
+    }
+
+    @Override
     public boolean isAluno() throws RemoteException {
         return false;
     }
@@ -280,6 +285,11 @@ public abstract class Pessoa
     @Override
     public String inLinePrint() throws RemoteException {
         return "Nome: " + nome + " Nº CC: " + numeroCC + " Departamento: " + departamento.getNome();
+    }
+
+    @Override
+    public String printVotos() throws RemoteException {
+        return printLinkedList(votos);
     }
 
     @Override

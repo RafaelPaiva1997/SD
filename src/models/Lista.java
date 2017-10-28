@@ -76,8 +76,18 @@ public class Lista
     }
 
     @Override
+    public long getVoto(int i) throws RemoteException {
+        return safePut(votos.get(i));
+    }
+
+    @Override
     public boolean hasReferences() throws RemoteException {
         return !(pessoas.isEmpty() && votos.isEmpty());
+    }
+
+    @Override
+    public String printVotos() throws RemoteException {
+        return printLinkedList(votos);
     }
 
     @Override

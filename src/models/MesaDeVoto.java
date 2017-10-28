@@ -73,6 +73,11 @@ public class MesaDeVoto
     }
 
     @Override
+    public long getVoto(int i) throws RemoteException {
+        return safePut(votos.get(i));
+    }
+
+    @Override
     public boolean removePessoa(long id) throws RemoteException {
         return remove(pessoas, id) && remove(((Pessoa) RMIServer.database.get(id)).getListas(), this.id);
     }
@@ -106,6 +111,11 @@ public class MesaDeVoto
     @Override
     public boolean isWorking() throws RemoteException {
         return !eleicoes.isEmpty();
+    }
+
+    @Override
+    public String printVotos() throws RemoteException {
+        return printLinkedList(votos);
     }
 
     @Override
