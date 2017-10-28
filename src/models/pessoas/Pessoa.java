@@ -303,8 +303,8 @@ public abstract class Pessoa
                 "\nGénero          - " + genero +
                 "\nData Nascimento - " + dataNascimento.print() +
                 "\nMesas de Voto   - " + mesasDeVoto.size() +
-                "\nLista           - " + listas.size() +
-                "\nVoto            - " + votos.size();
+                "\nListas          - " + listas.size() +
+                "\nVotos           - " + votos.size();
     }
 
     @Override

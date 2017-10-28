@@ -82,8 +82,8 @@ public class Faculdade {
             sc.nextLine();
             getProperty(faculdadeInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
-                    () -> contains(new String[]{"nome", "departamentos"}, r2 = sc.nextLine()));
-            switch (r2) {
+                    () -> !contains(new String[]{"nome", "departamentos"}, r2 = sc.nextLine()));
+            switch (r2.toLowerCase()) {
                 case "nome":
                     getProperty("Por favor insira um nome só com letras.\n",
                             () -> {
@@ -101,6 +101,22 @@ public class Faculdade {
                     break;
 
             }
+
+            getProperty(
+                    "Quer editar mais alguma Propriedade?\n" +
+                            "1 - Sim\n" +
+                            "2 - Não\n",
+                    "Por favor insira um número correspondente a uma das opções disponíveis.\n",
+                    () -> !contains(new int[]{1, 2}, r1 = sc.nextInt()));
+
+            switch (r1) {
+                case 1:
+                    edit(faculdadeInt);
+                    break;
+
+                case 2:
+            }
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,7 +131,7 @@ public class Faculdade {
                                 + faculdadeInt.printReferences() +
                                 "\nPretende apagá-la na mesma? ",
                         "Por favor insira sim ou não.\n",
-                        () -> contains(new String[]{
+                        () -> !contains(new String[]{
                                 "sim",
                                 "não",
                                 "nao",
@@ -123,7 +139,7 @@ public class Faculdade {
                                 "n"
                         }, r2 = sc.nextLine()));
             }
-            if (contains(new String[]{"sim", "s"}, r2))
+            if (!contains(new String[]{"sim", "s"}, r2))
                 databaseInt.deleteFaculdade(faculdadeInt.getId());
             return true;
         } catch (RemoteException e) {

@@ -120,7 +120,7 @@ public class AdminConsole {
                             "2 - Gerir Eleições\n" +
                             "3 - Adicionar Voto\n" +
                             "4 - Voltar\n",
-                    "Por favor insira um número correspondente a uma das opções disponíveis.\n",
+                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
                     new int[]{1, 2, 3, 4},
                     new BooleanSupplier[]{
                             () -> gerirFaculdades(databaseInt),

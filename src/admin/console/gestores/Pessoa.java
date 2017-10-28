@@ -328,7 +328,7 @@ public class Pessoa {
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> {
                         try {
-                            return contains(new String[]{
+                            return !(contains(new String[]{
                                     "nome",
                                     "username",
                                     "password",
@@ -364,7 +364,7 @@ public class Pessoa {
                                             "funcão",
                                             "funcao"
                                     }, r2) ||
-                                    pessoaInt.isDocente() && r2.toLowerCase().equals("cargo");
+                                    pessoaInt.isDocente() && r2.toLowerCase().equals("cargo"));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -547,11 +547,7 @@ public class Pessoa {
                 break;
 
             case "Voto":
-                try {
-                    Voto.gerir(pessoaInt);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+                Voto.gerir(pessoaInt);
                 break;
 
         }
@@ -561,7 +557,7 @@ public class Pessoa {
                         "1 - Sim\n" +
                         "2 - Não\n",
                 "Por favor insira um número correspondente a uma das opções disponíveis.\n",
-                () -> contains(new int[]{1, 2}, r1 = sc.nextInt()));
+                () -> !contains(new int[]{1, 2}, r1 = sc.nextInt()));
 
         switch (r1) {
             case 1:
@@ -598,7 +594,7 @@ public class Pessoa {
                                 + pessoaInt.printReferences() +
                                 "\nPretende apagá-la na mesma? ",
                         "Por favor insira sim ou não.\n",
-                        () -> contains(new String[]{
+                        () -> !contains(new String[]{
                                 "sim",
                                 "não",
                                 "nao",
@@ -606,7 +602,7 @@ public class Pessoa {
                                 "n"
                         }, r2 = sc.nextLine()));
             }
-            if (contains(new String[]{"sim", "s"}, r2))
+            if (!contains(new String[]{"sim", "s"}, r2))
                 departamentoInt.deletePessoa(pessoaInt.getId());
             return true;
         } catch (RemoteException e) {

@@ -105,7 +105,7 @@ public abstract class Model
         Model e;
         for (Object o : l) {
             e = (Model) o;
-            out.append(i + "->" +e.inLinePrint());
+            out.append(i++ + "->" +e.inLinePrint());
         }
         return out.toString();
     }

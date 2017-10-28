@@ -81,7 +81,7 @@ public class Voto {
         }
     }
 
-    public static boolean gerir(EleicaoInt eleicaoInt) throws RemoteException{
+    public static boolean gerir(EleicaoInt eleicaoInt) {
         try {
             AdminConsole.gerir(eleicaoInt.printVotos() +
                             "O que pretende fazer?:\n" +
@@ -99,7 +99,7 @@ public class Voto {
         }
     }
 
-    public static boolean gerir(ListaInt listaInt) throws RemoteException{
+    public static boolean gerir(ListaInt listaInt) {
         try {
             AdminConsole.gerir(listaInt.printVotos() +
                             "O que pretende fazer?:\n" +
@@ -117,7 +117,7 @@ public class Voto {
         }
     }
 
-    public static boolean gerir(MesaDeVotoInt mesaDeVotoInt) throws RemoteException{
+    public static boolean gerir(MesaDeVotoInt mesaDeVotoInt) {
         try {
             AdminConsole.gerir(mesaDeVotoInt.printVotos() +
                             "O que pretende fazer?:\n" +
@@ -135,7 +135,7 @@ public class Voto {
         }
     }
 
-    public static boolean gerir(PessoaInt pessoaInt) throws RemoteException{
+    public static boolean gerir(PessoaInt pessoaInt) {
         try {
             AdminConsole.gerir(pessoaInt.printVotos() +
                             "O que pretende fazer?:\n" +

@@ -1,15 +1,11 @@
 package servidor.tcp;
 
-import admin.console.gestores.Departamento;
-import admin.console.gestores.Eleicao;
-import admin.console.gestores.Faculdade;
 import interfaces.DatabaseInt;
 import interfaces.MesaDeVotoInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.organizacoes.FaculdadeInt;
 import interfaces.pessoas.PessoaInt;
-import models.MesaDeVoto;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -166,9 +162,9 @@ public class ServidorTCP {
 
     public static String printPessoas(LinkedList<Long> pessoas) {
         StringBuilder out = new StringBuilder();
-        for (Long l : pessoas) {
+        for (int i = 0; i < pessoas.size(); i++) {
             try {
-                out.append(((PessoaInt) getRegistry(l)).inLinePrint());
+                out.append(i + "->" + ((PessoaInt) getRegistry(pessoas.get(i))).inLinePrint());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -187,7 +183,7 @@ public class ServidorTCP {
             databaseInt = (DatabaseInt) getRegistry(1);
             System.out.print("Escolha o departamento desta mesa de voto:\n");
             try {
-                mesaDeVotoInt = Departamento.escolhe(Faculdade.escolhe(databaseInt)).getMesaDeVoto();
+                mesaDeVotoInt = ((DepartamentoInt) escolhe(escolhe(databaseInt))).getMesaDeVoto();
                 mesaDeVotoInt.shutdown();
                 while (!mesaDeVotoInt.isWorking())
                     login();
