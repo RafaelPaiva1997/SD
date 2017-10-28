@@ -16,10 +16,14 @@ public class ObjectFile {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database.ser"));
             database = (Database) ois.readObject();
-            if (database == null) database = new Database(1);
             ois.close();
         } catch (ClassNotFoundException | FileNotFoundException e) {
             new File("database.ser");
+            try {
+                database = new Database(1);
+            } catch (RemoteException e1) {
+                e1.printStackTrace();
+            }
         } catch (Exception e) {
             try {
                 database = new Database(1);
