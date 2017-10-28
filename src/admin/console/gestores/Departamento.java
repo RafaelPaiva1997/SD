@@ -64,7 +64,7 @@ public class Departamento {
                     "Por favor insira um nome só com letras",
                     () -> {
                         try {
-                            return departamentoInt.setNome(sc.nextLine());
+                            return !departamentoInt.setNome(sc.nextLine());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                             return false;

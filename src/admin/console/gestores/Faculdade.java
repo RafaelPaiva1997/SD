@@ -62,7 +62,7 @@ public class Faculdade {
                     "Por favor insira um nome só com letras",
                     () -> {
                         try {
-                            return faculdadeInt.setNome(sc.nextLine());
+                            return !faculdadeInt.setNome(sc.nextLine());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                             return false;

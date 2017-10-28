@@ -31,7 +31,7 @@ public class AdminConsole {
     }
 
     public static void getProperty(String s1, BooleanSupplier call) {
-        while (!call.getAsBoolean())
+        while (call.getAsBoolean())
             System.out.print(s1);
     }
 
@@ -142,7 +142,7 @@ public class AdminConsole {
                             "1 - Gerir Base de Dados\n" +
                             "2 - Sair\n",
                     "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    new int[]{1, 2, 3},
+                    new int[]{1, 2},
                     new BooleanSupplier[]{
                             () -> gerirBaseDados(databaseInt),
                     });

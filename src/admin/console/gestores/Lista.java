@@ -63,7 +63,7 @@ public class Lista {
                     "Por favor insira um nome só com letras",
                     () -> {
                         try {
-                            return listaInt.setNome(sc.nextLine());
+                            return !listaInt.setNome(sc.nextLine());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                             return false;
