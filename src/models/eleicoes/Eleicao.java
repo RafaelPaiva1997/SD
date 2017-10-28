@@ -124,12 +124,6 @@ public abstract class Eleicao
     }
 
     @Override
-    public boolean deleteVoto(long id) throws RemoteException {
-        votos.get(find(votos, id)).delete();
-        return remove(votos, id);
-    }
-
-    @Override
     public boolean deleteMesaDeVoto(long id) throws RemoteException {
         mesasDeVoto.get(find(mesasDeVoto, id)).getEleicoes().remove(this);
         return remove(mesasDeVoto, id);

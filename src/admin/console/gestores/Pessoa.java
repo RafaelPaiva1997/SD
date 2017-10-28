@@ -108,7 +108,7 @@ public class Pessoa {
 
     public static boolean gerir(ListaInt listaInt){
         try {
-            AdminConsole.gerir(listaInt.print() +
+            AdminConsole.gerir(listaInt.printPessoas() +
                             "O que pretende fazer?:\n" +
                             "1 - Adicionar \n" +
                             "2 - Remover\n" +

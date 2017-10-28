@@ -13,6 +13,7 @@ import models.eleicoes.NucleoEstudantes;
 import models.pessoas.*;
 
 import java.rmi.RemoteException;
+import java.util.function.BooleanSupplier;
 
 import static admin.console.AdminConsole.*;
 
@@ -38,8 +39,27 @@ public class Eleicao {
         }
     }
 
-    public static boolean gerir()
-
+    public static boolean gerir(DatabaseInt databaseInt) {
+        try {
+            AdminConsole.gerir(databaseInt.printEleicoes() +
+                            "O que pretende fazer?:\n" +
+                            "1 - Adicionar\n" +
+                            "2 - Editar\n" +
+                            "3 - Remover\n" +
+                            "4 - Voltar\n",
+                    "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                    new int[]{1, 2, 3, 4},
+                    new BooleanSupplier[]{
+                            () -> novo(databaseInt),
+                            () -> edit(escolhe(databaseInt)),
+                            () -> remove(databaseInt),
+                    });
+            return true;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static boolean gerir(DatabaseInt databaseInt, EleicaoInt eleicaoInt) {
         try {
@@ -245,7 +265,48 @@ public class Eleicao {
                     Voto.gerir(eleicaoInt);
                     break;
             }
+
+            getProperty(
+                    "Quer editar mais alguma Propriedade?\n" +
+                            "1 - Sim\n" +
+                            "2 - Não\n",
+                    "Por favor insira um número correspondente a uma das opções disponíveis.\n",
+                    () -> contains(new int[]{1, 2}, r1 = sc.nextInt()));
+
+            switch (r1) {
+                case 1:
+                    edit(eleicaoInt);
+                    break;
+
+                case 2:
+            }
+            return true;
+
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean remove(DatabaseInt databaseInt) {
+        try {
+            if ((eleicaoInt = escolhe(databaseInt)).hasReferences()) {
+                getProperty("Esta eleição contem as seguintes referências:\n"
+                                + eleicaoInt.printReferences() +
+                                "\nPretende apagá-la na mesma? ",
+                        "Por favor insira sim ou não.\n",
+                        () -> contains(new String[]{
+                                "sim",
+                                "não",
+                                "nao",
+                                "s",
+                                "n"
+                        }, r2 = sc.nextLine()));
+            }
+            if (contains(new String[]{"sim", "s"}, r2))
+                databaseInt.deleteFaculdade(eleicaoInt.getId());
+            return true;
+        } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }

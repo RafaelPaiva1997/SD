@@ -32,7 +32,6 @@ public interface EleicaoInt extends ModelInt {
     long getMesaDeVoto(int i) throws RemoteException;
     long getLista(int i) throws RemoteException;
 
-    boolean deleteVoto(long id) throws RemoteException;
     boolean deleteMesaDeVoto(long id) throws RemoteException;
     boolean deleteLista(long id) throws RemoteException;
 
