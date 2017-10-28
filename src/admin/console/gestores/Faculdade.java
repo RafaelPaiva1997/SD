@@ -80,7 +80,7 @@ public class Faculdade {
         faculdadeInt = fi;
         try {
             sc.nextLine();
-            getProperty(faculdadeInt.print() + "\nPor favor insira a propriedade a ediar: ",
+            getProperty(faculdadeInt.print() + "\nPor favor insira a propriedade a editar: ",
                     "Por favor insira uma característica correspondente a uma das disponíveis.\n",
                     () -> contains(new String[]{"nome", "departamentos"}, r2 = sc.nextLine()));
             switch (r2) {

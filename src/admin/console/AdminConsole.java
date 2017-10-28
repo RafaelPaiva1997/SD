@@ -14,8 +14,8 @@ import java.util.function.BooleanSupplier;
  */
 public class AdminConsole {
 
-    public static String ip = "192.168.56.1";
-    public static int port = 7000;
+    public static String ip;
+    public static int port;
     public static Scanner sc = new Scanner(System.in);
     public static int r1;
     public static String r2;
@@ -120,7 +120,7 @@ public class AdminConsole {
                             "2 - Gerir Eleições\n" +
                             "3 - Adicionar Voto\n" +
                             "4 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    "Por favor insira um número correspondente a uma das opções disponíveis.\n",
                     new int[]{1, 2, 3, 4},
                     new BooleanSupplier[]{
                             () -> gerirFaculdades(databaseInt),
@@ -135,20 +135,23 @@ public class AdminConsole {
     }
 
     public static void main(String[] args) {
-        sc = new Scanner(System.in);
-        try {
-            databaseInt = (DatabaseInt) getRegistry(1);
-            gerir("O que pretende fazer?:\n" +
-                            "1 - Gerir Base de Dados\n" +
-                            "2 - Sair\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    new int[]{1, 2},
-                    new BooleanSupplier[]{
-                            () -> gerirBaseDados(databaseInt),
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (args.length == 2) {
+            ip = args[0];
+            port = Integer.parseInt(args[1]);
+            sc = new Scanner(System.in);
+            try {
+                databaseInt = (DatabaseInt) getRegistry(1);
+                gerir("O que pretende fazer?:\n" +
+                                "1 - Gerir Base de Dados\n" +
+                                "2 - Sair\n",
+                        "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                        new int[]{1, 2},
+                        new BooleanSupplier[]{
+                                () -> gerirBaseDados(databaseInt),
+                        });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
-
 }
