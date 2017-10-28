@@ -183,7 +183,7 @@ public class ServidorTCP {
             databaseInt = (DatabaseInt) getRegistry(1);
             System.out.print("Escolha o departamento desta mesa de voto:\n");
             try {
-                mesaDeVotoInt = ((DepartamentoInt) escolhe(escolhe(databaseInt))).getMesaDeVoto();
+                mesaDeVotoInt = (MesaDeVotoInt) getRegistry(((DepartamentoInt) escolhe(escolhe(databaseInt))).getMesaDeVotoInt());
                 mesaDeVotoInt.shutdown();
                 while (!mesaDeVotoInt.isWorking())
                     login();

@@ -56,7 +56,7 @@ public class MesadeVoto {
 
     public static boolean gerir(DepartamentoInt departamentoInt) {
         try {
-            AdminConsole.gerir(departamentoInt.getMesaDeVoto().inLinePrint() +
+            AdminConsole.gerir(((MesaDeVotoInt) getRegistry(departamentoInt.getMesaDeVotoInt())).print() +
                             "O que pretende fazer?:\n" +
                             "1 - Gerir \n" +
                             "2 - Remover\n" +

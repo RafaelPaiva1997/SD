@@ -173,7 +173,7 @@ public class Pessoa {
                     }));
 
             getProperty("Insira o Username: ",
-                    "Por favor insira um username com entre 8 a 20 caracteres.\n",
+                    "Por favor insira um username com entre 8 a 20 caracteres que não esteja em uso.\n",
                     (() -> {
                         try {
                             return !pessoaInt.setUsername(sc.nextLine());

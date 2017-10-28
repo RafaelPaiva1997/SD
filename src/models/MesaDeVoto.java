@@ -115,10 +115,10 @@ public class MesaDeVoto
     @Override
     public String print() throws RemoteException {
         return super.print() +
-                "\nDepartament     - " + departamento +
-                "\nEleição         -"  + eleicoes +
+                "\nDepartamento    - " + departamento +
+                "\nEleições        -"  + eleicoes.size() +
                 "\nPessoas         -"  + pessoas.size() +
-                "\nVoto            - " + votos.size();
+                "\nVotos           - " + votos.size();
 
     }
 

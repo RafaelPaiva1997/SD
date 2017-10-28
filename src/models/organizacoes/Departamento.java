@@ -38,7 +38,6 @@ public class Departamento
         return faculdade;
     }
 
-    @Override
     public MesaDeVoto getMesaDeVoto() throws RemoteException {
         return mesaDeVoto;
     }
@@ -86,6 +85,11 @@ public class Departamento
     @Override
     public long getPessoa(int i) throws RemoteException {
         return safePut(pessoas.get(i));
+    }
+
+    @Override
+    public long getMesaDeVotoInt() throws RemoteException {
+        return safePut(mesaDeVoto);
     }
 
     @Override

@@ -87,7 +87,7 @@ public abstract class Model
     public boolean isAlpha(String s) {
         Pattern p = Pattern.compile("^[ A-Za-z]+$");
         Matcher m = p.matcher(s);
-        return m.matches();
+        return !s.contains(";") && !s.contains("|") && m.matches();
     }
 
     public boolean isNumber(String s) {

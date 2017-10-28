@@ -14,7 +14,6 @@ import java.util.LinkedList;
 public interface DepartamentoInt extends ModelInt {
     String getNome() throws RemoteException;
     Faculdade getFaculdade() throws RemoteException;
-    MesaDeVoto getMesaDeVoto() throws RemoteException;
     LinkedList<Pessoa> getPessoas() throws RemoteException;
 
     boolean setNome(String nome) throws RemoteException;
@@ -23,6 +22,7 @@ public interface DepartamentoInt extends ModelInt {
     long newDocente() throws RemoteException;
     long newFuncionario() throws RemoteException;
     long getPessoa(int i) throws RemoteException;
+    long getMesaDeVotoInt() throws RemoteException;
     boolean deletePessoa(long id) throws RemoteException;
 
     boolean hasReferences() throws RemoteException;
