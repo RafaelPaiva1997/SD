@@ -1,8 +1,12 @@
 package interfaces.pessoas;
 
 import interfaces.ModelInt;
+import models.Lista;
+import models.MesaDeVoto;
+import models.Voto;
 
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 
 /**
  * Created by Carlos on 19-10-2017.
@@ -17,6 +21,10 @@ public interface PessoaInt extends ModelInt {
     String getMorada() throws RemoteException;
     long getNumeroCC() throws RemoteException;
     String getGenero() throws RemoteException;
+
+    LinkedList<Lista> getListas() throws RemoteException;
+    LinkedList<MesaDeVoto> getMesasDeVoto() throws RemoteException;
+    LinkedList<Voto> getVotos() throws RemoteException;
 
     boolean setNome(String nome) throws RemoteException;
     boolean setUsername(String username) throws RemoteException;
@@ -35,7 +43,9 @@ public interface PessoaInt extends ModelInt {
     boolean isAluno() throws RemoteException;
     boolean isDocente() throws RemoteException;
     boolean isFuncionario() throws RemoteException;
+    boolean hasReferences() throws RemoteException;
 
     String print() throws RemoteException;
     String inLinePrint() throws RemoteException;
+    String printReferences() throws RemoteException;
 }

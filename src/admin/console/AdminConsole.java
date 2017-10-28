@@ -33,6 +33,7 @@ public class AdminConsole {
     public static Scanner sc = new Scanner(System.in);
     public static int r1;
     public static String r2;
+    public static DatabaseInt databaseInt;
 
     public static Remote getRegistry(long id) {
         try {
@@ -382,7 +383,7 @@ public class AdminConsole {
 
     public static void main(String[] args) {
         try {
-            DatabaseInt databaseInt = (DatabaseInt) LocateRegistry.getRegistry((ip, port).lookup("1");
+            databaseInt = (DatabaseInt) LocateRegistry.getRegistry((ip, port).lookup("1");
             Scanner sc = new Scanner(System.in);
             int r1;
             while (true) {

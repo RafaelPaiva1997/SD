@@ -45,12 +45,14 @@ public class MesaDeVoto
 
     @Override
     public boolean addPessoa(long id) throws RemoteException {
-        return add(pessoas, RMIServer.database.get(id));
+        Pessoa e = (Pessoa) RMIServer.database.get(id);
+        return add(pessoas, e) && add(e.getMesasDeVoto(), this);
     }
 
     @Override
     public boolean addEleicao(long id) throws RemoteException {
-        return add(eleicoes, RMIServer.database.get(id));
+        Eleicao e = (Eleicao) RMIServer.database.get(id);
+        return add(eleicoes, e) && add(e.getMesasDeVoto(), this);
     }
 
     @Override
@@ -65,12 +67,12 @@ public class MesaDeVoto
 
     @Override
     public boolean removePessoa(long id) throws RemoteException {
-        return remove(pessoas, id);
+        return remove(pessoas, id) && remove(((Pessoa) RMIServer.database.get(id)).getListas(), this.id);
     }
 
     @Override
     public boolean removeEleicao(long id) throws RemoteException {
-        return remove(eleicoes, id);
+        return remove(eleicoes, id) && remove(((Eleicao) RMIServer.database.get(id)).getListas(), this.id);
     }
 
     @Override

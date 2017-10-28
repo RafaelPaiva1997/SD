@@ -3,7 +3,6 @@ package admin.console.gestores;
 import admin.console.AdminConsole;
 import interfaces.DataInt;
 import interfaces.ListaInt;
-import interfaces.eleicoes.EleicaoInt;
 import interfaces.organizacoes.DepartamentoInt;
 import interfaces.pessoas.AlunoInt;
 import interfaces.pessoas.DocenteInt;
@@ -81,63 +80,80 @@ public class Pessoa {
     }
 
     public static boolean gerir(DepartamentoInt departamentoInt) {
-        try {
-            getProperty( pessoaInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Adicionar\n" +
-                            "2 - Editar\n" +
-                            "3 - Remover\n" +
-                            "4 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2, 3, 4}, (r1 = sc.nextInt())));
+        while(true) {
+            try {
+                getProperty(departamentoInt.printPessoas() +
+                                "O que pretende fazer?:\n" +
+                                "1 - Adicionar\n" +
+                                "2 - Editar\n" +
+                                "3 - Remover\n" +
+                                "4 - Voltar\n",
+                        "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                        () -> !contains(new int[]{1, 2, 3, 4}, (r1 = sc.nextInt())));
 
-            switch (r1) {
-                case 1:
-                    Pessoa.novo(departamentoInt);
-                    break;
-                case 2:
-                    edit(pessoaInt);
-                    break;
-                case 3:
-                    if ()
-                    departamentoInt.deletePessoa(pessoaInt.getId());
-                    break;
-                case 4:
+                switch (r1) {
+                    case 1:
+                        Pessoa.novo(departamentoInt);
+                        break;
 
+                    case 2:
+                        edit(escolhe(departamentoInt));
+                        break;
+                    case 3:
+                        if ((pessoaInt = escolhe(departamentoInt)).hasReferences()) {
+                            getProperty("Esta pessoa esta registada em:\n"
+                                            + pessoaInt.printReferences() +
+                                            "\nPretende apagá-la na mesma? ",
+                                    "Por favor insira sim ou não.\n",
+                                    () -> contains(new String[]{
+                                            "sim",
+                                            "não",
+                                            "nao",
+                                            "s",
+                                            "n"
+                                    }, r2 = sc.nextLine()));
+                        }
+                        if (contains(new String[]{"sim", "s"}, r2))
+                            departamentoInt.deletePessoa(pessoaInt.getId());
+                        break;
+                    case 4:
+                        return true;
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return false;
             }
-            return true;
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return false;
         }
     }
 
     public static boolean gerir(ListaInt listaInt){
-        try {
-            getProperty( listaInt.print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Adicionar \n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
+        while (true) {
+            try {
+                getProperty(listaInt.print() +
+                                "O que pretende fazer?:\n" +
+                                "1 - Adicionar \n" +
+                                "2 - Remover\n" +
+                                "3 - Voltar\n",
+                        "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                        () -> !contains(new int[]{1, 2, 3}, (r1 = sc.nextInt())));
 
-            switch (r1) {
-                case 1:
-                    listaInt.addPessoa(esc);
-                    break;
+                switch (r1) {
+                    case 1:
+                        listaInt.addPessoa(escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
+                        break;
 
-                case 2:
-                    break;
-                case 3:
+                    case 2:
+                        listaInt.removePessoa(escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
+                        break;
+                    case 3:
 
+                }
+                return true;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return false;
             }
-            return true;
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return false;
         }
-    }
     }
 
     public static boolean novo(DepartamentoInt departamentoInt) {
@@ -341,7 +357,6 @@ public class Pessoa {
                                     "nome",
                                     "username",
                                     "password",
-                                    "departamento",
                                     "nº telemóvel",
                                     "nº telemovel",
                                     "no telemóvel",
@@ -415,9 +430,6 @@ public class Pessoa {
                             }
                             return false;
                         });
-                break;
-            case "departamento":
-                //
                 break;
             case "nº telemóvel":
             case "nº telemovel":

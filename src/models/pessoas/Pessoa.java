@@ -1,10 +1,7 @@
 package models.pessoas;
 
 import interfaces.pessoas.PessoaInt;
-import models.Data;
-import models.Lista;
-import models.MesaDeVoto;
-import models.Model;
+import models.*;
 import models.organizacoes.Departamento;
 
 import java.io.Serializable;
@@ -28,11 +25,17 @@ public abstract class Pessoa
     protected String genero;
     protected final Data dataNascimento;
 
+    protected final LinkedList<Lista> listas;
+    protected final LinkedList<MesaDeVoto> mesasDeVoto;
+    protected final LinkedList<Voto> votos;
+
     public Pessoa() throws RemoteException {
         super();
         validadeCC = new Data();
         dataNascimento = new Data();
-
+        listas = new LinkedList<>();
+        mesasDeVoto = new LinkedList<>();
+        votos = new LinkedList<>();
     }
 
 
@@ -91,6 +94,21 @@ public abstract class Pessoa
 
     public Data getDataNascimento() {
         return dataNascimento;
+    }
+
+    @Override
+    public LinkedList<Lista> getListas() {
+        return listas;
+    }
+
+    @Override
+    public LinkedList<MesaDeVoto> getMesasDeVoto() {
+        return mesasDeVoto;
+    }
+
+    @Override
+    public LinkedList<Voto> getVotos() {
+        return votos;
     }
 
     @Override
@@ -238,6 +256,11 @@ public abstract class Pessoa
     }
 
     @Override
+    public boolean hasReferences() throws RemoteException {
+        return !(listas.isEmpty() && mesasDeVoto.isEmpty() && votos.isEmpty());
+    }
+
+    @Override
     public String print() throws RemoteException{
         return super.print() +
                 "\nNome            - " + nome +
@@ -257,5 +280,17 @@ public abstract class Pessoa
     @Override
     public String inLinePrint() throws RemoteException {
         return "Nome: " + nome + " Nº CC: " + numeroCC + " Departamento: " + departamento.getNome();
+    }
+
+    @Override
+    public String printReferences() throws RemoteException {
+        StringBuilder out = new StringBuilder();
+        for (Lista e : listas)
+            out.append(e.inLinePrint());
+        for (MesaDeVoto e : mesasDeVoto)
+            out.append(e.inLinePrint());
+        for (Voto e : votos)
+            out.append(e.inLinePrint());
+        return out.toString();
     }
 }
