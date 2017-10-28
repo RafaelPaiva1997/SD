@@ -17,26 +17,33 @@ public class MesaDeVoto
     private Departamento departamento;
     private final LinkedList<Pessoa> pessoas;
     private final LinkedList<Eleicao> eleicoes;
+    private final LinkedList<Voto> votos;
 
     public MesaDeVoto() throws RemoteException {
         super();
         pessoas = new LinkedList<>();
         eleicoes = new LinkedList<>();
+        votos = new LinkedList<>();
     }
 
     @Override
-    public long getDepartamento() {
+    public long getDepartamento() throws RemoteException  {
         return safePut(departamento);
     }
 
     @Override
-    public LinkedList<Pessoa> getPessoas() {
+    public LinkedList<Pessoa> getPessoas() throws RemoteException  {
         return pessoas;
     }
 
     @Override
-    public LinkedList<Eleicao> getEleicoes() {
+    public LinkedList<Eleicao> getEleicoes() throws RemoteException  {
         return eleicoes;
+    }
+
+    @Override
+    public LinkedList<Voto> getVotos() throws RemoteException  {
+        return votos;
     }
 
     public void setDepartamento(Departamento departamento) {
@@ -77,7 +84,7 @@ public class MesaDeVoto
 
     @Override
     public boolean hasReferences() throws RemoteException {
-        return !eleicoes.isEmpty() && !pessoas.isEmpty();
+        return !(eleicoes.isEmpty() && pessoas.isEmpty() && votos.isEmpty());
     }
 
 
@@ -104,9 +111,26 @@ public class MesaDeVoto
     @Override
     public String printReferences() throws RemoteException {
         StringBuilder out = new StringBuilder();
-        out.append("   ." + "realizada no departamento" + departamento + "\n");
+        out.append("   .Realizada no departamento " + departamento + "\n");
         for (Pessoa e : pessoas)
             out.append(e.inLinePrint());
+        for (Eleicao e : eleicoes)
+            out.append(e.inLinePrint());
+        for (Voto e : votos)
+            out.append(e.inLinePrint());
         return out.toString();
+    }
+
+    public void removeReferences() {
+        try {
+            for (Pessoa e : pessoas)
+                e.getMesasDeVoto().remove(this);
+            for (Eleicao e : eleicoes)
+                e.getMesasDeVoto().remove(this);
+            for (Voto e : votos)
+                e.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

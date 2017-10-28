@@ -7,7 +7,7 @@ import rmi.RMIServer;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public abstract class DirecaoDepartamento
+public class DirecaoDepartamento
         extends Eleicao
         implements DirecaoDepartamentoInt, Serializable
 {

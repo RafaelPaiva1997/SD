@@ -75,4 +75,16 @@ public class Voto
     public String inLinePrint() throws RemoteException {
         return "VOTO - Nome: " + pessoa.getNome() + " Eleição: " + eleicao.getTitulo() + " Lista " + lista.getNome() + "\n";
     }
+
+    @Override
+    public void delete() {
+        try {
+            pessoa.getVotos().remove(this);
+            eleicao.getVotos().remove(this);
+            lista.getVotos().remove(this);
+            mesaDeVoto.getVotos().remove(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

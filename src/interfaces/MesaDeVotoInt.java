@@ -1,5 +1,7 @@
 package interfaces;
 
+import models.MesaDeVoto;
+import models.Voto;
 import models.eleicoes.Eleicao;
 import models.pessoas.Pessoa;
 
@@ -14,6 +16,7 @@ public interface MesaDeVotoInt extends ModelInt {
     long getDepartamento() throws RemoteException;
     LinkedList<Pessoa> getPessoas() throws RemoteException;
     LinkedList<Eleicao> getEleicoes() throws RemoteException;
+    LinkedList<Voto> getVotos() throws RemoteException;
 
     boolean addPessoa(long id) throws RemoteException;
     boolean addEleicao(long id) throws RemoteException;

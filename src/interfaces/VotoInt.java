@@ -14,4 +14,6 @@ public interface VotoInt extends ModelInt {
     long getDataInt() throws RemoteException;
 
     String inLinePrint() throws RemoteException;
+
+    void delete() throws RemoteException;
 }

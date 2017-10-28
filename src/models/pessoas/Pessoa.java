@@ -294,4 +294,17 @@ public abstract class Pessoa
             out.append(e.inLinePrint());
         return out.toString();
     }
+
+    public void removeReferences() {
+        try {
+            for (Lista e : listas)
+                e.getPessoas().remove(this);
+            for (MesaDeVoto e : mesasDeVoto)
+                e.getPessoas().remove(this);
+            for (Voto e : votos)
+                e.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

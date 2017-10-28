@@ -56,6 +56,8 @@ public class Faculdade
 
     @Override
     public boolean deleteDepartamento(long id) throws RemoteException {
+        if(departamentos.get(find(departamentos, id)).hasReferences())
+            departamentos.get(find(departamentos, id)).removeReferences();
         return remove(departamentos, id);
     }
 
@@ -86,6 +88,20 @@ public class Faculdade
 
     @Override
     public String printReferences() throws RemoteException {
-        return null;
+        StringBuilder out = new StringBuilder();
+        out.append("   ." + nome + "\n");
+        for (Departamento e : departamentos)
+            out.append(e.printReferences());
+        return out.toString();
+    }
+
+    public void removeReferences() {
+        try {
+            for (Departamento e : departamentos)
+                if (e.hasReferences())
+                    e.removeReferences();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -78,7 +78,7 @@ public class Departamento
         return newPessoa(new Funcionario());
     }
 
-    public long newPessoa(Pessoa e) {
+    private long newPessoa(Pessoa e) {
         e.setDepartamento(this);
         return safeAddPut(pessoas, e);
     }
@@ -90,6 +90,8 @@ public class Departamento
 
     @Override
     public boolean deletePessoa(long id) throws RemoteException {
+        if (pessoas.get(find(pessoas, id)).hasReferences())
+            pessoas.get(find(pessoas, id)).removeReferences();
         return remove(pessoas, id);
     }
 
@@ -126,5 +128,17 @@ public class Departamento
             out.append(e.printReferences());
         out.append(mesaDeVoto.printReferences()) ;
         return out.toString();
+    }
+
+    public void removeReferences() {
+        try {
+            for (Pessoa e : pessoas)
+                if (e.hasReferences())
+                    e.removeReferences();
+            if (mesaDeVoto.hasReferences())
+                mesaDeVoto.removeReferences();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -40,6 +40,7 @@ public class Pessoa {
             return null;
         }
     }
+
     public static PessoaInt escolhe(ListaInt listaInt) {
         try {
             if ((r1 = AdminConsole.escolhe(
@@ -91,10 +92,10 @@ public class Pessoa {
                             "2 - Editar\n" +
                             "3 - Remover\n" +
                             "4 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
                     new int[]{1, 2, 3, 4},
                     new BooleanSupplier[]{
-                            () -> Pessoa.novo(departamentoInt),
+                            () -> novo(departamentoInt),
                             () -> edit(escolhe(departamentoInt)),
                             () -> remove(departamentoInt),
                     });

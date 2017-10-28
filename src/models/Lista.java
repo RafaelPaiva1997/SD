@@ -16,10 +16,12 @@ public class Lista
     private String nome;
     private Eleicao eleicao;
     private final LinkedList<Pessoa> pessoas;
+    private final LinkedList<Voto> votos;
 
     public Lista() throws RemoteException {
         super();
         pessoas = new LinkedList<>();
+        votos = new LinkedList<>();
     }
 
     @Override
@@ -35,6 +37,11 @@ public class Lista
     @Override
     public LinkedList<Pessoa> getPessoas() throws RemoteException {
         return pessoas;
+    }
+
+    @Override
+    public LinkedList<Voto> getVotos() throws RemoteException {
+        return votos;
     }
 
     @Override
@@ -70,7 +77,7 @@ public class Lista
 
     @Override
     public boolean hasReferences() throws RemoteException {
-        return !pessoas.isEmpty();
+        return !(pessoas.isEmpty() && votos.isEmpty());
     }
 
     @Override
@@ -89,6 +96,19 @@ public class Lista
         out.append("   ." + nome + "\n");
         for (Pessoa e : pessoas)
             out.append(e.inLinePrint());
+        for (Voto e : votos)
+            out.append(e.inLinePrint());
         return out.toString();
+    }
+
+    public void delete() {
+        try {
+            for (Pessoa e : pessoas)
+                e.getListas().remove(this);
+            for (Voto e : votos)
+                e.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package interfaces;
 
+import models.Voto;
 import models.pessoas.Pessoa;
 
 import java.rmi.RemoteException;
@@ -12,6 +13,7 @@ public interface ListaInt extends ModelInt {
     String getNome() throws RemoteException;
     long getEleicao() throws RemoteException;
     LinkedList<Pessoa> getPessoas() throws RemoteException;
+    LinkedList<Voto> getVotos() throws RemoteException;
 
     boolean setNome(String nome) throws RemoteException;
 
@@ -19,7 +21,7 @@ public interface ListaInt extends ModelInt {
     long getPessoa(int i) throws RemoteException;
     boolean removePessoa(long id) throws RemoteException;
 
-    boolean hasReferences() throws RemoteException
+    boolean hasReferences() throws RemoteException;
 
     String printPessoas() throws RemoteException;
     String inLinePrint() throws RemoteException;

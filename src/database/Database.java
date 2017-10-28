@@ -185,12 +185,16 @@ public class Database
 
     @Override
     public boolean deleteFaculdade(long id) throws RemoteException {
-        return faculdades.remove() != null;
+        if (faculdades.get(find(faculdades, id)).hasReferences())
+            faculdades.get(find(faculdades, id)).removeReferences();
+        return remove(faculdades, id);
     }
 
     @Override
     public boolean deleteEleicao(long id) throws RemoteException {
-        return eleicoes.remove() != null;
+        if (eleicoes.get(find(eleicoes, id)).hasReferences())
+            eleicoes.get(find(eleicoes, id)).removeReferences();
+        return remove(eleicoes, id);
     }
 
     @Override

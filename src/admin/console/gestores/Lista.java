@@ -94,7 +94,7 @@ public class Lista {
         return true;
     }
 
-    public static boolean addPessoa(ListaInt listaInt) {
+    public static boolean addPessoa(ListaInt listaInt, DatabaseInt databaseInt) {
         try {
             return listaInt.addPessoa(Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt))).getId());
         } catch (RemoteException e) {

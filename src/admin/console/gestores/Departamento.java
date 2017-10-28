@@ -5,6 +5,7 @@ import interfaces.organizacoes.DepartamentoInt;
 import interfaces.organizacoes.FaculdadeInt;
 
 import java.rmi.RemoteException;
+import java.util.function.BooleanSupplier;
 
 import static admin.console.AdminConsole.*;
 /**
@@ -29,34 +30,26 @@ public class Departamento {
         }
     }
 
-    public static boolean gerir(DepartamentoInt departamentoInt, FaculdadeInt faculdadeInt){
-        try{
-            int pos = r1;
-            getProperty( departamentoInt.print() +
+    public static boolean gerir(FaculdadeInt faculdadeInt){
+        try {
+            AdminConsole.gerir(faculdadeInt.printDepartamentos() +
                             "O que pretende fazer?:\n" +
-                            "1 - Editar "+
-                            "2 - Apagar\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    () -> !contains(new int[]{1, 2}, (r1 = sc.nextInt())));
-
-            switch (r1) {
-                case 1:
-                    edit(departamentoInt);
-                    break;
-
-                case 2:
-                    faculdadeInt.deleteDepartamento(departamentoInt.getId()) ;
-                    break;
-
-                case 3:
-                    break;
-            }
+                            "1 - Adicionar\n" +
+                            "2 - Editar\n" +
+                            "3 - Remover\n" +
+                            "4 - Voltar\n",
+                    "Por favor insira um número correspondente a uma das opcções disponíveis.\n",
+                    new int[]{1, 2, 3, 4},
+                    new BooleanSupplier[]{
+                            () -> novo(faculdadeInt),
+                            () -> edit(escolhe(faculdadeInt)),
+                            () -> remove(faculdadeInt),
+                    });
+            return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     public static boolean novo(FaculdadeInt faculdadeInt) {
@@ -112,12 +105,13 @@ public class Departamento {
             return false;
         }
     }
+
     public static boolean remove(FaculdadeInt faculdadeInt) {
         try {
-            if ((faculdadeInt = escolhe(departamentoInt)).hasReferences()) {
-                getProperty("Esta pessoa esta registada em:\n"
-                                + pessoaInt.printReferences() +
-                                "\nPretende apagá-la na mesma? ",
+            if ((departamentoInt = escolhe(faculdadeInt)).hasReferences()) {
+                getProperty("Este departamento contem as seguintes referências:\n"
+                                + departamentoInt.printReferences() +
+                                "\nPretende apagá-lo na mesma? ",
                         "Por favor insira sim ou não.\n",
                         () -> contains(new String[]{
                                 "sim",
@@ -128,12 +122,11 @@ public class Departamento {
                         }, r2 = sc.nextLine()));
             }
             if (contains(new String[]{"sim", "s"}, r2))
-                departamentoInt.deletePessoa(pessoaInt.getId());
+                faculdadeInt.deleteDepartamento(departamentoInt.getId());
             return true;
         } catch (RemoteException e) {
             e.printStackTrace();
             return false;
         }
     }
-}
 }
