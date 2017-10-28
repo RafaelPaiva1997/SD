@@ -69,24 +69,6 @@ public class MesadeVoto {
         }
     }
 
-    public static boolean gerir(DepartamentoInt departamentoInt) {
-        try {
-            AdminConsole.gerir(((MesaDeVotoInt) getRegistry(departamentoInt.getMesaDeVotoInt())).print() +
-                            "O que pretende fazer?:\n" +
-                            "1 - Gerir \n" +
-                            "2 - Remover\n" +
-                            "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
-                    new int[]{1, 2, 3},
-                    new BooleanSupplier[]{
-                    });
-            return true;
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public static boolean gerir(PessoaInt pessoaInt) {
         try {
             AdminConsole.gerir(pessoaInt.printMesasDeVoto() +

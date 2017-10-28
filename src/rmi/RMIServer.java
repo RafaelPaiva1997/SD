@@ -36,6 +36,8 @@ public class RMIServer {
             countDownLatch.await();
             if (!database.put())
                 System.out.print("database put error\n");
+            DataChecker dataChecker = new DataChecker();
+            dataChecker.start();
             Primary primary = new Primary(serverSocket);
             primary.start();
             System.out.print("Server is Up!.\n");

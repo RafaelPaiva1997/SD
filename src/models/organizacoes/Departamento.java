@@ -116,8 +116,7 @@ public class Departamento
     public String print() throws RemoteException {
         return "   .DEPARTAMENTO" +
                 "\nNome    - " + nome +
-                "\nPessoas - " + pessoas.size()
-                ;
+                "\nPessoas - " + pessoas.size();
     }
 
     @Override

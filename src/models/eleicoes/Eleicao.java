@@ -20,6 +20,8 @@ public abstract class Eleicao
 
     protected String titulo;
     protected String descricao;
+    protected boolean running;
+    protected boolean finish;
     protected final Data dataInicio;
     protected final Data dataFim;
     protected final LinkedList<Voto> votos;
@@ -28,6 +30,7 @@ public abstract class Eleicao
 
     public Eleicao() throws RemoteException {
         super();
+        running = false;
         dataInicio = new Data();
         dataFim = new Data();
         votos = new LinkedList<>();
@@ -106,6 +109,16 @@ public abstract class Eleicao
         else
             flag = false;
         return flag;
+    }
+
+    @Override
+    public void setRunning(boolean running) throws RemoteException {
+        this.running = running;
+    }
+
+    @Override
+    public void setFinish(boolean finish) throws RemoteException {
+        this.finish = finish;
     }
 
     @Override
@@ -189,6 +202,16 @@ public abstract class Eleicao
     }
 
     @Override
+    public boolean isRunning() throws RemoteException {
+        return running;
+    }
+
+    @Override
+    public boolean isFinish() throws RemoteException {
+        return finish;
+    }
+
+    @Override
     public boolean hasReferences() throws RemoteException {
         for (MesaDeVoto e : mesasDeVoto)
             if (e.hasReferences())
@@ -219,6 +242,11 @@ public abstract class Eleicao
     @Override
     public String printListas() throws RemoteException {
         return printLinkedList(listas);
+    }
+
+    @Override
+    public String printListas(long id) throws RemoteException {
+        return printLinkedList(getListas(id));
     }
 
     @Override

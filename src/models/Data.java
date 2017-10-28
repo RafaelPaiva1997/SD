@@ -60,6 +60,15 @@ public class Data extends Model implements DataInt, Serializable
         return true;
     }
 
+    public boolean maior(Data d) {
+        if (ano > d.ano) return true;
+        if (mes > d.mes) return true;
+        if (dia > d.dia) return true;
+        if (hora > d.hora) return true;
+        if (minuto > d.minuto) return true;
+        return segundo > d.segundo;
+    }
+
     @Override
     public int getAno() throws RemoteException {
         return ano;

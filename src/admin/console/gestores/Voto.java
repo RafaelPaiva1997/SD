@@ -8,8 +8,10 @@ import interfaces.VotoInt;
 import interfaces.eleicoes.EleicaoInt;
 import interfaces.pessoas.PessoaInt;
 import models.*;
+import models.listas.*;
 
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.function.BooleanSupplier;
 
 import static admin.console.AdminConsole.*;
@@ -194,6 +196,30 @@ public class Voto {
     }
 
     public static boolean novo(DatabaseInt databaseInt) {
+        try {
+            PessoaInt pessoaInt = Pessoa.escolhe(Departamento.escolhe(Faculdade.escolhe(databaseInt)));
+            EleicaoInt eleicaoInt = Eleicao.escolhe(databaseInt);
+            if (eleicaoInt.isFinish()) {
+                System.out.print("Eleição já terminou!.\n");
+                return false;
+            }
+            int n = eleicaoInt.getListas(pessoaInt.getId()).size();
+            System.out.print("Escolha o seu voto:\n" +
+                    eleicaoInt.printListas(pessoaInt.getId()) +
+                    "\n" + n + "->Voto em Branco" +
+                    "\n" + n + 1 + "->Voto Nulo");
+            while ((r1 = sc.nextInt()) < 0 || r1 > n + 1)
+                System.out.print("Por favor insira um número correspondente a uma das opcções disponíveis.\n");
+            VotoInt v = (VotoInt) getRegistry(databaseInt.newVoto());
+            if (r1 >= 0 && r1 < n)
+                v.novo(pessoaInt.getId(), eleicaoInt.getId(), eleicaoInt.getListas(pessoaInt.getId()).get(r1).getId(), -1);
+            else if (r1 == n)
+                v.novoBranco(pessoaInt.getId(), eleicaoInt.getId(), -1);
+            else
+                v.novoNulo(pessoaInt.getId(), eleicaoInt.getId(), -1);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 }

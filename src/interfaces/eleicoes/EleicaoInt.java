@@ -23,6 +23,8 @@ public interface EleicaoInt extends ModelInt {
 
     boolean setTitulo(String titulo) throws RemoteException;
     boolean setDescricao(String descricao) throws RemoteException;
+    void setRunning(boolean running) throws RemoteException;
+    void setFinish(boolean finish) throws RemoteException;
 
     long getDataInicioInt() throws RemoteException;
     long getDataFimInt() throws RemoteException;
@@ -43,6 +45,8 @@ public interface EleicaoInt extends ModelInt {
     boolean isDirecaoDepartamento() throws RemoteException;
     boolean isDirecaoFaculdade() throws RemoteException;
     boolean isNucleoEstudantes() throws RemoteException;
+    boolean isRunning() throws RemoteException;
+    boolean isFinish() throws RemoteException;
 
     boolean hasReferences() throws RemoteException;
 
@@ -50,6 +54,7 @@ public interface EleicaoInt extends ModelInt {
     String printVotos() throws RemoteException;
     String printMesasDeVoto() throws RemoteException;
     String printListas() throws RemoteException;
+    String printListas(long id) throws RemoteException;
     String inLinePrint() throws RemoteException;
     String printReferences() throws RemoteException;
 

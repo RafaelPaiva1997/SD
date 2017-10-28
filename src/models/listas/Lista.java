@@ -94,6 +94,10 @@ public abstract class Lista
         return false;
     }
 
+    public boolean isVotoBranco() {return false;}
+
+    public boolean isVotoNulo() {return false;}
+
     @Override
     public boolean hasReferences() throws RemoteException {
         return !(pessoas.isEmpty() && votos.isEmpty());

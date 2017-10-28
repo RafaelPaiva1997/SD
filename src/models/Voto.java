@@ -3,6 +3,8 @@ package models;
 import interfaces.VotoInt;
 import models.eleicoes.Eleicao;
 import models.listas.Lista;
+import models.listas.VotoBranco;
+import models.listas.VotoNulo;
 import models.pessoas.Pessoa;
 import rmi.RMIServer;
 
@@ -96,8 +98,12 @@ public class Voto
         eleicao.getVotos().add(this);
         lista = (Lista) RMIServer.database.get(id3);
         lista.getVotos().add(this);
-        mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id4);
-        mesaDeVoto.getVotos().add(this);
+        if (id4 == -1)
+            mesaDeVoto = null;
+        else {
+            mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id4);
+            mesaDeVoto.getVotos().add(this);
+        }
     }
 
     @Override
@@ -106,10 +112,13 @@ public class Voto
         pessoa.getVotos().add(this);
         eleicao = (Eleicao) RMIServer.database.get(id2);
         eleicao.getVotos().add(this);
-        lista = new Lista();
-        lista.setNome("Branco");
-        mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id3);
-        mesaDeVoto.getVotos().add(this);
+        lista = new VotoBranco();
+        if (id3 == -1)
+            mesaDeVoto = null;
+        else {
+            mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id3);
+            mesaDeVoto.getVotos().add(this);
+        }
     }
 
     @Override
@@ -118,10 +127,13 @@ public class Voto
         pessoa.getVotos().add(this);
         eleicao = (Eleicao) RMIServer.database.get(id2);
         eleicao.getVotos().add(this);
-        lista = new Lista();
-        lista.setNome("Nulo");
-        mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id3);
-        mesaDeVoto.getVotos().add(this);
+        lista = new VotoNulo();
+        if (id3 == -1)
+            mesaDeVoto = null;
+        else {
+            mesaDeVoto = (MesaDeVoto) RMIServer.database.get(id3);
+            mesaDeVoto.getVotos().add(this);
+        }
     }
 
     @Override

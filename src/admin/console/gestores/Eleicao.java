@@ -156,6 +156,10 @@ public class Eleicao {
     public static boolean edit(EleicaoInt ei) {
         eleicaoInt = ei;
         try {
+            if (eleicaoInt.isRunning()) {
+                System.out.print("Eleição a decorrer!\n");
+                return false;
+            }
 
             sc.nextLine();
 
