@@ -51,12 +51,13 @@ public class MesadeVoto {
 
     public static boolean gerir(EleicaoInt eleicaoInt) {
         try {
-            AdminConsole.gerir(eleicaoInt.printMesasDeVoto() +
+            System.out.println("entrei em gerir mesas de voto\n");
+            AdminConsole.gerir(eleicaoInt.printMesasDeVoto()+
                             "O que pretende fazer?:\n" +
                             "1 - Adicionar \n" +
                             "2 - Remover\n" +
                             "3 - Voltar\n",
-                    "Por favor insira um número correspondente a um dos géneros disponíveis.\n",
+                    "Por favor insira um número correspondente a um dos numeros disponíveis.\n",
                     new int[]{1, 2, 3},
                     new BooleanSupplier[]{
                             () -> Eleicao.addMesaDeVoto(eleicaoInt),

@@ -19,16 +19,13 @@ public class RMIServer {
     public static int portTCP;
     public static int portDatabase;
 
-    public static void init(Thread thread) {
-        init();
-        thread.interrupt();
-    }
-
     public static void init() {
         try {
             serverSocket = new ServerSocket(portTCP);
+            Primary primary = new Primary(serverSocket);
+            primary.start();
             registry = LocateRegistry.createRegistry(portRMI);
-            Socket socket = new Socket();
+            socket = new Socket();
             socket.connect(new InetSocketAddress(ipDatabase, portDatabase));
             CountDownLatch countDownLatch = new CountDownLatch(1);
             DatabaseHandler databaseHandler = new DatabaseHandler(socket, countDownLatch);
@@ -36,10 +33,8 @@ public class RMIServer {
             countDownLatch.await();
             if (!database.put())
                 System.out.print("database put error\n");
-            DataChecker dataChecker = new DataChecker();
-            dataChecker.start();
-            Primary primary = new Primary(serverSocket);
-            primary.start();
+           // DataChecker dataChecker = new DataChecker();
+           // dataChecker.start();
             System.out.print("Server is Up!.\n");
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,9 +50,9 @@ public class RMIServer {
             portDatabase = Integer.parseInt(args[4]);
             socket = new Socket();
             try {
-                socket.connect(new InetSocketAddress(ipTCP, portTCP), 5000);
+                socket.connect(new InetSocketAddress(ipTCP, portTCP), 10000);
                 Secundary secundary = new Secundary(socket);
-                secundary.start();
+                secundary.run();
             } catch (Exception e) {
                 init();
             }

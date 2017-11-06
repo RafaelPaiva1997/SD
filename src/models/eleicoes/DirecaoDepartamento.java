@@ -28,7 +28,6 @@ public class DirecaoDepartamento
                 if (p.isDocente() && l.isListaDocentes() &&
                         p.getDepartamento().getId() == departamento.getId())
                     out.add(l);
-                return null;
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

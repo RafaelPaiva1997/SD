@@ -67,7 +67,7 @@ public abstract class Model
 
     public long safeAddPut(LinkedList l, Model e) {
         synchronized (l) {
-            l.add(e);
+            add(l, e);
             return safePut(e);
         }
     }

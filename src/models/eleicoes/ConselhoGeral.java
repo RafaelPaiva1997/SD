@@ -27,7 +27,6 @@ public class ConselhoGeral
                         l.isListaDocentes() && p.isDocente() ||
                         l.isListaFuncionarios() && p.isFuncionario())
                     out.add(l);
-                return null;
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

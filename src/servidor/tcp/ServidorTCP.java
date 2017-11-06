@@ -185,8 +185,10 @@ public class ServidorTCP {
             try {
                 mesaDeVotoInt = (MesaDeVotoInt) getRegistry(((DepartamentoInt) escolhe(escolhe(databaseInt))).getMesaDeVotoInt());
                 mesaDeVotoInt.shutdown();
+
                 while (!mesaDeVotoInt.isWorking())
                     login();
+
                 while (true) {
                     System.out.print("Aceitar novo votante: ");
                     if (mesaDeVotoInt.getEleicoes().size() > 1)

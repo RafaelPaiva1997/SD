@@ -13,13 +13,15 @@ public class Pinger extends Communicator {
 
     @Override
     public void run() {
-       while (true) {
+        boolean flag = true;
+        while (flag) {
            try {
-               send("ping");
-               sleep(1000);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
+                send("ping");
+                sleep(1000);
+           } catch (Exception e) {
+                flag = false;
+                e.printStackTrace();
            }
-       }
+        }
     }
 }

@@ -17,19 +17,23 @@ public class DatabaseHandler extends Communicator {
 
     @Override
     public void run() {
-        send("get");
-        RMIServer.database = (Database) receive();
-        System.out.print("Database received\n");
-        countDownLatch.countDown();
+        try {
+            send("get");
+            RMIServer.database = (Database) receive();
+            System.out.print("Database received\n");
+            countDownLatch.countDown();
 
-        while (true) {
-            send("set");
-            send(RMIServer.database);
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while (true) {
+                send("set");
+                send(RMIServer.database);
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }

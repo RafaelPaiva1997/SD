@@ -156,10 +156,10 @@ public class Eleicao {
     public static boolean edit(EleicaoInt ei) {
         eleicaoInt = ei;
         try {
-            if (eleicaoInt.isRunning()) {
+            /*if (eleicaoInt.isRunning()) {
                 System.out.print("Eleição a decorrer!\n");
                 return false;
-            }
+            }*/
 
             sc.nextLine();
 
@@ -179,7 +179,6 @@ public class Eleicao {
                             "mesas de voto",
                             "votos"
                     }, r2 = sc.nextLine()));
-
             switch (r2.toLowerCase()) {
                 case "título":
                 case "titulo":

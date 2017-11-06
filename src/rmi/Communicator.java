@@ -29,12 +29,13 @@ public abstract class Communicator extends Thread {
     @Override
     public abstract void run();
 
-    public void send(Object object) {
+    public void send(Object object) throws Exception {
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(object);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception();
         }
     }
 

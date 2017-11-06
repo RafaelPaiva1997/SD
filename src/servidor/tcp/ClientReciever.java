@@ -23,7 +23,7 @@ public class ClientReciever extends Thread {
             serverSocket = new ServerSocket(port);
             while (flag) {
                 clientHandlers.add(new ClientHandler(serverSocket.accept()));
-                clientHandlers.getLast().run();
+                clientHandlers.getLast().start();
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -203,16 +203,17 @@ public class Voto {
                 System.out.print("Eleição já terminou!.\n");
                 return false;
             }*/
-            int n = eleicaoInt.getListas(pessoaInt.getId()).size();
+            int n = eleicaoInt.getListas().size();
             System.out.print("Escolha o seu voto:\n" +
-                    eleicaoInt.printListas(pessoaInt.getId()) +
-                    "\n" + n + "->Voto em Branco" +
-                    "\n" + n + 1 + "->Voto Nulo");
+                    eleicaoInt.printListas() +
+                     n + "->Voto em Branco" +
+                    "\n" + (n + 1) + "->Voto Nulo" +
+                    "\n" + "Insira a sua opção: ");
             while ((r1 = sc.nextInt()) < 0 || r1 > n + 1)
                 System.out.print("Por favor insira um número correspondente a uma das opcções disponíveis.\n");
             VotoInt v = (VotoInt) getRegistry(databaseInt.newVoto());
             if (r1 >= 0 && r1 < n)
-                v.novo(pessoaInt.getId(), eleicaoInt.getId(), eleicaoInt.getListas(pessoaInt.getId()).get(r1).getId(), -1);
+                v.novo(pessoaInt.getId(), eleicaoInt.getId(), ((ListaInt) getRegistry(eleicaoInt.getLista(r1))).getId(), -1);
             else if (r1 == n)
                 v.novoBranco(pessoaInt.getId(), eleicaoInt.getId(), -1);
             else

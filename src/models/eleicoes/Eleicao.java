@@ -124,6 +124,7 @@ public abstract class Eleicao
 
     @Override
     public long newListaAlunos() throws RemoteException {
+        System.out.println("lista de alunos");
         Lista e = new ListaAlunos();
         e.setEleicao(this);
         if (canJoin(e))
@@ -151,6 +152,7 @@ public abstract class Eleicao
 
     @Override
     public boolean addMesaDeVoto(long id) throws RemoteException {
+        System.out.println("entrei");
         MesaDeVoto e = (MesaDeVoto) RMIServer.database.get(id);
         return add(mesasDeVoto, e) && add(e.getEleicoes(), this);
     }

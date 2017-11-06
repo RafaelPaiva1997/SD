@@ -18,8 +18,10 @@ public class Primary extends Communicator {
                 System.out.print((String) receive());
                 send("Primary says: connected to secundary!\n");
                 Pinger p = new Pinger(socket, this);
+                p.start();
                 while (flag) {
-                    if ((o = receive()) == null || !o.equals("ping") || --pings > 5) {
+                    if ((o = receive()) == null || !o.equals("ping") || pings > 5) {
+                        pings = 0;
                         System.out.print("Secundary server appears to be down\n");
                         flag = false;
                     }

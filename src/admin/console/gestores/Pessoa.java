@@ -352,7 +352,7 @@ public class Pessoa {
                                     "genero",
                                     "data nascimento",
                                     "mesas de voto",
-                                    "lista",
+                                    "listas",
                                     "voto"
                             }, r2 = sc.nextLine()) ||
                                     pessoaInt.isAluno() && contains(new String[]{
@@ -424,6 +424,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "morada":
                 getProperty("Por favor insira pelo menos 1 carater na morada.\n",
                         () -> {
@@ -434,6 +435,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "código postal":
                 getProperty("Por favor insira um código postal no formato 0000-000.\n",
                         () -> {
@@ -444,6 +446,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "localidade":
                 getProperty("Por favor insira uma localidade com pelo menos 1 caractér.\n",
                         () -> {
@@ -454,6 +457,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "número c.c.":
             case "numero c.c.":
             case "número cc":
@@ -467,6 +471,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "validade c.c.":
             case "validade cc":
                 try {
@@ -504,6 +509,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "curso":
                 alunoInt = (AlunoInt) pessoaInt;
                 getProperty("Por favor insira um curso com pelo menos 1 caractér.\n",
@@ -515,6 +521,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "cargo":
                 docenteInt = (DocenteInt) pessoaInt;
                 getProperty("Por favor insira um cargo com pelo menos 1 caractér.\n",
@@ -526,6 +533,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "função":
             case "funçao":
             case "funcão":
@@ -540,6 +548,7 @@ public class Pessoa {
                             }
                             return false;
                         });
+                break;
             case "mesa de voto":
                 MesadeVoto.gerir(pessoaInt);
                 break;
@@ -548,7 +557,7 @@ public class Pessoa {
                 Lista.gerir(pessoaInt);
                 break;
 
-            case "Voto":
+            case "voto":
                 Voto.gerir(pessoaInt);
                 break;
 

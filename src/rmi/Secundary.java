@@ -11,15 +11,19 @@ public class Secundary extends Communicator {
     @Override
     public void run() {
         Object o;
+        boolean flag = true;
         try {
             send("Secundaty says: connected to primary!\n");
             System.out.print((String) receive());
             Pinger p = new Pinger(socket, this);
-            while (!Thread.currentThread().isInterrupted()) {
-                if ((o = receive()) == null || !o.equals("ping") || --pings > 5) {
+            p.start();
+            while (flag) {
+                if ((o = receive()) == null || !o.equals("ping") || pings > 5) {
+                    pings = 0;
                     System.out.print("Primary Server appears to be down.\n" +
                             "Taking over as primary\n");
-                    RMIServer.init(Thread.currentThread());
+                    flag = false;
+                    RMIServer.init();
                 }
             }
         } catch (Exception e) {

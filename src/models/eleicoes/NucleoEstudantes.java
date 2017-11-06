@@ -28,7 +28,6 @@ public class NucleoEstudantes
                 if (p.isAluno() && l.isListaAlunos() &&
                         p.getDepartamento().getId() == departamento.getId())
                     out.add(l);
-                return null;
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

@@ -114,7 +114,7 @@ public class Lista {
                     e.printStackTrace();
                     return false;
                 }
-            } else {
+            } else if (r1 == 3){
                 try {
                     listaInt = (ListaInt) getRegistry(eleicaoInt.newListaFuncionarios());
                 } catch (Exception e) {

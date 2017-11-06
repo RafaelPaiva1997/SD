@@ -28,7 +28,6 @@ public class DirecaoFaculdade
                 if (p.isDocente() && l.isListaDocentes() &&
                         p.getDepartamento().getFaculdade().getId() == faculdade.getId())
                     out.add(l);
-                return null;
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

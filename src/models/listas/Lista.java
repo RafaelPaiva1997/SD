@@ -106,8 +106,8 @@ public abstract class Lista
     public String print() throws RemoteException{
         return super.print() +
                 "\nNome            - " + nome +
-                "\nEleição         -"  + eleicao +
-                "\nPessoas         -"  + pessoas.size() +
+                "\nEleição         - "  + eleicao.getTitulo() +
+                "\nPessoas         - "  + pessoas.size() +
                 "\nVoto            - " + votos.size();
     }
 
